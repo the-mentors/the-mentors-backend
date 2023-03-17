@@ -1,0 +1,3 @@
+dependencies {
+    implementation project(':mentors-infrastruct:persistence-database')
+}

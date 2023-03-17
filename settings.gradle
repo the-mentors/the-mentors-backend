@@ -1,0 +1,6 @@
+rootProject.name = 'mentors'
+
+include 'mentors-interface'
+include 'mentors-domain'
+include 'mentors-infrastruct'
+include 'mentors-infrastruct:persistence-database'
