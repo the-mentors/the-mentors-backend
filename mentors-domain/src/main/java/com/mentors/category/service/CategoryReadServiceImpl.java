@@ -45,6 +45,6 @@ public class CategoryReadServiceImpl implements CategoryReadService {
 
     @Override
     public CategoryCode existCategory(Long code) {
-        return null;
+        return CategoryCode.findCategoryCode(code);
     }
 }
