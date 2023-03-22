@@ -27,7 +27,7 @@ public class CategoryReadServiceImpl implements CategoryReadService {
                 .map(CategoryDomainMapper::toDomain)
                 .collect(groupingBy(Category::parentCode));
 
-        List<Category> rootCategories = categoriesGroupingByParentId.get(0L);
+        List<Category> rootCategories = categoriesGroupingByParentId.get(ROOT);
         rootCategories.forEach(root -> addRecursionSubcategories(root, categoriesGroupingByParentId));
 
         return rootCategories;
@@ -35,7 +35,7 @@ public class CategoryReadServiceImpl implements CategoryReadService {
 
     private void addRecursionSubcategories(Category parent,
                                            Map<Long, List<Category>> categoriesGroupingByParentId){
-        List<Category> subCategories = categoriesGroupingByParentId.get(parent.id());
+        List<Category> subCategories = categoriesGroupingByParentId.get(parent.code());
 
         if (Objects.isNull(subCategories)) return;
 
