@@ -13,4 +13,8 @@ public class CategoryDomainMapper {
                 ce.getCreatedAt(),
                 ce.getUpdatedAt());
     }
+
+    public static CategoryEntity toEntity(Category cd){
+        return CategoryEntity.of(cd.code(), cd.name(), cd.parentCode());
+    }
 }
