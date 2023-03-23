@@ -5,6 +5,8 @@ import static java.time.LocalDateTime.now;
 import com.mentors.category.domain.Category;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public enum CategoryFixture {
@@ -44,5 +46,25 @@ public enum CategoryFixture {
         return Arrays.stream(values())
                 .map(c -> Category.of(null, c.name, c.code, c.parentCode, now(), now()))
                 .collect(Collectors.toList());
+    }
+
+
+    public static List<Category> toSortCategories(){
+        Map<Long, List<Category>> categoriesGroupingByParentId = toCategories().stream()
+                .collect(Collectors.groupingBy(Category::parentCode));
+
+        List<Category> rootCategories = categoriesGroupingByParentId.get(0L);
+        rootCategories.forEach(root -> addRecursionSubcategories(root, categoriesGroupingByParentId));
+
+        return rootCategories;
+    }
+    private static void addRecursionSubcategories(Category parent,
+                                                  Map<Long, List<Category>> categoriesGroupingByParentId){
+        List<Category> subCategories = categoriesGroupingByParentId.get(parent.code());
+
+        if (Objects.isNull(subCategories)) return;
+
+        parent.addSubCategories(subCategories);
+        subCategories.forEach(s -> addRecursionSubcategories(s, categoriesGroupingByParentId));
     }
 }

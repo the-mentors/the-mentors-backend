@@ -1,9 +1,10 @@
 package com.mentors.document;
 
 import com.mentors.CategoryFixture;
-import com.mentors.api.category.dto.CategoryRequest;
+import com.mentors.category.domain.Category;
+import java.util.List;
 
 public class DocumentationFixture {
 
-    public static CategoryRequest CATEGORY_RESPONSE = new CategoryRequest(CategoryFixture.toCategories());
+    public static List<Category> CATEGORIES_FIXTURE = CategoryFixture.toSortCategories();
 }
