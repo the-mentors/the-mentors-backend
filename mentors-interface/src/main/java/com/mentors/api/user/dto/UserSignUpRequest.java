@@ -11,12 +11,4 @@ public record UserSignUpRequest(
         @Size(min = 2, max = 14) String nickName,
         String profileUrl) {
 
-    public static UserSignUpRequest of(final String email,
-                                       final String password,
-                                       final String userName,
-                                       final String nickName,
-                                       final String profileUrl) {
-        return new UserSignUpRequest(email, password, userName, nickName, profileUrl);
-    }
-
 }
