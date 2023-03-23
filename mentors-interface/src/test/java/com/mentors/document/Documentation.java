@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 @AutoConfigureRestDocs
-@WebMvcTest({TestController.class})
+@WebMvcTest({})
 @ExtendWith(RestDocumentationExtension.class)
 @ActiveProfiles("test")
 public class Documentation {
