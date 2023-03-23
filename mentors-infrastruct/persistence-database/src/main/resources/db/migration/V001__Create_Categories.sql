@@ -18,7 +18,7 @@ create table if not exists users
     email       varchar(255) unique not null,
     password    varchar(255),
     username    varchar(255),
-    nickname    varchar(255),
+    nickname    varchar(14),
     profile_url varchar(255),
     role        varchar(255),
     created_at  timestamp(6)        not null,

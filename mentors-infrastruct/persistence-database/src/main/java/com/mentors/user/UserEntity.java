@@ -24,6 +24,7 @@ public class UserEntity extends BaseEntity {
 
     private String password;
     private String username;
+    @Column(length = 14)
     private String nickname;
     private String profileUrl;
 
