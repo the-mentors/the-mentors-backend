@@ -1,4 +1,4 @@
-package com.mentors.user.servuce;
+package com.mentors.user.service;
 
 import com.mentors.user.domain.User;
 

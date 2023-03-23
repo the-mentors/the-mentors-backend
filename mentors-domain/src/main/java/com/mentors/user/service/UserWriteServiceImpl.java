@@ -1,6 +1,5 @@
-package com.mentors.user.servuce;
+package com.mentors.user.service;
 
-import com.mentors.user.UserEntity;
 import com.mentors.user.UserRepository;
 import com.mentors.user.domain.User;
 import com.mentors.user.mapper.UserDomainMapper;
