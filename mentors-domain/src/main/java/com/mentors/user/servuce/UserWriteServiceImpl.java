@@ -1,5 +1,6 @@
 package com.mentors.user.servuce;
 
+import com.mentors.user.UserEntity;
 import com.mentors.user.UserRepository;
 import com.mentors.user.domain.User;
 import com.mentors.user.mapper.UserDomainMapper;
@@ -13,11 +14,10 @@ public class UserWriteServiceImpl implements UserWriteService {
     private final UserRepository userRepository;
 
     @Override
-    public void signUp(User user) {
+    public Long signUp(User user) {
         checkDuplicateEmail(user);
         var userEntity = UserDomainMapper.toEntity(user);
-        userRepository.save(userEntity);
-
+        return userRepository.save(userEntity).getId();
     }
     //차후 Exception을 Global로 통합하여 DuplicateUserException()으로 예외변경 예정
     private void checkDuplicateEmail(User user) {
