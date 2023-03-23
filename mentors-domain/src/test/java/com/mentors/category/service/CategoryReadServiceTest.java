@@ -1,14 +1,16 @@
 package com.mentors.category.service;
 
-import static com.mentors.support.fixture.CategoryFixture.toCategoryEntities;
+import static com.mentors.CategoryFixture.toCategories;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import com.mentors.category.CategoryEntity;
 import com.mentors.category.CategoryRepository;
 import com.mentors.category.domain.Category;
 import com.mentors.support.ServiceTest;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -62,5 +64,11 @@ class CategoryReadServiceTest extends ServiceTest {
 
         assertThatCode(() -> categoryReadService.existCategory(existentCode))
                 .doesNotThrowAnyException();
+    }
+
+    private static List<CategoryEntity> toCategoryEntities(){
+        return toCategories().stream()
+                .map(c -> CategoryEntity.of(c.code(), c.name(), c.parentCode()))
+                .collect(Collectors.toList());
     }
 }

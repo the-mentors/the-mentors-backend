@@ -1,8 +1,7 @@
-package com.mentors.support.fixture;
+package com.mentors;
 
 import static java.time.LocalDateTime.now;
 
-import com.mentors.category.CategoryEntity;
 import com.mentors.category.domain.Category;
 import java.util.Arrays;
 import java.util.List;
@@ -41,19 +40,9 @@ public enum CategoryFixture {
         return Category.of(null, PROGRAMMiNG.name, PROGRAMMiNG.code, PROGRAMMiNG.parentCode, null, null);
     }
 
-    public static CategoryEntity toEntity(){
-        return CategoryEntity.of(PROGRAMMiNG.code, PROGRAMMiNG.name, PROGRAMMiNG.parentCode);
-    }
-
     public static List<Category> toCategories() {
         return Arrays.stream(values())
                 .map(c -> Category.of(null, c.name, c.code, c.parentCode, now(), now()))
-                .collect(Collectors.toList());
-    }
-
-    public static List<CategoryEntity> toCategoryEntities() {
-        return Arrays.stream(values())
-                .map(c -> CategoryEntity.of(c.code, c.name, c.parentCode))
                 .collect(Collectors.toList());
     }
 }

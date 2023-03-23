@@ -1,6 +1,6 @@
 package com.mentors.category.mapper;
 
-import static com.mentors.support.fixture.CategoryFixture.*;
+import static com.mentors.CategoryFixture.*;
 
 import com.mentors.category.CategoryEntity;
 import com.mentors.category.domain.Category;
@@ -25,7 +25,7 @@ public class CategoryDomainMapperTest extends BasicClassTest {
     @Test
     void givenCategoryEntity_whenTransformingEntity_thenReturnCategoryDomain() {
         //given & when
-        Category domain = CategoryDomainMapper.toDomain(toEntity());
+        Category domain = CategoryDomainMapper.toDomain(CategoryEntity.of(1000L, "프로그래밍", 0L));
 
         //then
         Assertions.assertInstanceOf(Category.class, domain);
