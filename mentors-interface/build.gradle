@@ -8,6 +8,8 @@ configurations {
 
 dependencies {
     implementation project(':mentors-domain')
+    testImplementation testFixtures(project(':mentors-domain'))
+
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
