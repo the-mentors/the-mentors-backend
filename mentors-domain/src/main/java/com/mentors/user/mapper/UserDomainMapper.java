@@ -5,13 +5,13 @@ import com.mentors.user.domain.User;
 
 public class UserDomainMapper {
 
-    public static UserEntity toEntity(User u){
+    public static UserEntity toEntity(User user){
         return UserEntity.builder()
-                .email(u.email())
-                .password(u.password())
-                .username(u.userName())
-                .nickname(u.nickName())
-                .profileUrl(u.profileUrl())
+                .email(user.email())
+                .password(user.password())
+                .username(user.userName())
+                .nickname(user.nickName())
+                .profileUrl(user.profileUrl())
                 .build();
     }
 }
