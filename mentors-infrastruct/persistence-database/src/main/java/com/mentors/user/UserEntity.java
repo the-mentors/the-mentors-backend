@@ -28,11 +28,11 @@ public class UserEntity extends BaseEntity {
     private String nickname;
     private String profileUrl;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+
+    private String role;
 
     @Builder
-    public UserEntity(Long id, String email, String password, String username, String nickname, String profileUrl, Role role) {
+    public UserEntity(Long id, String email, String password, String username, String nickname, String profileUrl, String role) {
         this.id = id;
         this.email = email;
         this.password = password;
