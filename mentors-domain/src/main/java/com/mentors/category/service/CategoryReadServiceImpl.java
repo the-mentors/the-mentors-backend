@@ -6,6 +6,7 @@ import com.mentors.category.CategoryRepository;
 import com.mentors.category.domain.Category;
 import com.mentors.category.domain.CategoryCode;
 import com.mentors.category.mapper.CategoryDomainMapper;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -26,6 +27,8 @@ public class CategoryReadServiceImpl implements CategoryReadService {
         var categoriesGroupingByParentId = categoryRepository.findAll().stream()
                 .map(CategoryDomainMapper::toDomain)
                 .collect(groupingBy(Category::parentCode));
+
+        if(categoriesGroupingByParentId.isEmpty()) return Collections.emptyList();
 
         List<Category> rootCategories = categoriesGroupingByParentId.get(ROOT);
         rootCategories.forEach(root -> addRecursionSubcategories(root, categoriesGroupingByParentId));
