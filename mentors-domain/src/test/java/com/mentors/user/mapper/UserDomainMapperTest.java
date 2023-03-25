@@ -1,4 +1,4 @@
-package com.mentors.user.category.mapper;
+package com.mentors.user.mapper;
 
 import com.mentors.support.BasicClassTest;
 import com.mentors.user.UserEntity;
