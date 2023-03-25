@@ -2,7 +2,11 @@ package com.mentors.api.user.mapper;
 
 
 import static com.mentors.support.fixture.UserFixture.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
+import com.mentors.api.user.dto.UserEditRequest;
 import com.mentors.support.BasicClassTest;
 import com.mentors.user.domain.User;
 import org.junit.jupiter.api.Assertions;
@@ -17,8 +21,26 @@ class UserApiMapperTest extends BasicClassTest {
         //given & when
         User user = UserApiMapper.toDomain(회원가입_요청정보(), 기본유저_인코딩_패스워드());
         //then
-        Assertions.assertInstanceOf(User.class, user);
+        assertInstanceOf(User.class, user);
     }
 
 
+    @DisplayName("[Mapper] 유저 정보 수정 DTO를 도메인으로 변환")
+    @Test
+    void givenUserEditRequest_TransformingDomain_thenReturnDomainUser() {
+        //given & when
+        UserEditRequest request = 회원정보수정_요청정보();
+        User user = UserApiMapper.toDomain(request);
+
+        //then
+        assertAll(() -> {
+            assertInstanceOf(UserEditRequest.class, request);
+            assertInstanceOf(User.class, user);
+
+            assertThat(user.userName()).isEqualTo(request.userName());
+            assertThat(user.nickName()).isEqualTo(request.nickName());
+            assertThat(user.profileUrl()).isEqualTo(request.profileUrl());
+        });
+
+    }
 }
