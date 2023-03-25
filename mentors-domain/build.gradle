@@ -3,6 +3,8 @@ plugins {
 }
 
 dependencies {
+    testImplementation testFixtures(project(':mentors-infrastruct:persistence-database'))
+
     implementation project(':mentors-infrastruct:persistence-database')
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'

@@ -6,4 +6,5 @@
 
 == Mentors
 
+include::user.adoc[]
 include::category.adoc[]

@@ -1,0 +1,6 @@
+[[User]]
+== 유저 카테고리
+
+=== 유저 정보 수정
+
+operation::user/put/update[snippets='http-request,http-response']

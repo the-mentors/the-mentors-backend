@@ -1,11 +1,17 @@
 package com.mentors.user.service;
 
+import static com.mentors.UserEntityFixture.*;
 import static com.mentors.UserFixture.toDomain;
+import static com.mentors.UserFixture.toUpdateUser;
+import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
+import com.mentors.UserEntityFixture;
 import com.mentors.support.ServiceTest;
+import com.mentors.user.UserEntity;
 import com.mentors.user.UserRepository;
 import com.mentors.user.domain.User;
 import org.junit.jupiter.api.Assertions;
@@ -45,4 +51,40 @@ class UserWriteServiceTest extends ServiceTest {
                 .isInstanceOf(RuntimeException.class);
     }
 
+    @DisplayName("[Service] 유저 정보 수정 성공")
+    @Test
+    void givenUserIdAndUpdateUserDomain_whenUpdating_thenReturnVoid() {
+        //given
+        Long id = initializeUserSave();
+        User updateUser = toUpdateUser();
+
+        //when
+        userWriteService.updateUser(id, updateUser);
+
+        //then
+        UserEntity actual = userRepository.findById(id).get();
+        assertAll(() -> {
+            assertThat(actual.getId()).isEqualTo(id);
+            assertThat(actual.getUsername()).isEqualTo(updateUser.userName());
+            assertThat(actual.getNickname()).isEqualTo(updateUser.nickName());
+            assertThat(actual.getProfileUrl()).isEqualTo(updateUser.profileUrl());
+        });
+    }
+
+
+    @DisplayName("[Service] 유저 정보 수정시, 존재하지 않는 유저 아이디일 경우 예외발생")
+    @Test
+    void givenNonexistentIdAndUpdateUserDomain_whenUpdating_thenThrowsException(){
+        //given
+        Long nonExistentId = 0L;
+        User updateUser = toUpdateUser();
+
+        //when & then
+        assertThatThrownBy(() -> userWriteService.updateUser(nonExistentId, updateUser))
+                .isInstanceOf(RuntimeException.class);
+    }
+
+    private Long initializeUserSave(){
+        return userRepository.save(기본유저_엔티티()).getId();
+    }
 }
