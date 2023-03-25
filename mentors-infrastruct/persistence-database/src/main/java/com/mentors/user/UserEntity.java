@@ -67,4 +67,8 @@ public class UserEntity extends BaseEntity {
             this.profileUrl = profileUrl;
         }
     }
+
+    public boolean isSameId(final Long id) {
+        return Objects.equals(id, this.id);
+    }
 }
