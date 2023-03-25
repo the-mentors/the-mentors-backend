@@ -2,7 +2,7 @@ package com.mentors.api.user.controller;
 
 import com.mentors.api.user.dto.UserEditRequest;
 import com.mentors.api.user.dto.UserSignUpRequest;
-import com.mentors.api.user.usecase.EditUserUsercase;
+import com.mentors.api.user.usecase.EditUserUsecase;
 import com.mentors.api.user.usecase.SignUpUserUsecase;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserApiController {
     private final SignUpUserUsecase signUpUserUsecase;
-    private final EditUserUsercase editUserUsercase;
+    private final EditUserUsecase editUserUsecase;
 
     @PostMapping("/signup")
     public ResponseEntity<?> signUpUser(
@@ -35,7 +35,7 @@ public class UserApiController {
             @RequestParam final Long id,
             @RequestBody @Valid final UserEditRequest request
     ){
-        editUserUsercase.execute(id, request);
+        editUserUsecase.execute(id, request);
         return ResponseEntity.ok().build();
     }
 }

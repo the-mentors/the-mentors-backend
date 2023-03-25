@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class EditUserUsercase {
+public class EditUserUsecase {
     private final UserWriteService userWriteService;
 
     public void execute(final Long userId, final UserEditRequest request) {
