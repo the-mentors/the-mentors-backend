@@ -1,13 +1,13 @@
 package com.mentors.api.user.mapper;
 
-import com.mentors.api.user.dto.UserSignUpRequest;
+
+import static com.mentors.support.fixture.UserFixture.*;
+
 import com.mentors.support.BasicClassTest;
 import com.mentors.user.domain.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static com.mentors.api.user.common.userCommon.*;
 
 class UserApiMapperTest extends BasicClassTest {
 
@@ -15,7 +15,7 @@ class UserApiMapperTest extends BasicClassTest {
     @Test
     void givenSignUpRequest_whenTransformingDomain_thenReturnDomainUser() {
         //given & when
-        User user = UserApiMapper.toDomain(new UserSignUpRequest(email, password, username, nickname, profileUrl), encodePassword);
+        User user = UserApiMapper.toDomain(회원가입_요청정보(), 기본유저_인코딩_패스워드());
         //then
         Assertions.assertInstanceOf(User.class, user);
     }

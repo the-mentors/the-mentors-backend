@@ -1,6 +1,7 @@
 package com.mentors.support.fixture;
 
 import com.mentors.api.user.dto.UserSignUpRequest;
+import com.mentors.user.domain.User;
 
 public enum UserFixture {
     BASIC_USER(1L, "user1@email.com", "password", "encodePassword", "username", "nickname", "www.url.com"),
@@ -37,5 +38,9 @@ public enum UserFixture {
                 BASIC_USER.username,
                 BASIC_USER.nickname,
                 BASIC_USER.profileUrl);
+    }
+
+    public static String 기본유저_인코딩_패스워드(){
+        return BASIC_USER.encodePassword;
     }
 }
