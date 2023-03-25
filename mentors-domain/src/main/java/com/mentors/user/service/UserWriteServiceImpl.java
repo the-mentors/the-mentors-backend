@@ -34,10 +34,8 @@ public class UserWriteServiceImpl implements UserWriteService {
 
     @Override
     public void updateUser(final Long userId, final User updateUser){
-        userRepository.findById(userId)
-                .ifPresentOrElse(
-                        user -> user.update(toEntity(updateUser)),
-                        () -> new RuntimeException());
+        final UserEntity user = findUser(userId);
+        user.update(toEntity(updateUser));
     }
 
     private UserEntity findUser(final Long userId) {
