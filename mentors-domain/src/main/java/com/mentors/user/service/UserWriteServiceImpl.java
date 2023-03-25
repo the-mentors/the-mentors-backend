@@ -33,10 +33,11 @@ public class UserWriteServiceImpl implements UserWriteService {
     }
 
     public void updateUser(final Long userId, final User updateUser){
-        final UserEntity userEntity = findUser(userId);
-        userEntity.update(toEntity(updateUser));
+        userRepository.findById(userId)
+                .ifPresentOrElse(
+                        user -> user.update(toEntity(updateUser)),
+                        () -> new RuntimeException());
     }
-
 
     private UserEntity findUser(final Long userId) {
         return userRepository.findById(userId)
