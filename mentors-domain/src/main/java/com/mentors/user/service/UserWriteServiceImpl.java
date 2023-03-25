@@ -32,6 +32,7 @@ public class UserWriteServiceImpl implements UserWriteService {
         }
     }
 
+    @Override
     public void updateUser(final Long userId, final User updateUser){
         userRepository.findById(userId)
                 .ifPresentOrElse(
