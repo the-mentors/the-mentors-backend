@@ -1,3 +1,9 @@
+plugins {
+    id 'java-test-fixtures'
+}
+
 dependencies {
     implementation project(':mentors-infrastruct:persistence-database')
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 }

@@ -6,3 +6,4 @@
 
 == Mentors
 
+include::category.adoc[]
