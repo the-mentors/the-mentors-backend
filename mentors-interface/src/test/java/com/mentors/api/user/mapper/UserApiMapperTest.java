@@ -7,14 +7,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class UserApiMapperTest extends BasicClassTest {
+import static com.mentors.api.user.common.userCommon.*;
 
-    private final String email = "user1@email.com";
-    private final String password = "password";
-    private final String encodePassword = "encodePassword";
-    private final String username = "username";
-    private final String nickname = "nickname";
-    private final String profileUrl = "www.url.com";
+class UserApiMapperTest extends BasicClassTest {
 
     @DisplayName("유저 회원가입 Dto를 도메인으로 변환")
     @Test
