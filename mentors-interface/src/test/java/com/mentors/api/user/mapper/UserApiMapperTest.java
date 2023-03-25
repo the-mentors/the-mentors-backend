@@ -29,8 +29,8 @@ class UserApiMapperTest extends BasicClassTest {
     @Test
     void givenUserEditRequest_TransformingDomain_thenReturnDomainUser() {
         //given & when
-        UserEditRequest request = 회원정보수정_요청정보();
-        User user = UserApiMapper.toDomain(request);
+        var request = 회원정보수정_요청정보();
+        var user = UserApiMapper.toDomain(request);
 
         //then
         assertAll(() -> {

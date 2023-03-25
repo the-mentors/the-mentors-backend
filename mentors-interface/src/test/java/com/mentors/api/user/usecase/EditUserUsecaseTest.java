@@ -26,8 +26,8 @@ class EditUserUsecaseTest extends UsecaseTest {
     @Test
     void givenUserIdAndUserEditRequest_whenUpdating_thenReturnVoid() {
         //given
-        Long userId = 1L;
-        UserEditRequest request = 회원정보수정_요청정보();
+        var userId = 1L;
+        var request = 회원정보수정_요청정보();
 
         //when & then
         doNothing().when(userWriteService).updateUser(userId, toDomain(request));
