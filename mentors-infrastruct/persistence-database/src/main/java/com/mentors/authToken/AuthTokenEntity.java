@@ -1,9 +1,6 @@
 package com.mentors.authToken;
 
-import com.mentors.global.common.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,24 +11,18 @@ import static lombok.AccessLevel.PROTECTED;
 @Entity
 @Table(name = "auths")
 @NoArgsConstructor(access = PROTECTED)
-public class AuthTokenEntity extends BaseEntity {
-    @Id
-    private Long userId;
+public class AuthTokenEntity{
 
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "auth_id")
+    private Long id;
+    private Long userId;
     private String refreshToken;
 
-
     @Builder
-    public AuthTokenEntity(Long userId, String refreshToken) {
+    public AuthTokenEntity(Long id,Long userId, String refreshToken) {
+        this.id = id;
         this.userId = userId;
         this.refreshToken = refreshToken;
-    }
-
-    public static AuthTokenEntity of(final Long userId,
-                                     final String refreshToken) {
-       return AuthTokenEntity.builder()
-                .userId(userId)
-                .refreshToken(refreshToken)
-                .build();
     }
 }
