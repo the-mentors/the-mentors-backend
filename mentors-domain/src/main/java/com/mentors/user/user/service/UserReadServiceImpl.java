@@ -1,8 +1,7 @@
-package com.mentors.user.service;
+package com.mentors.user.user.service;
 
 import com.mentors.user.UserEntity;
 import com.mentors.user.UserRepository;
-import com.mentors.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,14 +14,15 @@ public class UserReadServiceImpl implements UserReadService {
     private final UserRepository userRepository;
 
     @Override
-    public Long signIn(User user,String encodePassword) {
-        UserEntity userEntity = userRepository.getByEmail(user.email());
-        checkpw(userEntity, encodePassword);
+    public Long signIn(String userEmail,String encodePassword) {
+        UserEntity userEntity = userRepository.findByEmail(userEmail)
+                .orElseThrow(()->new RuntimeException("존재하지 않는 회원입니다."));
+        validateCheckPassword(userEntity.getPassword(), encodePassword);
         return userEntity.getId();
     }
 
-    private static void checkpw(UserEntity UserEntity,String encodePassword) {
-        if(!UserEntity.getPassword().equals(encodePassword)){
+    private static void validateCheckPassword(String password, String encodePassword) {
+        if(!password.equals(encodePassword)){
             throw new RuntimeException("인증정보가 일치하지 않습니다.");
         }
     }
