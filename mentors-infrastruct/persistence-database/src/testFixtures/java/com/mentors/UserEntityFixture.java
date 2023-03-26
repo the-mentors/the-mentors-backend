@@ -2,7 +2,7 @@ package com.mentors;
 
 import static java.time.LocalDateTime.now;
 
-import com.mentors.user.UserEntity;
+import com.mentors.user.user.UserEntity;
 import java.time.LocalDateTime;
 
 public enum UserEntityFixture {

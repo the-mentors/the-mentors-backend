@@ -1,6 +1,6 @@
 package com.mentors;
 
-import com.mentors.user.domain.User;
+import com.mentors.user.user.domain.User;
 
 public enum UserFixture {
 

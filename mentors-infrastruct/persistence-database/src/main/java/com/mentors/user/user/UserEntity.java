@@ -1,4 +1,4 @@
-package com.mentors.user;
+package com.mentors.user.user;
 
 import com.mentors.global.common.BaseEntity;
 import jakarta.persistence.*;

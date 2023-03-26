@@ -1,8 +1,8 @@
 package com.mentors.user.mapper;
 
 import com.mentors.support.BasicClassTest;
-import com.mentors.user.UserEntity;
-import com.mentors.user.mapper.UserDomainMapper;
+import com.mentors.user.user.UserEntity;
+import com.mentors.user.user.mapper.UserDomainMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

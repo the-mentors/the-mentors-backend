@@ -1,16 +1,13 @@
-package com.mentors.user.service;
+package com.mentors.user.user.service;
 
-import static com.mentors.user.mapper.UserDomainMapper.*;
-
-import com.mentors.user.UserEntity;
-import com.mentors.user.UserRepository;
-import com.mentors.user.domain.User;
-import com.mentors.user.mapper.UserDomainMapper;
-import java.util.Objects;
+import com.mentors.user.user.UserEntity;
+import com.mentors.user.user.UserRepository;
+import com.mentors.user.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
+
+import static com.mentors.user.user.mapper.UserDomainMapper.toEntity;
 
 @Service
 @Transactional

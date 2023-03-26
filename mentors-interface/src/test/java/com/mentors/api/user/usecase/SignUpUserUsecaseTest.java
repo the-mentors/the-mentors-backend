@@ -6,7 +6,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 import com.mentors.support.UsecaseTest;
-import com.mentors.user.service.UserWriteService;
+import com.mentors.user.user.service.UserWriteService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

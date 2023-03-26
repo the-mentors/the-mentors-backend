@@ -1,4 +1,4 @@
-package com.mentors.user;
+package com.mentors.user.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -10,14 +10,11 @@ import static org.springframework.http.HttpStatus.OK;
 
 import com.mentors.api.user.dto.UserSignUpRequest;
 import com.mentors.support.RestApiTest;
-import com.mentors.support.fixture.UserFixture;
-import com.mentors.user.service.UserWriteService;
+import com.mentors.user.user.service.UserWriteService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 
 class UserApiControllerTest extends RestApiTest {
 

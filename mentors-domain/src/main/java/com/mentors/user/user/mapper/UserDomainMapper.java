@@ -1,7 +1,7 @@
-package com.mentors.user.mapper;
+package com.mentors.user.user.mapper;
 
-import com.mentors.user.UserEntity;
-import com.mentors.user.domain.User;
+import com.mentors.user.user.UserEntity;
+import com.mentors.user.user.domain.User;
 
 public class UserDomainMapper {
 

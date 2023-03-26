@@ -1,6 +1,6 @@
-package com.mentors.user.service;
+package com.mentors.user.user.service;
 
-import com.mentors.user.domain.User;
+import com.mentors.user.user.domain.User;
 
 public interface UserWriteService {
     Long signUp(User user);

@@ -1,21 +1,17 @@
 package com.mentors.global.jwt;
 
 
-import com.mentors.authToken.service.AuthTokenReadService;
-import com.mentors.authToken.service.AuthTokenWriteService;
 import com.mentors.global.jwt.dto.AuthTokenInterface;
+import com.mentors.user.authToken.service.AuthTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import static com.mentors.global.jwt.mapper.AuthInterfaceMapper.toDomain;
 
 @Component
 @RequiredArgsConstructor
 public class AuthTokenCreator implements TokenCreator{
 
     private final TokenProvider tokenProvider;
-    private final AuthTokenReadService authTokenReadService;
-    private final AuthTokenWriteService authTokenWriteService;
+    private final AuthTokenService authTokenService;
 
     @Override
     public AuthTokenInterface createAuthToken(Long userId) {
@@ -25,11 +21,11 @@ public class AuthTokenCreator implements TokenCreator{
     }
 
     private String createRefreshToken(final Long userId) {
-        if (authTokenReadService.existAuthToken(userId)) {
-            return authTokenReadService.getAuthToken(userId).refreshToken();
+        if (authTokenService.existAuthToken(userId)) {
+            return authTokenService.getAuthToken(userId);
         }
         String refreshToken = tokenProvider.createRefreshToken(String.valueOf(userId));
-        return authTokenWriteService.saveAuthToken(toDomain(userId,refreshToken));
+        return authTokenService.saveAuthToken(userId,refreshToken);
     }
 
     @Override
@@ -38,10 +34,9 @@ public class AuthTokenCreator implements TokenCreator{
         Long userId = Long.valueOf(tokenProvider.getPayload(refreshToken));
 
         String accessTokenForRenew = tokenProvider.createAccessToken(String.valueOf(userId));
-        String refreshTokenForRenew = authTokenReadService.getAuthToken(userId).refreshToken();
+        String refreshTokenForRenew = authTokenService.getAuthToken(userId);
 
         AuthTokenInterface renewalAuthToken = new AuthTokenInterface(accessTokenForRenew, refreshTokenForRenew);
-        renewalAuthToken.validateHasSameRefreshToken(refreshToken);
         return renewalAuthToken;
     }
 

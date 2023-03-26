@@ -1,4 +1,4 @@
-package com.mentors.user.domain;
+package com.mentors.user.user.domain;
 
 import lombok.extern.slf4j.Slf4j;
 

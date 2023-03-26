@@ -1,4 +1,4 @@
-package com.mentors.authToken;
+package com.mentors.user.authToken;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

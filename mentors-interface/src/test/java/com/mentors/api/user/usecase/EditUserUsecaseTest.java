@@ -5,9 +5,8 @@ import static com.mentors.support.fixture.UserFixture.회원정보수정_요청�
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.Mockito.doNothing;
 
-import com.mentors.api.user.dto.UserEditRequest;
 import com.mentors.support.UsecaseTest;
-import com.mentors.user.service.UserWriteService;
+import com.mentors.user.user.service.UserWriteService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

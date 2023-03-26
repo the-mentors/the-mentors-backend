@@ -1,4 +1,4 @@
-package com.mentors.user.domain;
+package com.mentors.user.user.domain;
 
 import java.time.LocalDateTime;
 

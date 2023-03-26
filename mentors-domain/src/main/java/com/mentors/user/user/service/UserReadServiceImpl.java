@@ -1,7 +1,7 @@
 package com.mentors.user.user.service;
 
-import com.mentors.user.UserEntity;
-import com.mentors.user.UserRepository;
+import com.mentors.user.user.UserEntity;
+import com.mentors.user.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
