@@ -16,21 +16,21 @@ import static lombok.AccessLevel.PROTECTED;
 @NoArgsConstructor(access = PROTECTED)
 public class AuthTokenEntity extends BaseEntity {
     @Id
-    private Long memberId;
+    private Long userId;
 
     private String refreshToken;
 
 
     @Builder
-    public AuthTokenEntity(Long memberId, String refreshToken) {
-        this.memberId = memberId;
+    public AuthTokenEntity(Long userId, String refreshToken) {
+        this.userId = userId;
         this.refreshToken = refreshToken;
     }
 
-    public static AuthTokenEntity of(final Long memberId,
+    public static AuthTokenEntity of(final Long userId,
                                      final String refreshToken) {
        return AuthTokenEntity.builder()
-                .memberId(memberId)
+                .userId(userId)
                 .refreshToken(refreshToken)
                 .build();
     }

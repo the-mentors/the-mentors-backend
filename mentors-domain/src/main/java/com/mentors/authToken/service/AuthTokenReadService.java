@@ -4,7 +4,7 @@ package com.mentors.authToken.service;
 import com.mentors.authToken.domain.AuthToken;
 
 public interface AuthTokenReadService {
-    AuthToken getAuthToken(Long memberId);
+    AuthToken getAuthToken(Long userId);
 
-    boolean existAuthToken(Long memberId);
+    boolean existAuthToken(Long userId);
 }

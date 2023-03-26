@@ -16,14 +16,14 @@ public class AuthTokenReadServiceImpl implements AuthTokenReadService {
    private final AuthTokenRepository authTokenRepository;
 
    @Override
-   public AuthToken getAuthToken(Long memberId) {
-       return authTokenRepository.findById(memberId).stream()
+   public AuthToken getAuthToken(Long userId) {
+       return authTokenRepository.findById(userId).stream()
                .map(AuthTokenDomainMapper::toDomain)
                .findFirst().get();
    }
 
     @Override
-    public boolean existAuthToken(Long memberId) {
-        return authTokenRepository.existsById(memberId);
+    public boolean existAuthToken(Long userId) {
+        return authTokenRepository.existsById(userId);
     }
 }
