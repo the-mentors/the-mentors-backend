@@ -2,6 +2,7 @@ package com.mentors.user;
 
 import com.mentors.global.common.BaseEntity;
 import jakarta.persistence.*;
+import java.util.Objects;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,5 +42,33 @@ public class UserEntity extends BaseEntity {
         this.profileUrl = profileUrl;
         this.role = role;
 
+    }
+
+    public void update(final UserEntity updateUser){
+        updateUsername(updateUser.username);
+        updateNickname(updateUser.nickname);
+        updateProfileUrl(updateUser.profileUrl);
+    }
+
+    private void updateUsername(final String username) {
+        if (username != null) {
+            this.username = username;
+        }
+    }
+
+    private void updateNickname(final String nickname){
+        if (nickname != null) {
+            this.nickname = nickname;
+        }
+    }
+
+    private void updateProfileUrl(String profileUrl) {
+        if (profileUrl != null) {
+            this.profileUrl = profileUrl;
+        }
+    }
+
+    public boolean isSameId(final Long id) {
+        return Objects.equals(id, this.id);
     }
 }
