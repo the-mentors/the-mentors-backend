@@ -1,8 +1,6 @@
 package com.mentors.global.jwt;
 
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.crypto.SecretKey;
@@ -44,18 +42,30 @@ public class JwtTokenProvider implements TokenProvider {
                 .compact();
     }
 
-
+    @Override
+    public String getPayload(final String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
 
     @Override
     public boolean validateToken(String token) {
         try {
-            Jwts.parserBuilder()
+            Jws<Claims> claims = Jwts.parserBuilder()
                     .setSigningKey(key)
                     .build()
                     .parseClaimsJws(token);
+            claims.getBody()
+                    .getExpiration()
+                    .before(new Date());
             return true;
         } catch (final JwtException | IllegalArgumentException e) {
             throw new RuntimeException("권한이 없습니다.");
         }
     }
+
 }

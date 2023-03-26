@@ -6,5 +6,7 @@ public interface TokenProvider {
 
     String createRefreshToken(String payload);
 
+    String getPayload(final String token);
+
     boolean validateToken(String token);
 }
