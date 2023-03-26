@@ -11,7 +11,7 @@ import static com.mentors.authToken.mapper.AuthTokenDomainMapper.toEntity;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class AuthWriteServiceImpl implements AuthWriteService{
+public class AuthTokenWriteServiceImpl implements AuthTokenWriteService {
     private final AuthTokenRepository authTokenRepository;
 
     @Override

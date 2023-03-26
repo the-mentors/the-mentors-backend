@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class AuthReadServiceImpl implements AuthReadService{
+public class AuthTokenReadServiceImpl implements AuthTokenReadService {
 
    private final AuthTokenRepository authTokenRepository;
 
