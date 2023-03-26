@@ -1,19 +1,17 @@
 package com.mentors.api.user.controller;
 
 import com.mentors.api.user.dto.UserEditRequest;
+import com.mentors.api.user.dto.UserSignInRequest;
 import com.mentors.api.user.dto.UserSignUpRequest;
 import com.mentors.api.user.usecase.EditUserUsecase;
+import com.mentors.api.user.usecase.SignInUserUsecase;
 import com.mentors.api.user.usecase.SignUpUserUsecase;
+import com.mentors.global.jwt.dto.AuthTokenInterface;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -21,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserApiController {
     private final SignUpUserUsecase signUpUserUsecase;
     private final EditUserUsecase editUserUsecase;
+    private final SignInUserUsecase signInUserUsecase;
 
     @PostMapping("/signup")
     public ResponseEntity<?> signUpUser(
@@ -37,5 +36,12 @@ public class UserApiController {
     ){
         editUserUsecase.execute(id, request);
         return ResponseEntity.ok().build();
+    }
+    @PostMapping("/signin")
+    public ResponseEntity<AuthTokenInterface> signUpUser(
+            @RequestBody @Valid UserSignInRequest userSignInRequest
+    ) {
+        AuthTokenInterface authTokenInterface = signInUserUsecase.execute(userSignInRequest);
+        return ResponseEntity.ok(authTokenInterface);
     }
 }
