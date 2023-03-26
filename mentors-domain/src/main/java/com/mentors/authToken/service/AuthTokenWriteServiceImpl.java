@@ -15,8 +15,8 @@ public class AuthTokenWriteServiceImpl implements AuthTokenWriteService {
     private final AuthTokenRepository authTokenRepository;
 
     @Override
-    public Long saveAuthToken(AuthToken authToken) {
+    public String saveAuthToken(AuthToken authToken) {
         var authTokenEntity = toEntity(authToken);
-        return authTokenRepository.save(authTokenEntity).getMemberId();
+        return authTokenRepository.save(authTokenEntity).getRefreshToken();
     }
 }
