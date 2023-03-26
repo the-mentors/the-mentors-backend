@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import com.mentors.api.user.dto.UserEditRequest;
 import com.mentors.support.BasicClassTest;
 import com.mentors.user.domain.User;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -37,8 +36,8 @@ class UserApiMapperTest extends BasicClassTest {
             assertInstanceOf(UserEditRequest.class, request);
             assertInstanceOf(User.class, user);
 
-            assertThat(user.userName()).isEqualTo(request.userName());
-            assertThat(user.nickName()).isEqualTo(request.nickName());
+            assertThat(user.username()).isEqualTo(request.username());
+            assertThat(user.nickname()).isEqualTo(request.nickname());
             assertThat(user.profileUrl()).isEqualTo(request.profileUrl());
         });
 

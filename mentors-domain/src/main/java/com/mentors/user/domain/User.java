@@ -6,8 +6,8 @@ public record User(
         Long id,
         String email,
         String password,
-        String userName,
-        String nickName,
+        String username,
+        String nickname,
         String profileUrl,
         LocalDateTime createdAt,
         LocalDateTime updatedAt

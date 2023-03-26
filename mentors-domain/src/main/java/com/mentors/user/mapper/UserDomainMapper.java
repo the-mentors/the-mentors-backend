@@ -9,8 +9,8 @@ public class UserDomainMapper {
         return UserEntity.builder()
                 .email(user.email())
                 .password(user.password())
-                .username(user.userName())
-                .nickname(user.nickName())
+                .username(user.username())
+                .nickname(user.nickname())
                 .profileUrl(user.profileUrl())
                 .build();
     }

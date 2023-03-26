@@ -3,18 +3,15 @@ package com.mentors.user.service;
 import static com.mentors.UserEntityFixture.*;
 import static com.mentors.UserFixture.toDomain;
 import static com.mentors.UserFixture.toUpdateUser;
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-import com.mentors.UserEntityFixture;
 import com.mentors.support.ServiceTest;
 import com.mentors.user.UserEntity;
 import com.mentors.user.UserRepository;
 import com.mentors.user.domain.User;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,8 +62,8 @@ class UserWriteServiceTest extends ServiceTest {
         UserEntity actual = userRepository.findById(id).get();
         assertAll(() -> {
             assertThat(actual.getId()).isEqualTo(id);
-            assertThat(actual.getUsername()).isEqualTo(updateUser.userName());
-            assertThat(actual.getNickname()).isEqualTo(updateUser.nickName());
+            assertThat(actual.getUsername()).isEqualTo(updateUser.username());
+            assertThat(actual.getNickname()).isEqualTo(updateUser.nickname());
             assertThat(actual.getProfileUrl()).isEqualTo(updateUser.profileUrl());
         });
     }

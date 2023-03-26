@@ -7,15 +7,15 @@ import com.mentors.user.domain.User;
 public class UserApiMapper {
 
     public static User toDomain(UserSignUpRequest usr, String password) {
-        return new User(null, usr.email(), password, usr.userName(), usr.nickName(), usr.profileUrl(), null, null);
+        return new User(null, usr.email(), password, usr.username(), usr.nickname(), usr.profileUrl(), null, null);
     }
 
     public static User toDomain(final UserEditRequest request) {
         return new User(null,
                 null,
                 null,
-                request.userName(),
-                request.nickName(),
+                request.username(),
+                request.nickname(),
                 request.profileUrl(),
                 null,
                 null);
