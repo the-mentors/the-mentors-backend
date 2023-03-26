@@ -1,6 +1,7 @@
 package com.mentors.api.user.mapper;
 
 import com.mentors.api.user.dto.UserEditRequest;
+import com.mentors.api.user.dto.UserSignInRequest;
 import com.mentors.api.user.dto.UserSignUpRequest;
 import com.mentors.user.domain.User;
 
@@ -17,6 +18,16 @@ public class UserApiMapper {
                 request.username(),
                 request.nickname(),
                 request.profileUrl(),
+                null,
+                null);
+    }
+    public static User toDomain(final UserSignInRequest request) {
+        return new User(null,
+                request.email(),
+                null,
+                null,
+                null,
+                null,
                 null,
                 null);
     }
