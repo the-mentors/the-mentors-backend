@@ -27,4 +27,11 @@ public class AuthEntity extends BaseEntity {
         this.refreshToken = refreshToken;
     }
 
+    public static AuthEntity of(final Long memberId,
+                                final String refreshToken) {
+       return AuthEntity.builder()
+                .memberId(memberId)
+                .refreshToken(refreshToken)
+                .build();
+    }
 }
