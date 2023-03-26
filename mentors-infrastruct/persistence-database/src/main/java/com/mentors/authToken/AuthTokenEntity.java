@@ -1,4 +1,4 @@
-package com.mentors.auth;
+package com.mentors.authToken;
 
 import com.mentors.global.common.BaseEntity;
 import jakarta.persistence.Entity;
@@ -14,7 +14,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Entity
 @Table(name = "auths")
 @NoArgsConstructor(access = PROTECTED)
-public class AuthEntity extends BaseEntity {
+public class AuthTokenEntity extends BaseEntity {
     @Id
     private Long memberId;
 
@@ -22,14 +22,14 @@ public class AuthEntity extends BaseEntity {
 
 
     @Builder
-    public AuthEntity(Long memberId, String refreshToken) {
+    public AuthTokenEntity(Long memberId, String refreshToken) {
         this.memberId = memberId;
         this.refreshToken = refreshToken;
     }
 
-    public static AuthEntity of(final Long memberId,
-                                final String refreshToken) {
-       return AuthEntity.builder()
+    public static AuthTokenEntity of(final Long memberId,
+                                     final String refreshToken) {
+       return AuthTokenEntity.builder()
                 .memberId(memberId)
                 .refreshToken(refreshToken)
                 .build();
