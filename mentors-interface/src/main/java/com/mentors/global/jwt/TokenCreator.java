@@ -1,13 +1,13 @@
 package com.mentors.global.jwt;
 
 
-import com.mentors.global.jwt.dto.AuthTokenInterface;
+import com.mentors.user.authToken.domain.AuthToken;
 
 public interface TokenCreator {
 
-    AuthTokenInterface createAuthToken(final Long userId);
+    AuthToken createAuthToken(final Long userId);
 
-    AuthTokenInterface renewAuthToken(final String refreshToken);
+    AuthToken renewAuthToken(final String refreshToken);
 
     Long extractPayload(final String accessToken);
 }

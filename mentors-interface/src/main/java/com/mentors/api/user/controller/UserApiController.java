@@ -6,7 +6,7 @@ import com.mentors.api.user.dto.UserSignUpRequest;
 import com.mentors.api.user.usecase.EditUserUsecase;
 import com.mentors.api.user.usecase.SignInUserUsecase;
 import com.mentors.api.user.usecase.SignUpUserUsecase;
-import com.mentors.global.jwt.dto.AuthTokenInterface;
+import com.mentors.user.authToken.domain.AuthToken;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -38,10 +38,10 @@ public class UserApiController {
         return ResponseEntity.ok().build();
     }
     @PostMapping("/signin")
-    public ResponseEntity<AuthTokenInterface> signUpUser(
+    public ResponseEntity<AuthToken> signUpUser(
             @RequestBody @Valid UserSignInRequest userSignInRequest
     ) {
-        AuthTokenInterface authTokenInterface = signInUserUsecase.execute(userSignInRequest);
-        return ResponseEntity.ok(authTokenInterface);
+        AuthToken authToken = signInUserUsecase.execute(userSignInRequest);
+        return ResponseEntity.ok(authToken);
     }
 }

@@ -2,7 +2,7 @@ package com.mentors.api.user.usecase;
 
 import com.mentors.api.user.dto.UserSignInRequest;
 import com.mentors.global.jwt.TokenCreator;
-import com.mentors.global.jwt.dto.AuthTokenInterface;
+import com.mentors.user.authToken.domain.AuthToken;
 import com.mentors.user.user.service.UserReadService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ public class SignInUserUsecase {
     private final TokenCreator tokenCreator;
     private final UserReadService userReadService;
 
-    public AuthTokenInterface execute(UserSignInRequest userSignInRequest) {
+    public AuthToken execute(UserSignInRequest userSignInRequest) {
         Long userId = userReadService.signIn(userSignInRequest.email(), passwordEncoder.encode(userSignInRequest.password()));
         return tokenCreator.createAuthToken(userId);
     }

@@ -1,7 +1,7 @@
 package com.mentors.global.jwt;
 
 
-import com.mentors.global.jwt.dto.AuthTokenInterface;
+import com.mentors.user.authToken.domain.AuthToken;
 import com.mentors.user.authToken.service.AuthTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,10 +14,10 @@ public class AuthTokenCreator implements TokenCreator{
     private final AuthTokenService authTokenService;
 
     @Override
-    public AuthTokenInterface createAuthToken(Long userId) {
+    public AuthToken createAuthToken(Long userId) {
         String accessToken = tokenProvider.createAccessToken(String.valueOf(userId));
         String refreshToken = createRefreshToken(userId);
-        return new AuthTokenInterface(accessToken, refreshToken);
+        return new AuthToken(accessToken, refreshToken);
     }
 
     private String createRefreshToken(final Long userId) {
@@ -29,14 +29,14 @@ public class AuthTokenCreator implements TokenCreator{
     }
 
     @Override
-    public AuthTokenInterface renewAuthToken(String refreshToken) {
+    public AuthToken renewAuthToken(String refreshToken) {
         tokenProvider.validateToken(refreshToken);
         Long userId = Long.valueOf(tokenProvider.getPayload(refreshToken));
 
         String accessTokenForRenew = tokenProvider.createAccessToken(String.valueOf(userId));
         String refreshTokenForRenew = authTokenService.getAuthToken(userId);
 
-        AuthTokenInterface renewalAuthToken = new AuthTokenInterface(accessTokenForRenew, refreshTokenForRenew);
+        AuthToken renewalAuthToken = new AuthToken(accessTokenForRenew, refreshTokenForRenew);
         return renewalAuthToken;
     }
 
