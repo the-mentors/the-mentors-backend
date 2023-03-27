@@ -15,7 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private static final String[] AUTH_WHITELIST = {
-            "/", "/api/**"
+            "/api/v1/users/signup", "/api/v1/users/signin"
     };
 
     @Bean
