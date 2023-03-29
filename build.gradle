@@ -24,6 +24,8 @@ subprojects {
     }
 
     dependencies {
+        implementation project(':mentors-commons:common-exception')
+
         implementation 'org.springframework.boot:spring-boot-starter'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
