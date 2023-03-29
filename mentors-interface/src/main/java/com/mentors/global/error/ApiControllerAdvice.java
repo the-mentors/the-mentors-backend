@@ -21,8 +21,8 @@ public class ApiControllerAdvice {
                 .body(error(e.getMessage()));
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<?> applicationHandler(RuntimeException e){
+    @ExceptionHandler({RuntimeException.class, Exception.class})
+    public ResponseEntity<?> applicationHandler(Exception e){
         log.error("[Error] Internal Server Error ", e);
         return ResponseEntity.status(INTERNAL_SERVER_ERROR)
                 .body(error(INTERNAL_SERVER_ERROR.name()));
