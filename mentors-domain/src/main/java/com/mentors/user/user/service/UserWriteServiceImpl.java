@@ -22,7 +22,7 @@ public class UserWriteServiceImpl implements UserWriteService {
 
     @Override
     public Long signUp(User user) {
-        checkDuplicateEmail(user);
+        checkDuplicateEmail(user.email());
         UserEntity userEntity = createUser(user);
         return userRepository.save(userEntity).getId();
     }
@@ -32,8 +32,8 @@ public class UserWriteServiceImpl implements UserWriteService {
         return toEntityWithRoleUser(user,password);
     }
 
-    private void checkDuplicateEmail(User user) {
-        if(userRepository.existsByEmail(user.email())){
+    private void checkDuplicateEmail(String email) {
+        if(userRepository.existsByEmail(email)){
             new RuntimeException("이미 존재하는 이메일 입니다");
         }
     }
