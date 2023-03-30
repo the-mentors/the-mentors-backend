@@ -6,6 +6,7 @@ import com.mentors.user.user.UserEntity;
 import com.mentors.user.user.domain.User;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class UserDomainMapper {
 
@@ -32,7 +33,7 @@ public class UserDomainMapper {
 
     public static User toDomain(UserEntity user) {
         ArrayList<Authority> arrayListRole =new ArrayList<>();
-        arrayListRole.add((Authority) user.getAuthorities());
+        arrayListRole.addAll((Collection<? extends Authority>) user.getAuthorities());
         return new User(user.getId(),
                 user.getEmail(),
                 user.getPassword(),
