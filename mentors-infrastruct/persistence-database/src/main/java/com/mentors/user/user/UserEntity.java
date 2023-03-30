@@ -1,12 +1,18 @@
 package com.mentors.user.user;
 
+import com.mentors.authority.Authority;
 import com.mentors.global.common.BaseEntity;
+import com.mentors.global.common.Role;
 import jakarta.persistence.*;
-import java.util.Objects;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 
+import java.util.*;
+
+import static jakarta.persistence.CascadeType.ALL;
+import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -29,22 +35,30 @@ public class UserEntity extends BaseEntity {
     private String nickname;
     private String profileUrl;
 
-
-    private String role;
+    @ManyToMany(fetch = LAZY, cascade = {ALL})
+    @JoinTable(name = "member_roles",
+            joinColumns = @JoinColumn(name = "member_id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id"))
+    private final Set<Authority> userRoles = new HashSet<>();
 
     @Builder
-    public UserEntity(Long id, String email, String password, String username, String nickname, String profileUrl, String role) {
+    public UserEntity(Long id, String email, String password, String username, String nickname, String profileUrl, Role role) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.username = username;
         this.nickname = nickname;
         this.profileUrl = profileUrl;
-        this.role = role;
+        this.userRoles.add(new Authority(role));
 
     }
 
-    public void update(final UserEntity updateUser){
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return new ArrayList<>(userRoles);
+    }
+
+
+    public void update(final UserEntity updateUser) {
         updateUsername(updateUser.username);
         updateNickname(updateUser.nickname);
         updateProfileUrl(updateUser.profileUrl);
@@ -56,7 +70,7 @@ public class UserEntity extends BaseEntity {
         }
     }
 
-    private void updateNickname(final String nickname){
+    private void updateNickname(final String nickname) {
         if (nickname != null) {
             this.nickname = nickname;
         }

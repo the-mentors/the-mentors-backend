@@ -14,10 +14,9 @@ import static com.mentors.api.user.mapper.UserApiMapper.toDomain;
 @Service
 @RequiredArgsConstructor
 public class SignUpUserUsecase {
-    private final PasswordEncoder passwordEncoder;
     private final UserWriteService userWriteService;
     public void execute(UserSignUpRequest userSignUpRequest) {
-        User user = toDomain(userSignUpRequest,passwordEncoder.encode(userSignUpRequest.password()));
+        User user = toDomain(userSignUpRequest);
         userWriteService.signUp(user);
     }
 }

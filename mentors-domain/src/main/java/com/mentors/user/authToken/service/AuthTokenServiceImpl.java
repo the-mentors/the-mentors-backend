@@ -14,23 +14,39 @@ public class AuthTokenServiceImpl implements AuthTokenService {
     private final AuthTokenRepository authTokenRepository;
 
     @Override
-    public String getAuthToken(Long userId) {
-        return authTokenRepository.findById(userId).stream()
+    public String getAuthToken(Long key) {
+        return authTokenRepository.findByKeys(key)
                 .map(AuthTokenEntity::getRefreshToken)
-                .findFirst().get();
+                .orElseThrow(RuntimeException::new);
     }
 
     @Override
-    public boolean existAuthToken(Long userId) {
-        return authTokenRepository.existsById(userId);
+    public boolean existAuthToken(Long key) {
+        return authTokenRepository.existsById(key);
     }
 
     @Override
-    public String saveAuthToken(Long userId, String refreshToken) {
-        AuthTokenEntity authTokenEntity = AuthTokenEntity.builder()
-                .userId(userId)
+    public String saveAuthToken(Long key, String refreshToken) {
+        ifexistAuthTokenDelete(key);
+        AuthTokenEntity authTokenEntity = createAuthTokenEntity(key, refreshToken);
+        return authTokenRepository.save(authTokenEntity).getRefreshToken();
+    }
+
+    private static AuthTokenEntity createAuthTokenEntity(Long key, String refreshToken) {
+        return AuthTokenEntity.builder()
+                .keys(key)
                 .refreshToken(refreshToken)
                 .build();
-        return authTokenRepository.save(authTokenEntity).getRefreshToken();
+    }
+
+    private void ifexistAuthTokenDelete(Long key) {
+        if(existAuthToken(key)){
+            deleteByKey(key);
+        }
+    }
+
+    @Override
+    public void deleteByKey(Long key) {
+        authTokenRepository.deleteByKeys(key);
     }
 }

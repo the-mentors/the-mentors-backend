@@ -1,6 +1,7 @@
 package com.mentors.user.user.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public record User(
         Long id,
@@ -9,8 +10,11 @@ public record User(
         String username,
         String nickname,
         String profileUrl,
+        ArrayList<String> role,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
 ) {
 }
+
+
 
