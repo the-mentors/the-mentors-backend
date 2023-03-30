@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 @Getter
@@ -13,16 +14,15 @@ import static lombok.AccessLevel.PROTECTED;
 @NoArgsConstructor(access = PROTECTED)
 public class AuthTokenEntity{
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = IDENTITY)
     @Column(name = "auth_id")
     private Long id;
-    private Long userId;
+    private Long keys;
     private String refreshToken;
 
     @Builder
-    public AuthTokenEntity(Long id,Long userId, String refreshToken) {
-        this.id = id;
-        this.userId = userId;
+    public AuthTokenEntity(final Long keys, final String refreshToken) {
+        this.keys = keys;
         this.refreshToken = refreshToken;
     }
 }
