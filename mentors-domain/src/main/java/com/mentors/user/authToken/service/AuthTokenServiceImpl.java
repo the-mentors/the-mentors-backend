@@ -28,7 +28,7 @@ public class AuthTokenServiceImpl implements AuthTokenService {
     @Override
     public String saveAuthToken(Long key, String refreshToken) {
         if(existAuthToken(key)){
-            delete(key);
+            deleteByKey(key);
         }
         AuthTokenEntity authTokenEntity = AuthTokenEntity.builder()
                 .keys(key)
@@ -39,7 +39,7 @@ public class AuthTokenServiceImpl implements AuthTokenService {
     }
 
     @Override
-    public void delete(Long key) {
+    public void deleteByKey(Long key) {
         authTokenRepository.deleteByKeys(key);
     }
 }
