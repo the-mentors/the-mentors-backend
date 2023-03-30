@@ -27,15 +27,22 @@ public class AuthTokenServiceImpl implements AuthTokenService {
 
     @Override
     public String saveAuthToken(Long key, String refreshToken) {
-        if(existAuthToken(key)){
-            deleteByKey(key);
-        }
-        AuthTokenEntity authTokenEntity = AuthTokenEntity.builder()
+        ifexistAuthTokenDelete(key);
+        AuthTokenEntity authTokenEntity = createAuthTokenEntity(key, refreshToken);
+        return authTokenRepository.save(authTokenEntity).getRefreshToken();
+    }
+
+    private static AuthTokenEntity createAuthTokenEntity(Long key, String refreshToken) {
+        return AuthTokenEntity.builder()
                 .keys(key)
                 .refreshToken(refreshToken)
                 .build();
+    }
 
-        return authTokenRepository.save(authTokenEntity).getRefreshToken();
+    private void ifexistAuthTokenDelete(Long key) {
+        if(existAuthToken(key)){
+            deleteByKey(key);
+        }
     }
 
     @Override
