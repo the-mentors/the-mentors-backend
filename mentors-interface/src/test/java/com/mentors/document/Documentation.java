@@ -7,7 +7,6 @@ import com.mentors.api.category.controller.CategoryApiController;
 import com.mentors.api.category.usecase.GetAllCategoryUsecase;
 import com.mentors.api.user.controller.UserApiController;
 import com.mentors.api.user.usecase.EditUserUsecase;
-import com.mentors.api.user.usecase.SignInUserUsecase;
 import com.mentors.api.user.usecase.SignUpUserUsecase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -45,8 +44,6 @@ public class Documentation {
     @MockBean
     protected EditUserUsecase editUserUsecase;
 
-    @MockBean
-    protected SignInUserUsecase signInUserUsecase;
 
 
     @BeforeEach
