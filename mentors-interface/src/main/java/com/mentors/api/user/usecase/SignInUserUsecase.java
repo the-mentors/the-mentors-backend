@@ -15,13 +15,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SignInUserUsecase {
 
-    private final PasswordEncoder passwordEncoder;
-    private final TokenCreator tokenCreator;
     private final UserReadService userReadService;
 
-    public AuthToken execute(UserSignInRequest userSignInRequest) {
-        Long userId = userReadService.signIn(userSignInRequest.email(), passwordEncoder.encode(userSignInRequest.password()));
-        return tokenCreator.createAuthToken(userId);
+    public void execute(UserSignInRequest userSignInRequest) {
+        userReadService.signIn(userSignInRequest.email(), userSignInRequest.password());
+
     }
 
 }
