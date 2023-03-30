@@ -1,12 +1,10 @@
 package com.mentors.user.user.mapper;
 
-import com.mentors.authority.Authority;
 import com.mentors.global.common.Role;
 import com.mentors.user.user.UserEntity;
 import com.mentors.user.user.domain.User;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class UserDomainMapper {
 
@@ -32,8 +30,7 @@ public class UserDomainMapper {
     }
 
     public static User toDomain(UserEntity user) {
-        ArrayList<Authority> arrayListRole =new ArrayList<>();
-        arrayListRole.addAll((Collection<? extends Authority>) user.getAuthorities());
+        ArrayList<String> arrayListRole = changeAuthoritiesToString(user.getAuthorities().toArray());
         return new User(user.getId(),
                 user.getEmail(),
                 user.getPassword(),
@@ -43,5 +40,13 @@ public class UserDomainMapper {
                 arrayListRole,
                 user.getCreatedAt(),
                 user.getUpdatedAt());
+    }
+
+    private static ArrayList<String> changeAuthoritiesToString(Object[] authorities) {
+        ArrayList<String> arrayListRole =new ArrayList<>();
+        for(Object role:authorities){
+            arrayListRole.add(role.toString());
+        }
+        return arrayListRole;
     }
 }
