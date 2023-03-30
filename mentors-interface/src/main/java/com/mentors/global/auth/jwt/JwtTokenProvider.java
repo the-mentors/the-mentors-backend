@@ -31,15 +31,12 @@ public class JwtTokenProvider implements TokenProvider {
         this.refreshTokenValidityInMilliseconds = refreshTokenValidityInMilliseconds;
     }
 
-
-    @Override
-    public String createAccessToken(String payload, final List<String> roles) {
-        return createToken(payload, accessTokenValidityInMilliseconds,roles);
+    private String createAccessToken(String payload, final List<String> roles) {
+        return createToken(payload, accessTokenValidityInMilliseconds, roles);
     }
 
-    @Override
-    public String createRefreshToken(String payload, final List<String> roles) {
-        return createToken(payload, refreshTokenValidityInMilliseconds,roles);
+    private String createRefreshToken(String payload, final List<String> roles) {
+        return createToken(payload, refreshTokenValidityInMilliseconds, roles);
     }
 
     private String createToken(String payload, Long validityInMilliseconds, final List<String> roles) {
@@ -75,7 +72,7 @@ public class JwtTokenProvider implements TokenProvider {
                 .collect(Collectors.toList());
     }
 
-    public List<String> getRoleStrings(final String accessToken) {
+    private List<String> getRoleStrings(final String accessToken) {
         return (List<String>) Jwts.parserBuilder()
                 .setSigningKey(secretKey)
                 .build()
@@ -88,20 +85,20 @@ public class JwtTokenProvider implements TokenProvider {
             if (!StringUtils.hasText(token) || Objects.isNull(secretKey))
                 throw new IllegalArgumentException();
 
-             return !Jwts.parserBuilder()
+            return !Jwts.parserBuilder()
                     .setSigningKey(secretKey)
                     .build()
                     .parseClaimsJws(token).getBody().getExpiration().before(new Date());
 
         } catch (final JwtException | IllegalArgumentException e) {
-           return false;
+            return false;
         }
     }
 
-    @Override
+
     public AuthToken createAuthToken(String payload, List<String> roles) {
         final var accessToken = createAccessToken(payload, roles);
-        final var refreshToken = createRefreshToken(payload,roles);
+        final var refreshToken = createRefreshToken(payload, roles);
         return new AuthToken(accessToken, refreshToken);
     }
 
@@ -111,7 +108,7 @@ public class JwtTokenProvider implements TokenProvider {
         final var roles = getRoleStrings(accessToken);
 
         String accessTokenForRenew = createAccessToken(payload, roles);
-        String refreshTokenForRenew = createRefreshToken(payload,roles);
+        String refreshTokenForRenew = createRefreshToken(payload, roles);
 
         return new AuthToken(accessTokenForRenew, refreshTokenForRenew);
     }
