@@ -7,6 +7,9 @@ configurations {
 }
 
 dependencies {
+    implementation project(':mentors-commons:common-exception')
+    implementation project(':mentors-commons:common-domain')
+
     implementation project(':mentors-domain')
     testImplementation testFixtures(project(':mentors-domain'))
 
