@@ -24,6 +24,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -55,7 +56,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    protected SecurityFilterChain config(HttpSecurity http) throws Exception {
+    protected SecurityFilterChain config(final HttpSecurity http,
+                                         final AuthenticationManager authenticationManager) throws Exception {
         http
                 .csrf().disable()
                 .httpBasic().disable()
@@ -70,6 +72,14 @@ public class SecurityConfig {
                         .permitAll()
                         .anyRequest()
                         .authenticated());
+        http
+                .addFilterBefore(loginAuthenticationFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthenticationFilter(), LoginAuthenticationFilter.class);
+
+        http
+                .exceptionHandling()
+                .authenticationEntryPoint(loginAuthenticationEntryPoint())
+                .accessDeniedHandler(loginDeniedHandler());
 
         return http.build();
     }
@@ -87,6 +97,7 @@ public class SecurityConfig {
     public AuthenticationProvider loginAuthenticationProvider() {
         return new LoginAuthenticationProvider(userContextService, passwordEncoder);
     }
+
     @Bean
     public LoginAuthenticationSuccessHandler loginAuthenticationSuccessHandler() {
         return new LoginAuthenticationSuccessHandler(objectMapper, jwtTokenProvider, authTokenService);
@@ -101,6 +112,7 @@ public class SecurityConfig {
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
         return new JwtAuthenticationFilter(objectMapper, authTokenService, jwtTokenProvider, userReadService);
     }
+
     @Bean
     public AccessDeniedHandler loginDeniedHandler() {
         return new LoginDeniedHandler();
@@ -110,6 +122,7 @@ public class SecurityConfig {
     public LoginAuthenticationEntryPoint loginAuthenticationEntryPoint() {
         return new LoginAuthenticationEntryPoint(objectMapper);
     }
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         final CorsConfiguration configuration = new CorsConfiguration();
