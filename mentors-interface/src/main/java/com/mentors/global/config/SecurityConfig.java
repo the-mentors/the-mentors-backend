@@ -3,8 +3,10 @@ package com.mentors.global.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mentors.global.auth.filter.JwtAuthenticationFilter;
 import com.mentors.global.auth.filter.LoginAuthenticationFilter;
+import com.mentors.global.auth.handler.LoginAuthenticationEntryPoint;
 import com.mentors.global.auth.handler.LoginAuthenticationFailureHandler;
 import com.mentors.global.auth.handler.LoginAuthenticationSuccessHandler;
+import com.mentors.global.auth.handler.LoginDeniedHandler;
 import com.mentors.global.auth.jwt.JwtTokenProvider;
 import com.mentors.global.auth.provider.LoginAuthenticationProvider;
 import com.mentors.user.auth.UserContextService;
@@ -21,6 +23,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -98,7 +101,15 @@ public class SecurityConfig {
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
         return new JwtAuthenticationFilter(objectMapper, authTokenService, jwtTokenProvider, userReadService);
     }
+    @Bean
+    public AccessDeniedHandler loginDeniedHandler() {
+        return new LoginDeniedHandler();
+    }
 
+    @Bean
+    public LoginAuthenticationEntryPoint loginAuthenticationEntryPoint() {
+        return new LoginAuthenticationEntryPoint(objectMapper);
+    }
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         final CorsConfiguration configuration = new CorsConfiguration();
