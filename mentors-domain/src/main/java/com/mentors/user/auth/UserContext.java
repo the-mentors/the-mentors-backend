@@ -11,7 +11,7 @@ import java.util.Collection;
 public class UserContext extends org.springframework.security.core.userdetails.User {
     private final User user;
 
-    public UserContext(final com.mentors.user.user.domain.User user, final Collection<? extends GrantedAuthority> authorities) {
+    public UserContext(final User user, final Collection<? extends GrantedAuthority> authorities) {
         super(user.email(), user.password(), authorities);
         this.user = user;
     }
