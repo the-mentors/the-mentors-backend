@@ -1,7 +1,12 @@
 package com.mentors.global.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mentors.global.auth.handler.LoginAuthenticationFailureHandler;
+import com.mentors.global.auth.handler.LoginAuthenticationSuccessHandler;
+import com.mentors.global.auth.jwt.JwtTokenProvider;
 import com.mentors.global.auth.provider.LoginAuthenticationProvider;
 import com.mentors.user.auth.UserContextService;
+import com.mentors.user.authToken.service.AuthTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +33,10 @@ public class SecurityConfig {
 
     private final UserContextService userContextService;
     private final PasswordEncoder passwordEncoder;
+    private final ObjectMapper objectMapper;
+    private final AuthTokenService authTokenService;
+
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Bean
     public AuthenticationManager authenticationManager(final HttpSecurity http) throws Exception {
@@ -62,6 +71,15 @@ public class SecurityConfig {
     @Bean
     public AuthenticationProvider loginAuthenticationProvider() {
         return new LoginAuthenticationProvider(userContextService, passwordEncoder);
+    }
+    @Bean
+    public LoginAuthenticationSuccessHandler loginAuthenticationSuccessHandler() {
+        return new LoginAuthenticationSuccessHandler(objectMapper, jwtTokenProvider, authTokenService);
+    }
+
+    @Bean
+    public LoginAuthenticationFailureHandler loginAuthenticationFailureHandler() {
+        return new LoginAuthenticationFailureHandler(objectMapper);
     }
 
     @Bean
