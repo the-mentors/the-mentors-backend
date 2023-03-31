@@ -1,6 +1,7 @@
 package com.mentors.global.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mentors.global.auth.filter.LoginAuthenticationFilter;
 import com.mentors.global.auth.handler.LoginAuthenticationFailureHandler;
 import com.mentors.global.auth.handler.LoginAuthenticationSuccessHandler;
 import com.mentors.global.auth.jwt.JwtTokenProvider;
@@ -66,6 +67,15 @@ public class SecurityConfig {
                         .authenticated());
 
         return http.build();
+    }
+
+    @Bean
+    public LoginAuthenticationFilter loginAuthenticationFilter(final AuthenticationManager authenticationManager) {
+        LoginAuthenticationFilter loginAuthenticationFilter = new LoginAuthenticationFilter(objectMapper);
+        loginAuthenticationFilter.setAuthenticationManager(authenticationManager);
+        loginAuthenticationFilter.setAuthenticationSuccessHandler(loginAuthenticationSuccessHandler());
+        loginAuthenticationFilter.setAuthenticationFailureHandler(loginAuthenticationFailureHandler());
+        return loginAuthenticationFilter;
     }
 
     @Bean
