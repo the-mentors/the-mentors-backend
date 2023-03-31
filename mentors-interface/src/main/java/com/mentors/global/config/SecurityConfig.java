@@ -1,8 +1,11 @@
 package com.mentors.global.config;
 
+import com.mentors.global.auth.provider.LoginAuthenticationProvider;
+import com.mentors.user.auth.UserContextService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -20,6 +23,9 @@ public class SecurityConfig {
     private static final String[] AUTH_WHITELIST = {
             "/api/v1/users/signup", "/api/v1/users/signin"
     };
+
+    private final UserContextService userContextService;
+    private final PasswordEncoder passwordEncoder;
     @Bean
     protected SecurityFilterChain config(HttpSecurity http) throws Exception {
         return http
@@ -31,6 +37,11 @@ public class SecurityConfig {
                         .anyRequest()
                         .authenticated())
                 .build();
+    }
+
+    @Bean
+    public AuthenticationProvider loginAuthenticationProvider() {
+        return new LoginAuthenticationProvider(userContextService, passwordEncoder);
     }
 
     @Bean
