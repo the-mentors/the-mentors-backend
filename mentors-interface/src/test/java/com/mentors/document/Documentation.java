@@ -26,6 +26,7 @@ import org.springframework.web.context.WebApplicationContext;
 @WebMvcTest({CategoryApiController.class, UserApiController.class})
 @ExtendWith(RestDocumentationExtension.class)
 @ActiveProfiles("test")
+@MockBean(SignUpUserUsecase.class)
 public class Documentation {
 
     @Autowired
@@ -42,6 +43,8 @@ public class Documentation {
 
     @MockBean
     protected EditUserUsecase editUserUsecase;
+
+
 
     @BeforeEach
     void setUp(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentation) {

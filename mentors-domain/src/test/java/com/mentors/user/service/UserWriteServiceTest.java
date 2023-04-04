@@ -9,9 +9,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import com.mentors.support.ServiceTest;
-import com.mentors.user.UserEntity;
-import com.mentors.user.UserRepository;
-import com.mentors.user.domain.User;
+import com.mentors.user.user.UserEntity;
+import com.mentors.user.user.UserRepository;
+import com.mentors.user.user.domain.User;
+import com.mentors.user.user.service.UserWriteService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

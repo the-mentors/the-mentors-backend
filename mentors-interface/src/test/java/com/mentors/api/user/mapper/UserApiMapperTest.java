@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 import com.mentors.api.user.dto.UserEditRequest;
 import com.mentors.support.BasicClassTest;
-import com.mentors.user.domain.User;
+import com.mentors.user.user.domain.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
