@@ -36,8 +36,8 @@ public class UserEntity extends BaseEntity {
     private String profileUrl;
 
     @ManyToMany(fetch = LAZY, cascade = {ALL})
-    @JoinTable(name = "member_roles",
-            joinColumns = @JoinColumn(name = "member_id"),
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id"))
     private final Set<Authority> userRoles = new HashSet<>();
 

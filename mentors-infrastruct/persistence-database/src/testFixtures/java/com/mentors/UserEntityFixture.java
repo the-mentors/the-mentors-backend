@@ -2,6 +2,7 @@ package com.mentors;
 
 import static java.time.LocalDateTime.now;
 
+import com.mentors.global.common.Role;
 import com.mentors.user.user.UserEntity;
 import java.time.LocalDateTime;
 
@@ -42,6 +43,6 @@ public enum UserEntityFixture {
 
     public static UserEntity 기본유저_엔티티() {
         return new UserEntity(BASIC_USER.userId, BASIC_USER.email, BASIC_USER.password, BASIC_USER.username,
-                BASIC_USER.nickname, BASIC_USER.profileUrl, BASIC_USER.role);
+                BASIC_USER.nickname, BASIC_USER.profileUrl, Role.USER);
     }
 }

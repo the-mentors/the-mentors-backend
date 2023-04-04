@@ -17,13 +17,6 @@ public class UserReadServiceImpl implements UserReadService {
     private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
-    @Override
-    public Long signIn(String userEmail,String password) {
-        UserEntity userEntity = userRepository.findByEmail(userEmail)
-                .orElseThrow(()->new RuntimeException("존재하지 않는 회원입니다."));
-        validateCheckPassword(userEntity.getPassword(), password);
-        return userEntity.getId();
-    }
 
     @Override
     public User findUserById(Long userId) {
