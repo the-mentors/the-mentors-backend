@@ -42,7 +42,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 final var key = jwtTokenProvider.getPayload(accessToken);
                 final var refreshToken = authTokenService.getAuthToken(Long.parseLong(key));
 
-                if (!jwtTokenProvider.validateToken(refreshToken)) {
+                if (!jwtTokenProvider.isTokenExpired(refreshToken)) {
                     throw new CredentialsExpiredException("");
                 }
 
@@ -64,8 +64,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         return AuthorizationExtractor.extract(request, BEARER);
     }
 
-    private boolean isAccessTokenExpired(String accessToken) {
-        return !jwtTokenProvider.validateToken(accessToken);
+    private boolean isAccessTokenExpired(String token) {
+        return !jwtTokenProvider.isTokenExpired(token);
     }
 
     private static void setResponseHeader(HttpServletResponse response, HttpStatus status) {
