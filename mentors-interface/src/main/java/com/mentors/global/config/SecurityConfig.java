@@ -44,6 +44,7 @@ public class SecurityConfig {
     private final AuthTokenService authTokenService;
     private final JwtTokenProvider jwtTokenProvider;
     private final UserReadService userReadService;
+    private final String loginUrl="/api/v1/signin";
 
     @Bean
     public AuthenticationManager authenticationManager(final HttpSecurity http) throws Exception {
@@ -86,7 +87,7 @@ public class SecurityConfig {
 
     @Bean
     public LoginAuthenticationFilter loginAuthenticationFilter(final AuthenticationManager authenticationManager) {
-        LoginAuthenticationFilter loginAuthenticationFilter = new LoginAuthenticationFilter(objectMapper);
+        LoginAuthenticationFilter loginAuthenticationFilter = new LoginAuthenticationFilter(objectMapper,loginUrl);
         loginAuthenticationFilter.setAuthenticationManager(authenticationManager);
         loginAuthenticationFilter.setAuthenticationSuccessHandler(loginAuthenticationSuccessHandler());
         loginAuthenticationFilter.setAuthenticationFailureHandler(loginAuthenticationFailureHandler());
