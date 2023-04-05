@@ -80,7 +80,7 @@ public class JwtTokenProvider implements TokenProvider {
     }
 
     @Override
-    public boolean validateToken(String token) {
+    public boolean isTokenExpired(String token) {
         try {
             if (!StringUtils.hasText(token) || Objects.isNull(secretKey))
                 throw new IllegalArgumentException();
