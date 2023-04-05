@@ -1,6 +1,7 @@
 package com.mentors.global.auth.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mentors.global.auth.dto.LoginUser;
 import com.mentors.global.auth.jwt.JwtTokenProvider;
 import com.mentors.user.authToken.domain.AuthToken;
 import com.mentors.user.authToken.service.AuthTokenService;
@@ -31,7 +32,7 @@ public class LoginAuthenticationSuccessHandler implements AuthenticationSuccessH
                                         Authentication authentication) throws IOException, ServletException {
         setAuthenticationSuccessHeader(response);
 
-        final User user = (User) authentication.getPrincipal();
+        final LoginUser user = (LoginUser) authentication.getPrincipal();
         final AuthToken authToken = jwtCreator.createAuthToken(String.valueOf(user.id()), user.role());
 
         authTokenService.saveAuthToken(user.id(), authToken.refreshToken());
