@@ -16,7 +16,7 @@ public class Title {
     private String value;
 
 
-    public Title(String value) {
+    public Title(final String value) {
         validate(value);
         this.value = value;
     }

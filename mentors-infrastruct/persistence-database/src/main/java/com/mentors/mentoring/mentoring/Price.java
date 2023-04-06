@@ -16,7 +16,7 @@ public class Price {
     private Integer value;
 
 
-    public Price(Integer value) {
+    public Price(final Integer value) {
         validate(value);
         this.value = value;
     }
