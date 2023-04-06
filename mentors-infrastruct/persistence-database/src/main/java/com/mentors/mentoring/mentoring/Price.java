@@ -25,7 +25,7 @@ public class Price {
         if (value == null) {
             throw new RuntimeException();
         }
-        if (value > MAX_VALUE && value < 0) {
+        if (value > MAX_VALUE || value < 0) {
             throw new RuntimeException();
         }
     }
