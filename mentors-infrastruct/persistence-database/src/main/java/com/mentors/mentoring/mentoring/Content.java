@@ -6,6 +6,7 @@ import jakarta.persistence.Lob;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
 
 @Getter
 @Embeddable
@@ -25,7 +26,7 @@ public class Content {
     }
 
     private void validate(final String value) {
-        if (value == null || value.isBlank()) {
+        if (!StringUtils.hasText(value)) {
             throw new RuntimeException();
         }
         if (value.length() > MAX_CONTENT_LENGTH) {

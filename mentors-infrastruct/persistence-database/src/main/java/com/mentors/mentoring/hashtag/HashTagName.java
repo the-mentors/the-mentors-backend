@@ -6,6 +6,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
 
 @Getter
 @Embeddable
@@ -24,7 +25,7 @@ public class HashTagName {
     }
 
     private void validate(final String value) {
-        if (value == null || value.isBlank()) {
+        if (!StringUtils.hasText(value)) {
             throw new RuntimeException();
         }
         if (value.length() > MAX_TITLE_LENGTH) {
