@@ -13,12 +13,12 @@ class ContentTest {
         //given
         final String nullContent = null;
         final String noneStringContent = "";
+        final String gapNoneStringContent = " ";
 
         //when & then
-        assertThatCode(() -> new Content(nullContent))
-                .isInstanceOf(RuntimeException.class);
-        assertThatCode(() -> new Title(noneStringContent))
-                .isInstanceOf(RuntimeException.class);
+        assertThatCode(() -> new Content(nullContent)).isInstanceOf(RuntimeException.class);
+        assertThatCode(() -> new Title(noneStringContent)).isInstanceOf(RuntimeException.class);
+        assertThatCode(() -> new Title(gapNoneStringContent)).isInstanceOf(RuntimeException.class);
     }
 
 
@@ -35,7 +35,7 @@ class ContentTest {
 
     @DisplayName("글 변수 1자 이상 5000글자 이하인 경우 정상적으로 Centent 객체가 생성된다.")
     @Test
-    void givenContent_whenConstruct_thenReturnTitle() {
+    void givenContent_whenConstruct_thenReturnContent() {
         //given
         final String content1 = "*".repeat(1);
         final String content2 = "*".repeat(5000);

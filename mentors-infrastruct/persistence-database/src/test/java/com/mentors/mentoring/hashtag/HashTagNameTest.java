@@ -13,12 +13,12 @@ class HashTagNameTest {
         //given
         final String nullHashTagName = null;
         final String noneStringHashTagName = "";
+        final String gapNoneStringHashTagName = " ";
 
         //when & then
-        assertThatCode(() -> new HashTagName(nullHashTagName))
-                .isInstanceOf(RuntimeException.class);
-        assertThatCode(() -> new HashTagName(noneStringHashTagName))
-                .isInstanceOf(RuntimeException.class);
+        assertThatCode(() -> new HashTagName(nullHashTagName)).isInstanceOf(RuntimeException.class);
+        assertThatCode(() -> new HashTagName(noneStringHashTagName)).isInstanceOf(RuntimeException.class);
+        assertThatCode(() -> new HashTagName(gapNoneStringHashTagName)).isInstanceOf(RuntimeException.class);
     }
 
 

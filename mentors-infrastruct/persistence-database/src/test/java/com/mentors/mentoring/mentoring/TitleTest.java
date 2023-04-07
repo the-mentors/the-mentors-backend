@@ -13,12 +13,12 @@ class TitleTest {
         //given
         final String nullTitle = null;
         final String noneStringTitle = "";
+        final String gapNoneStringTitle = "";
 
         //when & then
-        assertThatCode(() -> new Title(nullTitle))
-                .isInstanceOf(RuntimeException.class);
-        assertThatCode(() -> new Title(noneStringTitle))
-                .isInstanceOf(RuntimeException.class);
+        assertThatCode(() -> new Title(nullTitle)).isInstanceOf(RuntimeException.class);
+        assertThatCode(() -> new Title(noneStringTitle)).isInstanceOf(RuntimeException.class);
+        assertThatCode(() -> new Title(gapNoneStringTitle)).isInstanceOf(RuntimeException.class);
     }
 
 
