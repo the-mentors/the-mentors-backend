@@ -35,7 +35,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class SecurityConfig {
 
     private static final String[] AUTH_WHITELIST = {
-            "/api/v1/users/signup", "/api/v1/users/signin"
+            "/api/v1/users/signup", "/api/v1/users/signin", "/h2-console/*"
     };
 
     private final UserContextService userContextService;
@@ -73,6 +73,10 @@ public class SecurityConfig {
                         .permitAll()
                         .anyRequest()
                         .authenticated());
+        http
+                .headers()
+                .frameOptions()
+                .sameOrigin();
         http
                 .addFilterBefore(loginAuthenticationFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthenticationFilter(), LoginAuthenticationFilter.class);
