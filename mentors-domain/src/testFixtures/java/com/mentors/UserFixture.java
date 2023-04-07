@@ -20,11 +20,11 @@ public enum UserFixture {
     }
 
     public static User toDomain(){
-        return new User(null, USER1.email, USER1.password, USER1.username, USER1.nickname, USER1.profileUrl, null,null);
+        return new User(null, USER1.email, USER1.password, USER1.username, USER1.nickname, USER1.profileUrl, null,null,null);
     }
 
     public static User toUpdateUser(){
-        return new User(null, UPDATE_USER.email, UPDATE_USER.password, UPDATE_USER.username, UPDATE_USER.nickname, UPDATE_USER.profileUrl, null,null);
+        return new User(null, UPDATE_USER.email, UPDATE_USER.password, UPDATE_USER.username, UPDATE_USER.nickname, UPDATE_USER.profileUrl, null,null,null);
     }
 
 }
