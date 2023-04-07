@@ -38,18 +38,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             final String accessToken = extractAccessTokenFromHeader(request);
 
-            if (isAccessTokenExpired(accessToken)) {
+            if (isTokenExpired(accessToken)) {
                 final var key = jwtTokenProvider.getPayload(accessToken);
                 final var refreshToken = authTokenService.getAuthToken(Long.parseLong(key));
 
-                if (!jwtTokenProvider.isTokenExpired(refreshToken)) {
+                if (isTokenExpired(refreshToken)) {
+                    final var renewAuthToken = jwtTokenProvider.renewAuthToken(accessToken);
+                    setResponseHeader(response, OK);
+                    objectMapper.writeValue(response.getWriter(), renewAuthToken);
+                    return;
+                }
+                else {
                     throw new CredentialsExpiredException("");
                 }
 
-                final var renewAuthToken = jwtTokenProvider.renewAuthToken(accessToken);
-                setResponseHeader(response, OK);
-                objectMapper.writeValue(response.getWriter(), renewAuthToken);
-                return;
+
             }
 
             SecurityContextHolder.getContext().setAuthentication(createAuthentication(accessToken));
@@ -64,8 +67,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         return AuthorizationExtractor.extract(request, BEARER);
     }
 
-    private boolean isAccessTokenExpired(String token) {
-        return !jwtTokenProvider.isTokenExpired(token);
+    private boolean isTokenExpired(String token) {
+        return jwtTokenProvider.isTokenExpired(token);
     }
 
     private static void setResponseHeader(HttpServletResponse response, HttpStatus status) {
