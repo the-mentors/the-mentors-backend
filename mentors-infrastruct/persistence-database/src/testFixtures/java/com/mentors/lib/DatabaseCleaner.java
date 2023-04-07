@@ -1,4 +1,4 @@
-package com.mentors.support;
+package com.mentors.lib;
 
 
 import jakarta.persistence.Entity;
