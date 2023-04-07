@@ -5,6 +5,7 @@ import static lombok.AccessLevel.PROTECTED;
 
 import com.mentors.global.common.BaseEntity;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -22,10 +23,14 @@ public class HashTagEntity extends BaseEntity {
     @Column(name = "hashtag_id")
     private Long id;
 
-    @Column(name = "hashtag_name", nullable = false)
-    private String name;
+    @Embedded
+    private HashTagName name;
 
-    public HashTagEntity(final String name) {
+    public HashTagEntity(final HashTagName name) {
         this.name = name;
+    }
+
+    public String getName(){
+        return name.getValue();
     }
 }
