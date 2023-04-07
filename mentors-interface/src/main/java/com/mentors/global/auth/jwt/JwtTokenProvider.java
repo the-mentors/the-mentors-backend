@@ -82,7 +82,7 @@ public class JwtTokenProvider implements TokenProvider {
     @Override
     public boolean isTokenExpired(String token) {
         try {
-            if (!StringUtils.hasText(token) || Objects.isNull(secretKey))
+            if (!StringUtils.hasText(token) ||!StringUtils.hasText(secretKey.toString()) )
                 throw new IllegalArgumentException();
 
             return !Jwts.parserBuilder()
