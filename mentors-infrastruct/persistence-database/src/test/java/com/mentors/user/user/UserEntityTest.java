@@ -1,4 +1,4 @@
-package com.mentors.user;
+package com.mentors.user.user;
 
 import static com.mentors.UserEntityFixture.기본유저_엔티티;
 import static org.assertj.core.api.Assertions.assertThat;
