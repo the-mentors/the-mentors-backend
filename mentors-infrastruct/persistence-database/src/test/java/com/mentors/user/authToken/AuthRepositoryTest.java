@@ -15,7 +15,7 @@ public class AuthRepositoryTest extends RepositoryTest {
     @Autowired
     private AuthRepository authRepository;
 
-    @DisplayName("[Repository] 키로 인증 찾기")
+    @DisplayName("[Repository] 키로 인증 찾으면 인증값을 반환한다")
     @Test
     void giveAuthKey_whenFindAuthByKey_thenReturnAuthKey() {
         //given
@@ -26,23 +26,22 @@ public class AuthRepositoryTest extends RepositoryTest {
         //then
 
         assertAll(() -> {
-            assertThat(actual.getId()).isEqualTo(key);
-            assertThat(actual.getClass()).isEqualTo(AuthEntity.class);
+            assertThat(actual.getKeys()).isEqualTo(key);
         });
     }
 
     @DisplayName("[Repository] 저장되어있지 않은 키로 인증 조회시, 빈값을 반환한다.")
     @Test
-    void giveUnsavedAuthKey_whenFindAuthByKey_thenNull() {
+    void giveUnSavedAuthKey_whenFindAuthByKey_thenNull() {
         //given
         initializeAuthTokenSave();
-        Long unsavedAuthTokenKey=0L;
+        Long unSavedAuthTokenKey=0L;
         //when && then
-        assertThat(authRepository.findByKeys(unsavedAuthTokenKey)).isEmpty();
+        assertThat(authRepository.findByKeys(unSavedAuthTokenKey)).isEmpty();
 
     }
 
-    @DisplayName("[Repository] 키로 인증 삭제")
+    @DisplayName("[Repository] 키로 인증 삭제한다.")
     @Test
     void giveAuthKey_whenDeleteAuthByKey_thenDelete() {
         //given
@@ -50,8 +49,7 @@ public class AuthRepositoryTest extends RepositoryTest {
         //when
         AuthEntity actual = authRepository.findByKeys(key).get();
         assertAll(() -> {
-            assertThat(actual.getId()).isEqualTo(key);
-            assertThat(actual.getClass()).isEqualTo(AuthEntity.class);
+            assertThat(actual.getKeys()).isEqualTo(key);
         });
         authRepository.deleteByKeys(key);
 
