@@ -1,7 +1,7 @@
 package com.mentors.user.authToken.service;
 
 
-public interface AuthTokenService {
+public interface AuthService {
     String getAuthToken(Long userId);
 
     boolean existAuthToken(Long userId);

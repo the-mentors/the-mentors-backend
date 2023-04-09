@@ -3,7 +3,7 @@ package com.mentors.global.auth.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mentors.global.auth.jwt.JwtTokenProvider;
 import com.mentors.global.auth.utils.AuthorizationExtractor;
-import com.mentors.user.authToken.service.AuthTokenService;
+import com.mentors.user.authToken.service.AuthService;
 import com.mentors.user.user.service.UserReadService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -27,7 +27,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final ObjectMapper objectMapper;
-    private final AuthTokenService authTokenService;
+    private final AuthService authService;
     private final JwtTokenProvider jwtTokenProvider;
     private final UserReadService userReadService;
 
@@ -40,7 +40,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             if (isTokenExpired(accessToken)) {
                 final var key = jwtTokenProvider.getPayload(accessToken);
-                final var refreshToken = authTokenService.getAuthToken(Long.parseLong(key));
+                final var refreshToken = authService.getAuthToken(Long.parseLong(key));
 
                 if (isTokenExpired(refreshToken)) {
                     final var renewAuthToken = jwtTokenProvider.renewAuthToken(accessToken);
