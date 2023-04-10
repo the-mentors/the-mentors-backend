@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 
@@ -49,8 +50,14 @@ public class UserEntity extends BaseEntity {
         this.username = username;
         this.nickname = nickname;
         this.profileUrl = profileUrl;
-        this.userRoles.add(new Authority(Enum.valueOf(Role.class,role)));
+        validateRole(role);
 
+    }
+
+    private void validateRole(String role) {
+        if (StringUtils.hasText(role)) {
+            this.userRoles.add(new Authority(Enum.valueOf(Role.class, role)));
+        }
     }
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
