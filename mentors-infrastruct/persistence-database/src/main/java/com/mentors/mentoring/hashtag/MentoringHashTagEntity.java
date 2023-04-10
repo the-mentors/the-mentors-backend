@@ -40,4 +40,12 @@ public class MentoringHashTagEntity extends BaseEntity {
         this.mentoring = mentoring;
         this.hashTag = hashTag;
     }
+
+    public static MentoringHashTagEntity of(final Long hashTagId){
+        return new MentoringHashTagEntity(null, HashTagEntity.of(hashTagId));
+    }
+
+    public void addMentoring(final MentoringEntity mentoring){
+        this.mentoring = mentoring;
+    }
 }
