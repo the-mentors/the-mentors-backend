@@ -6,7 +6,6 @@ import static lombok.AccessLevel.PROTECTED;
 
 import com.mentors.category.CategoryEntity;
 import com.mentors.global.common.BaseEntity;
-import com.mentors.mentoring.hashtag.HashTagEntity;
 import com.mentors.mentoring.mentoring.MentoringEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -42,5 +41,13 @@ public class MentoringCategoryEntity extends BaseEntity {
                                    final CategoryEntity category) {
         this.mentoring = mentoring;
         this.category = category;
+    }
+
+    public static MentoringCategoryEntity of(final Long categoryId){
+        return new MentoringCategoryEntity(null, CategoryEntity.of(categoryId));
+    }
+
+    public void addMentoring(final MentoringEntity mentoring){
+        this.mentoring = mentoring;
     }
 }

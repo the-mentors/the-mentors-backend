@@ -1,11 +1,13 @@
 package com.mentors.mentoring.mentoring;
 
+import static com.mentors.category.CategoryEntity.*;
 import static jakarta.persistence.CascadeType.PERSIST;
 import static jakarta.persistence.CascadeType.REMOVE;
 import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
+import com.mentors.category.CategoryEntity;
 import com.mentors.global.common.BaseEntity;
 import com.mentors.mentoring.category.MentoringCategoryEntity;
 import com.mentors.mentoring.hashtag.MentoringHashTagEntity;
@@ -39,9 +41,8 @@ public class MentoringEntity extends BaseEntity {
     @Column(name = "mentoring_id")
     private Long id;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
+    @Column(nullable = false)
+    private Long userId;
 
     @Embedded
     private Title title;
@@ -55,36 +56,59 @@ public class MentoringEntity extends BaseEntity {
     @Embedded
     private Price price;
 
-    @OneToMany(mappedBy = "mentoring", cascade = { REMOVE })
+    @OneToMany(mappedBy = "mentoring", cascade = {PERSIST, REMOVE})
     private List<MentoringCategoryEntity> categories = new ArrayList<>();
 
-    @OneToMany(mappedBy = "mentoring", cascade = REMOVE)
+    @OneToMany(mappedBy = "mentoring", cascade = {PERSIST, REMOVE})
     private Set<MentoringHashTagEntity> hashTags = new HashSet<>();
 
     @OneToMany(mappedBy = "mentoring", cascade = {PERSIST, REMOVE})
     private List<MentoringLinkEntity> links = new ArrayList<>();
 
     @Builder
-    public MentoringEntity(final UserEntity user,
-                           final Title title,
-                           final Content content,
+    public MentoringEntity(final Long userId,
+                           final String title,
+                           final String content,
                            final String thumbnail,
-                           final Price price,
-                           final List<MentoringCategoryEntity> categories,
-                           final Set<MentoringHashTagEntity> hashTags,
-                           final List<MentoringLinkEntity> links) {
-        this.user = user;
-        this.title = title;
-        this.content = content;
+                           final Integer price) {
+        this.userId = userId;
+        this.title = new Title(title);
+        this.content = new Content(content);
         this.thumbnail = thumbnail;
-        this.price = price;
-        this.categories = categories;
-        this.hashTags = hashTags;
-        this.links = links;
+        this.price = new Price(price);
     }
 
-    public MentoringEntity(final Long id) {
-        this.id = id;
+    public void addMentoringCategories(final List<MentoringCategoryEntity> mentoringCategoryEntities){
+        for (final MentoringCategoryEntity entity : mentoringCategoryEntities) {
+            this.addMentoringCategory(entity);
+        }
+    }
+
+    private void addMentoringCategory(final MentoringCategoryEntity entity){
+        categories.add(entity);
+        entity.addMentoring(this);
+    }
+
+    public void addMentoringHashTags(final Set<Long> hashTagIds){
+        for (final Long hashTagId : hashTagIds) {
+            this.addMentoringHasTag(MentoringHashTagEntity.of(hashTagId));
+        }
+    }
+
+    private void addMentoringHasTag(final MentoringHashTagEntity mentoringHashTagEntity){
+        hashTags.add(mentoringHashTagEntity);
+        mentoringHashTagEntity.addMentoring(this);
+    }
+
+    public void addMentoringLinks(final List<MentoringLinkEntity> mentoringLinkEntities){
+        for (final MentoringLinkEntity entity : mentoringLinkEntities) {
+            this.addMentoringLink(entity);
+        }
+    }
+
+    private void addMentoringLink(final MentoringLinkEntity mentoringLinkEntity){
+        links.add(mentoringLinkEntity);
+        mentoringLinkEntity.addMentoring(this);
     }
 
     public String getTitle(){
