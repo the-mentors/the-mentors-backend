@@ -2,7 +2,7 @@ package com.mentors.user.user;
 
 import com.mentors.authority.Authority;
 import com.mentors.global.common.BaseEntity;
-import com.mentors.global.common.Role;
+import com.mentors.user.Role;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -42,14 +42,14 @@ public class UserEntity extends BaseEntity {
     private final Set<Authority> userRoles = new HashSet<>();
 
     @Builder
-    public UserEntity(Long id, String email, String password, String username, String nickname, String profileUrl, Role role) {
+    public UserEntity(Long id, String email, String password, String username, String nickname, String profileUrl, String role) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.username = username;
         this.nickname = nickname;
         this.profileUrl = profileUrl;
-        this.userRoles.add(new Authority(role));
+        this.userRoles.add(new Authority(Enum.valueOf(Role.class,role)));
 
     }
 

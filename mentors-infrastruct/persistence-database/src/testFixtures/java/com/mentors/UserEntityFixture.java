@@ -2,13 +2,13 @@ package com.mentors;
 
 import static java.time.LocalDateTime.now;
 
-import com.mentors.global.common.Role;
+
 import com.mentors.user.user.UserEntity;
 import java.time.LocalDateTime;
 
 public enum UserEntityFixture {
 
-    BASIC_USER(1L, "user1@email.com", "password", "사용자1", "사용자닉네임1", "www.user1.com", "USER", now(), now()),
+    BASIC_USER(1L, "user1@email.com", "password", "사용자1", "사용자닉네임1", "www.user1.com", "ROLE_USER", now(), now()),
     ;
 
     private final Long userId;
@@ -43,6 +43,6 @@ public enum UserEntityFixture {
 
     public static UserEntity 기본유저_엔티티() {
         return new UserEntity(BASIC_USER.userId, BASIC_USER.email, BASIC_USER.password, BASIC_USER.username,
-                BASIC_USER.nickname, BASIC_USER.profileUrl, Role.USER);
+                BASIC_USER.nickname, BASIC_USER.profileUrl, BASIC_USER.role);
     }
 }
