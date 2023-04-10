@@ -35,7 +35,7 @@ public class AuthRepositoryTest extends RepositoryTest {
     void giveUnSavedAuthKey_whenFindAuthByKey_thenNull() {
         //given
         initializeAuthTokenSave();
-        Long unSavedAuthTokenKey=0L;
+        Long unSavedAuthTokenKey = 0L;
         //when && then
         assertThat(authRepository.findByKeys(unSavedAuthTokenKey)).isEmpty();
 
@@ -57,6 +57,26 @@ public class AuthRepositoryTest extends RepositoryTest {
         assertThat(authRepository.findByKeys(key)).isEmpty();
 
     }
+
+    @DisplayName("[Repository] 키가 존재한다면 참을 반환하고 존재하지 않다면 거짓을 반환한다.")
+    @Test
+    void giveAuthKey_whenExistsByKeys_thenDelete() {
+        //given
+        Long key = initializeAuthTokenSave();
+        //when&&then
+        assertThat(authRepository.existsByKeys(key)).isTrue();
+    }
+
+    @DisplayName("[Repository] 키가 존재한다면 참을 반환하고 존재하지 않다면 거짓을 반환한다.")
+    @Test
+    void giveUnSavedAuthKey_whenExistsByKeys_thenDelete() {
+        //given
+        Long unSavedKey = 0L;
+        //when&&then
+        assertThat(authRepository.existsByKeys(unSavedKey)).isFalse();
+
+    }
+
 
     private Long initializeAuthTokenSave() {
         return authRepository.save(기본토큰생성()).getKeys();
