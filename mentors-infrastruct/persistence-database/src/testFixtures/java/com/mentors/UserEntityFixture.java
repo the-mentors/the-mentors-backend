@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 public enum UserEntityFixture {
 
-    BASIC_USER(1L, "user1@email.com", "password", "사용자1", "사용자닉네임1", "www.user1.com", "ROLE_USER", now(), now()),
+    BASIC_USER(1L, "user1@email.com", "password", "사용자1", "사용자닉네임1", "www.user1.com", "USER", now(), now()),
     ;
 
     private final Long userId;
