@@ -33,7 +33,7 @@ public class LoginAuthenticationSuccessHandler implements AuthenticationSuccessH
 
         final LoginUser user = (LoginUser) authentication.getPrincipal();
         final AuthToken authToken = jwtCreator.createAuthToken(String.valueOf(user.id()), user.role());
-
+        authService.ifExistAuthTokenDelete(user.id());
         authService.saveAuthToken(user.id(), authToken.refreshToken());
         objectMapper.writeValue(response.getWriter(), ResponseEntity.ok(authToken));
     }

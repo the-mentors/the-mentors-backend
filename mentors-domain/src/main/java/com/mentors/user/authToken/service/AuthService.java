@@ -7,5 +7,5 @@ public interface AuthService {
     boolean existAuthToken(Long userId);
 
     String saveAuthToken(Long userId,String refreshToken);
-    void deleteByKey(Long key);
+    void ifExistAuthTokenDelete(Long key);
 }

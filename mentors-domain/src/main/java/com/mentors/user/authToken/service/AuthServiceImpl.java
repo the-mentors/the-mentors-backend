@@ -27,7 +27,6 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String saveAuthToken(Long key, String refreshToken) {
-        ifExistAuthTokenDelete(key);
         AuthEntity authEntity = createAuthTokenEntity(key, refreshToken);
         return authRepository.save(authEntity).getRefreshToken();
     }
@@ -39,14 +38,10 @@ public class AuthServiceImpl implements AuthService {
                 .build();
     }
 
-    private void ifExistAuthTokenDelete(Long key) {
-        if(existAuthToken(key)){
-            deleteByKey(key);
-        }
-    }
-
     @Override
-    public void deleteByKey(Long key) {
-        authRepository.deleteByKeys(key);
+    public void ifExistAuthTokenDelete(Long key) {
+        if(existAuthToken(key)){
+            authRepository.deleteByKeys(key);
+        }
     }
 }
