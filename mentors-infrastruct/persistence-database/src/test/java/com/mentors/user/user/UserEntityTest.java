@@ -2,10 +2,12 @@ package com.mentors.user.user;
 
 import static com.mentors.UserEntityFixture.기본유저_엔티티;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.mentors.mentoring.mentoring.Title;
 import com.mentors.user.user.UserEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
