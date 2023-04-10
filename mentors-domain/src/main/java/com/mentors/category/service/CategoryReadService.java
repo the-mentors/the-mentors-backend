@@ -8,4 +8,5 @@ public interface CategoryReadService {
 
     List<Category> getCategories();
     CategoryCode existCategory(Long code);
+    Long findCategoryIdByCode(final Long code);
 }
