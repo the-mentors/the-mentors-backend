@@ -22,7 +22,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public boolean existAuthToken(Long key) {
-        return authRepository.existsById(key);
+        return authRepository.existsByKeys(key);
     }
 
     @Override
