@@ -15,7 +15,7 @@ public class UserDomainMapper {
                 .username(user.username())
                 .nickname(user.nickname())
                 .profileUrl(user.profileUrl())
-                .role(Role.USER.getRole())
+                .role(Role.USER.toString())
                 .build();
     }
 
