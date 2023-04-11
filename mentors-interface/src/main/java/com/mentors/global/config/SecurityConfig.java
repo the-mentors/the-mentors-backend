@@ -44,7 +44,7 @@ public class SecurityConfig {
     private final AuthService authService;
     private final JwtTokenProvider jwtTokenProvider;
     private final UserReadService userReadService;
-    private final String loginUrl="/api/v1/signin";
+    private final String loginUrl="/api/v1/users/signin";
 
     @Bean
     public AuthenticationManager authenticationManager(final HttpSecurity http) throws Exception {
