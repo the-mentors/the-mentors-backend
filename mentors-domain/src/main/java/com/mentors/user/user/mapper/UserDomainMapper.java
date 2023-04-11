@@ -1,5 +1,6 @@
 package com.mentors.user.user.mapper;
 
+import com.mentors.authority.Authority;
 import com.mentors.user.Role;
 import com.mentors.user.user.UserEntity;
 import com.mentors.user.user.domain.User;
@@ -45,7 +46,8 @@ public class UserDomainMapper {
     private static ArrayList<String> changeAuthoritiesToString(Object[] authorities) {
         ArrayList<String> arrayListRole =new ArrayList<>();
         for(Object role:authorities){
-            arrayListRole.add(role.toString());
+            Authority authority=(Authority) role;
+            arrayListRole.add(authority.getRole().toString());
         }
         return arrayListRole;
     }
