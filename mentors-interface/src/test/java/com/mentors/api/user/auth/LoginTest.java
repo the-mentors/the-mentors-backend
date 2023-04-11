@@ -32,9 +32,4 @@ class LoginTest extends RestApiTest {
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(OK);
     }
-
-
-    private Long initializeSaveUser(){
-        return userWriteService.signUp(toDomain());
-    }
 }
