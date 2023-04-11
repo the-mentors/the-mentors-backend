@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public enum UserFixture {
 
-    USER1("user1@email.com","{noop}password","사용자1","사용자닉네임1","www.user1.com"),
-    UPDATE_USER("update1@email.com","{noop}password","수정_사용자","수정_닉네임","www.update.com");
+    USER1("user1@email.com","password","사용자1","사용자닉네임1","www.user1.com"),
+    UPDATE_USER("update1@email.com","password","수정_사용자","수정_닉네임","www.update.com");
     private final String email;
     private final String password;
     private final String username;
