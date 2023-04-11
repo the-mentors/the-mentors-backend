@@ -2,6 +2,8 @@ package com.mentors;
 
 import com.mentors.user.user.domain.User;
 
+import java.util.ArrayList;
+
 public enum UserFixture {
 
     USER1("user1@email.com","password","사용자1","사용자닉네임1","www.user1.com"),
@@ -21,6 +23,11 @@ public enum UserFixture {
 
     public static User toDomain(){
         return new User(null, USER1.email, USER1.password, USER1.username, USER1.nickname, USER1.profileUrl, null,null,null);
+    }
+    public static User toDomainWithRole(){
+        ArrayList<String> roles = new ArrayList<>();
+        roles.add("USER");
+        return new User(null, USER1.email, USER1.password, USER1.username, USER1.nickname, USER1.profileUrl, roles,null,null);
     }
 
     public static User toUpdateUser(){
