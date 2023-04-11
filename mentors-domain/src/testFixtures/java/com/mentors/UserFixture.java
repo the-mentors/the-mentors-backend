@@ -30,6 +30,12 @@ public enum UserFixture {
         return new User(null, USER1.email, USER1.password, USER1.username, USER1.nickname, USER1.profileUrl, roles,null,null);
     }
 
+    public static User toDomainWithRoleAndUserId(){
+        ArrayList<String> roles = new ArrayList<>();
+        roles.add("USER");
+        return new User(1L, USER1.email, USER1.password, USER1.username, USER1.nickname, USER1.profileUrl, roles,null,null);
+    }
+
     public static User toUpdateUser(){
         return new User(null, UPDATE_USER.email, UPDATE_USER.password, UPDATE_USER.username, UPDATE_USER.nickname, UPDATE_USER.profileUrl, null,null,null);
     }
