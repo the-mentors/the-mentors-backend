@@ -1,6 +1,7 @@
 package com.mentors.support;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mentors.lib.DatabaseCleaner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -19,6 +20,9 @@ public class RestApiTest {
 
     @LocalServerPort
     protected int port;
+
+    @Autowired
+    private DatabaseCleaner databaseCleaner;
     protected TestRestTemplate rest;
 
     @Autowired
@@ -32,5 +36,6 @@ public class RestApiTest {
         rest = new TestRestTemplate();
         headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
+        databaseCleaner.execute();
     }
 }

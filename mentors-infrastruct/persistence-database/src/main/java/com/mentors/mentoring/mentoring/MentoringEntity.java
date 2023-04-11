@@ -9,9 +9,11 @@ import static lombok.AccessLevel.PROTECTED;
 import com.mentors.global.common.BaseEntity;
 import com.mentors.mentoring.category.MentoringCategoryEntity;
 import com.mentors.mentoring.hashtag.MentoringHashTagEntity;
-import com.mentors.user.UserEntity;
+import com.mentors.user.user.UserEntity;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -41,18 +43,17 @@ public class MentoringEntity extends BaseEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @Column(nullable = false)
-    private String title;
+    @Embedded
+    private Title title;
 
-    @Lob
-    @Column(nullable = false)
-    private String content;
+    @Embedded
+    private Content content;
 
     @Column(nullable = false)
     private String thumbnail;
 
-    @Column(nullable = false)
-    private Integer price;
+    @Embedded
+    private Price price;
 
     @OneToMany(mappedBy = "mentoring", cascade = { REMOVE })
     private List<MentoringCategoryEntity> categories = new ArrayList<>();
@@ -65,10 +66,10 @@ public class MentoringEntity extends BaseEntity {
 
     @Builder
     public MentoringEntity(final UserEntity user,
-                           final String title,
-                           final String content,
+                           final Title title,
+                           final Content content,
                            final String thumbnail,
-                           final Integer price,
+                           final Price price,
                            final List<MentoringCategoryEntity> categories,
                            final Set<MentoringHashTagEntity> hashTags,
                            final List<MentoringLinkEntity> links) {
@@ -84,5 +85,17 @@ public class MentoringEntity extends BaseEntity {
 
     public MentoringEntity(final Long id) {
         this.id = id;
+    }
+
+    public String getTitle(){
+        return title.getValue();
+    }
+
+    public Integer getPrice(){
+        return price.getValue();
+    }
+
+    public String getContent(){
+        return content.getValue();
     }
 }

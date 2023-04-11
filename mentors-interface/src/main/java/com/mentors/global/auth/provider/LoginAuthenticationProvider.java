@@ -1,8 +1,10 @@
 package com.mentors.global.auth.provider;
 
 import com.mentors.api.user.dto.UserSignInRequest;
+import com.mentors.global.auth.dto.LoginUser;
 import com.mentors.global.auth.token.LoginAuthenticationToken;
 import com.mentors.user.auth.UserContext;
+import com.mentors.user.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -23,12 +25,22 @@ public class LoginAuthenticationProvider implements AuthenticationProvider {
         final String password = (String) authentication.getCredentials();
 
         final UserContext userContext = (UserContext) userDetailsService.loadUserByUsername(principal.email());
-
         if (isNotMatchPassword(password, userContext)) {
             throw new BadCredentialsException("");
         }
+        LoginUser loginUser = userContextUserToLoginUser(userContext.getUser());
+        return new LoginAuthenticationToken(loginUser, null, userContext.getAuthorities());
+    }
 
-        return new LoginAuthenticationToken(userContext.getUser(), null, userContext.getAuthorities());
+    private static LoginUser userContextUserToLoginUser(User user) {
+        return  LoginUser.builder()
+                .id(user.id())
+                .email(user.email())
+                .nickname(user.nickname())
+                .profileUrl(user.profileUrl())
+                .role(user.role())
+                .createDate(user.createdAt())
+                .build();
     }
 
     private boolean isNotMatchPassword(String password, UserContext userContext) {

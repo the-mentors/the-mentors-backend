@@ -4,9 +4,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface AuthTokenRepository extends JpaRepository<AuthTokenEntity, Long> {
-    Optional<AuthTokenEntity> findByKeys(final Long key);
+public interface AuthRepository extends JpaRepository<AuthEntity, Long> {
+    Optional<AuthEntity> findByKeys(final Long key);
 
     void deleteByKeys(final Long key);
+
+    boolean existsByKeys(final Long key);
 }
 

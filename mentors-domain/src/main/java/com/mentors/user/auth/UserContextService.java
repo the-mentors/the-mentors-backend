@@ -1,7 +1,7 @@
 package com.mentors.user.auth;
 
 import com.mentors.authority.Authority;
-import com.mentors.global.common.Role;
+import com.mentors.user.Role;
 import com.mentors.user.user.UserRepository;
 import com.mentors.user.user.domain.User;
 import com.mentors.user.user.mapper.UserDomainMapper;
