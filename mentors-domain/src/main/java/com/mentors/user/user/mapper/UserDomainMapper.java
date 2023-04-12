@@ -46,7 +46,7 @@ public class UserDomainMapper {
                 user.getUpdatedAt());
     }
 
-    private static List<String> convertAuthoritiesToString(Collection<? extends GrantedAuthority> authorities) {
+    public static List<String> convertAuthoritiesToString(Collection<? extends GrantedAuthority> authorities) {
         return authorities.stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());

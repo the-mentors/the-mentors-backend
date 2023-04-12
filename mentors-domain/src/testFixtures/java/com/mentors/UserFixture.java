@@ -3,6 +3,7 @@ package com.mentors;
 import com.mentors.user.user.domain.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public enum UserFixture {
 
@@ -13,6 +14,7 @@ public enum UserFixture {
     private final String username;
     private final String nickname;
     private final String profileUrl;
+
     UserFixture(String email, String password, String username, String nickname, String profileUrl) {
         this.email = email;
         this.password = password;
@@ -25,15 +27,11 @@ public enum UserFixture {
         return new User(null, USER1.email, USER1.password, USER1.username, USER1.nickname, USER1.profileUrl, null,null,null);
     }
     public static User toDomainWithRole(){
-        ArrayList<String> roles = new ArrayList<>();
-        roles.add("USER");
-        return new User(null, USER1.email, USER1.password, USER1.username, USER1.nickname, USER1.profileUrl, roles,null,null);
+        return new User(null, USER1.email, USER1.password, USER1.username, USER1.nickname, USER1.profileUrl, List.of("ROLE_USER"),null,null);
     }
 
     public static User toDomainWithRoleAndUserId(){
-        ArrayList<String> roles = new ArrayList<>();
-        roles.add("USER");
-        return new User(1L, USER1.email, USER1.password, USER1.username, USER1.nickname, USER1.profileUrl, roles,null,null);
+        return new User(1L, USER1.email, USER1.password, USER1.username, USER1.nickname, USER1.profileUrl, List.of("ROLE_USER"),null,null);
     }
 
     public static User toUpdateUser(){

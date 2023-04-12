@@ -2,6 +2,8 @@ package com.mentors.user.auth;
 
 import com.mentors.authority.Authority;
 import com.mentors.support.ServiceTest;
+import com.mentors.user.user.domain.User;
+import com.mentors.user.user.mapper.UserDomainMapper;
 import com.mentors.user.user.service.UserWriteService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -16,6 +18,7 @@ import java.util.Collection;
 import java.util.List;
 
 import static com.mentors.UserFixture.*;
+import static com.mentors.user.user.mapper.UserDomainMapper.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,7 +27,6 @@ class UserContextServiceTest extends ServiceTest {
 
     @Autowired
     private UserContextService userContextService;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
@@ -39,17 +41,17 @@ class UserContextServiceTest extends ServiceTest {
     @Test
     void giveEmail_whenLoadUserByEmail_thenReturnUserDetails() {
         //given
-        String email = toDomainWithRole().email();
-        //when&&then
-        UserDetails actual = userContextService.loadUserByUsername(email);
-        String password = toDomainWithRole().password();
-        passwordEncoder.matches(password,actual.getPassword());
-        ArrayList<String> arr = AuthorityToString(actual.getAuthorities());
+        final User fixture = toDomainWithRole();
 
+        //when
+        var actual = (UserContext) userContextService.loadUserByUsername(fixture.email());
+        var actualRoles = convertAuthoritiesToString(actual.getAuthorities());
+
+        //when
         assertAll(() -> {
-            assertThat(actual.getUsername()).isEqualTo(email);
-            assertThat(passwordEncoder.matches(password,actual.getPassword())).isTrue();
-            assertThat(arr).isEqualTo(toDomainWithRole().role());
+            assertThat(actual.getUsername()).isEqualTo(fixture.email());
+            assertThat(passwordEncoder.matches(fixture.password(), actual.getPassword())).isTrue();
+            assertThat(actualRoles).isEqualTo(toDomainWithRole().role());
         });
     }
 
@@ -58,21 +60,10 @@ class UserContextServiceTest extends ServiceTest {
     void giveUnSavedEmail_whenLoadUserByEmail_thenReturnUserDetails() {
         //given
         String UnSavedEmail = toUpdateUser().email();
-        //when&&then
-        assertThatThrownBy(() -> userContextService.loadUserByUsername(UnSavedEmail));
-    }
 
-    //추후 기능 완성이 끝난후 ArrayList ->List로 변경 예정
-    private static ArrayList<String> AuthorityToString(Collection<? extends GrantedAuthority> authorities) {
-        List<? extends GrantedAuthority> collect = authorities
-                .stream().toList();
-        ArrayList<String> arr = new ArrayList<>();
-        for (Object role : collect) {
-            Authority authority = (Authority) role;
-            System.out.println(authority.getRole().toString());
-            arr.add(authority.getRole().toString());
-        }
-        return arr;
+        //when & then
+        assertThatThrownBy(() -> userContextService.loadUserByUsername(UnSavedEmail))
+                .isInstanceOf(RuntimeException.class);
     }
 
 }
