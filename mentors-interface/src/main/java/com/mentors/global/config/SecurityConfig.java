@@ -10,7 +10,7 @@ import com.mentors.global.auth.handler.LoginDeniedHandler;
 import com.mentors.global.auth.jwt.JwtTokenProvider;
 import com.mentors.global.auth.provider.LoginAuthenticationProvider;
 import com.mentors.user.auth.UserContextService;
-import com.mentors.user.authToken.service.AuthTokenService;
+import com.mentors.user.authToken.service.AuthService;
 import com.mentors.user.user.service.UserReadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -35,16 +35,16 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class SecurityConfig {
 
     private static final String[] AUTH_WHITELIST = {
-            "/api/v1/users/signup", "/api/v1/users/signin"
+            "/api/v1/users/signup", "/api/v1/users/signin", "/h2-console/*"
     };
 
     private final UserContextService userContextService;
     private final PasswordEncoder passwordEncoder;
     private final ObjectMapper objectMapper;
-    private final AuthTokenService authTokenService;
+    private final AuthService authService;
     private final JwtTokenProvider jwtTokenProvider;
     private final UserReadService userReadService;
-    private final String loginUrl="/api/v1/signin";
+    private final String loginUrl="/api/v1/users/signin";
 
     @Bean
     public AuthenticationManager authenticationManager(final HttpSecurity http) throws Exception {
@@ -74,6 +74,10 @@ public class SecurityConfig {
                         .anyRequest()
                         .authenticated());
         http
+                .headers()
+                .frameOptions()
+                .sameOrigin();
+        http
                 .addFilterBefore(loginAuthenticationFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthenticationFilter(), LoginAuthenticationFilter.class);
 
@@ -101,7 +105,7 @@ public class SecurityConfig {
 
     @Bean
     public LoginAuthenticationSuccessHandler loginAuthenticationSuccessHandler() {
-        return new LoginAuthenticationSuccessHandler(objectMapper, jwtTokenProvider, authTokenService);
+        return new LoginAuthenticationSuccessHandler(objectMapper, jwtTokenProvider, authService);
     }
 
     @Bean
@@ -111,7 +115,7 @@ public class SecurityConfig {
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
-        return new JwtAuthenticationFilter(objectMapper, authTokenService, jwtTokenProvider, userReadService);
+        return new JwtAuthenticationFilter(objectMapper, authService, jwtTokenProvider, userReadService);
     }
 
     @Bean

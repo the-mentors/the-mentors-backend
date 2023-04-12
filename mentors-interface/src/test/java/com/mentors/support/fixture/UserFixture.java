@@ -1,11 +1,13 @@
 package com.mentors.support.fixture;
 
 import com.mentors.api.user.dto.UserEditRequest;
+import com.mentors.api.user.dto.UserSignInRequest;
 import com.mentors.api.user.dto.UserSignUpRequest;
 
 public enum UserFixture {
     BASIC_USER(1L, "user1@email.com", "password", "encodePassword", "username", "nickname", "www.url.com"),
     UPDATE_USER(1L, "update@email.com", "password", "encodePassword", "updateUsername", "updateNickname", "www.update.com"),
+    WRONG_USER(1L, "wrong@email.com", "wrongpassword", "encodePassword", "wrongUsername", "wrongNickname", "www.update.com"),
     ;
 
 
@@ -39,6 +41,13 @@ public enum UserFixture {
                 BASIC_USER.username,
                 BASIC_USER.nickname,
                 BASIC_USER.profileUrl);
+    }
+    public static UserSignInRequest 로그인_요청정보(){
+        return new UserSignInRequest(BASIC_USER.email,BASIC_USER.password);
+    }
+
+    public static UserSignInRequest 잘못된로그인_요청정보(){
+        return new UserSignInRequest(BASIC_USER.email, WRONG_USER.password);
     }
 
     public static UserEditRequest 회원정보수정_요청정보() {

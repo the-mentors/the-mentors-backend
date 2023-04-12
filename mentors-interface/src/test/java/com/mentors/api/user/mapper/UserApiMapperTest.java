@@ -18,7 +18,7 @@ class UserApiMapperTest extends BasicClassTest {
     @Test
     void givenSignUpRequest_whenTransformingDomain_thenReturnDomainUser() {
         //given & when
-        User user = UserApiMapper.toDomain(회원가입_요청정보(), 기본유저_인코딩_패스워드());
+        User user = UserApiMapper.toDomain(회원가입_요청정보());
         //then
         assertInstanceOf(User.class, user);
     }

@@ -33,12 +33,14 @@ public class LoginAuthenticationProvider implements AuthenticationProvider {
     }
 
     private static LoginUser userContextUserToLoginUser(User user) {
-        return new LoginUser(user.id()
-                , user.email()
-                , user.nickname()
-                , user.profileUrl()
-                , user.role()
-                , user.createdAt());
+        return  LoginUser.builder()
+                .id(user.id())
+                .email(user.email())
+                .nickname(user.nickname())
+                .profileUrl(user.profileUrl())
+                .role(user.role())
+                .createDate(user.createdAt())
+                .build();
     }
 
     private boolean isNotMatchPassword(String password, UserContext userContext) {
