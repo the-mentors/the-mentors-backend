@@ -1,5 +1,6 @@
 package com.mentors.user;
 
+import java.util.Arrays;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -11,4 +12,15 @@ public enum Role {
     ANONYMOUS("ROLE_ANONYMOUS");
 
     private final String role;
+
+    public static Role findByName(final String name){
+        return Arrays.stream(values())
+                .filter(value -> value.isSameName(name))
+                .findFirst()
+                .orElseThrow();
+    }
+
+    private boolean isSameName(final String name) {
+        return this.role.equals(name);
+    }
 }
