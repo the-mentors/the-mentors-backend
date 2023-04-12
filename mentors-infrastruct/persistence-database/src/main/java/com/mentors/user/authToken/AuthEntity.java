@@ -12,7 +12,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Entity
 @Table(name = "auths")
 @NoArgsConstructor(access = PROTECTED)
-public class AuthTokenEntity{
+public class AuthEntity {
 
     @Id @GeneratedValue(strategy = IDENTITY)
     @Column(name = "auth_id")
@@ -21,7 +21,7 @@ public class AuthTokenEntity{
     private String refreshToken;
 
     @Builder
-    public AuthTokenEntity(final Long keys, final String refreshToken) {
+    public AuthEntity(final Long keys, final String refreshToken) {
         this.keys = keys;
         this.refreshToken = refreshToken;
     }

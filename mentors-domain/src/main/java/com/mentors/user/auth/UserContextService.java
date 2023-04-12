@@ -1,10 +1,14 @@
 package com.mentors.user.auth;
 
+import static com.mentors.user.Role.*;
+
 import com.mentors.authority.Authority;
-import com.mentors.global.common.Role;
+import com.mentors.user.Role;
 import com.mentors.user.user.UserRepository;
 import com.mentors.user.user.domain.User;
 import com.mentors.user.user.mapper.UserDomainMapper;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,13 +30,13 @@ public class UserContextService implements UserDetailsService {
 
         final User findUser = userRepository.findByEmail(email).map(UserDomainMapper::toDomain)
                 .orElseThrow(RuntimeException::new);
-        ArrayList<Authority> authorities = changeStringToAuthorityByRole(findUser.role());
+        List<Authority> authorities = convertStringToAuthorityByRole(findUser.role());
         return new UserContext(findUser, authorities);
     }
 
-    private static ArrayList<Authority> changeStringToAuthorityByRole(ArrayList<String> roles) {
-        ArrayList<Authority> authorities = new ArrayList<>();
-        roles.forEach(role->authorities.add(new Authority(Enum.valueOf(Role.class, role))));
-        return authorities;
+    private static List<Authority> convertStringToAuthorityByRole(List<String> roles) {
+        return roles.stream()
+                .map(role -> new Authority(findByName(role)))
+                .collect(Collectors.toList());
     }
 }
