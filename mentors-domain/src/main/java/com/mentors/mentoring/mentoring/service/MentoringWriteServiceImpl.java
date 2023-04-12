@@ -41,8 +41,8 @@ public class MentoringWriteServiceImpl implements MentoringWriteService{
         final var findMentoring = findMentoring(mentoringId);
         validateOwner(findMentoring, userId);
 
-        mentoringLinkRepository.deleteByMentoring(findMentoring);
-        mentoringCategoryRepository.deleteByMentoring(findMentoring);
+        mentoringLinkRepository.deleteAllByMentoring(findMentoring);
+        mentoringCategoryRepository.deleteAllByMentoring(findMentoring);
         mentoringRepository.delete(findMentoring);
     }
 

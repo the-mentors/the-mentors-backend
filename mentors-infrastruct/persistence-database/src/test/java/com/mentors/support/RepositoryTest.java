@@ -1,8 +1,11 @@
 package com.mentors.support;
 
+import static com.mentors.CategoryEntityFixture.toEntity;
 import static com.mentors.MentoringEntityFixture.멘토링_등록;
 import static com.mentors.UserEntityFixture.기본유저_엔티티;
 
+import com.mentors.category.CategoryEntity;
+import com.mentors.category.CategoryRepository;
 import com.mentors.global.config.JpaConfiguration;
 import com.mentors.mentoring.hashtag.HashTagEntity;
 import com.mentors.mentoring.hashtag.HashTagRepository;
@@ -35,6 +38,9 @@ public class RepositoryTest {
     @Autowired
     protected HashTagRepository hashTagRepository;
 
+    @Autowired
+    protected CategoryRepository categoryRepository;
+
     protected UserEntity initializeSavedUser() {
         return userRepository.save(기본유저_엔티티());
     }
@@ -45,5 +51,9 @@ public class RepositoryTest {
 
     protected HashTagEntity initializeSavedHashTag(final String name){
         return hashTagRepository.save(new HashTagEntity(name));
+    }
+
+    protected CategoryEntity initializeSavedCategory(){
+        return categoryRepository.save(toEntity());
     }
 }

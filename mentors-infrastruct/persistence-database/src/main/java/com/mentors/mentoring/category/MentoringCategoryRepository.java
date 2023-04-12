@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MentoringCategoryRepository extends JpaRepository<MentoringCategoryEntity, Long> {
 
-    void deleteByMentoring(final MentoringEntity mentoring);
+    void deleteAllByMentoring(final MentoringEntity mentoring);
 }
