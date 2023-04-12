@@ -26,9 +26,8 @@ public class UserReadServiceImpl implements UserReadService {
 
     }
 
-    private void validateCheckPassword(String dataBasePassword, String requestPassword) {
-        if(!passwordEncoder.matches(requestPassword,dataBasePassword)){
-            throw new RuntimeException("인증정보가 일치하지 않습니다.");
-        }
+    public void validateExistById(Long userId){
+        if (!userRepository.existsById(userId))
+            throw new IllegalArgumentException();
     }
 }

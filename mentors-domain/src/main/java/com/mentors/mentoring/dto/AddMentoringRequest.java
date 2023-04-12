@@ -1,14 +1,13 @@
-package com.mentors.api.mentoring.mentoring.dto;
+package com.mentors.mentoring.dto;
 
-import com.mentors.mentoring.dto.AddMentoringCommand.MentoringLinkCommand;
 import java.util.List;
+import java.util.Set;
 
 public record AddMentoringRequest(String title,
                                   String content,
-                                  Integer price,
                                   String thumbnail,
+                                  Integer price,
                                   List<String> hashTags,
                                   List<Long> categoryCodes,
-                                  List<MentoringLinkCommand> links) {
+                                  List<AddMentoringLinkRequest> links) {
 }
-

@@ -78,6 +78,10 @@ public class MentoringEntity extends BaseEntity {
         this.price = new Price(price);
     }
 
+    public boolean isOwner(final Long ownerId){
+        return userId.equals(ownerId);
+    }
+
     public void addMentoringCategories(final List<MentoringCategoryEntity> mentoringCategoryEntities){
         for (final MentoringCategoryEntity entity : mentoringCategoryEntities) {
             this.addMentoringCategory(entity);
