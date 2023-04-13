@@ -1,0 +1,23 @@
+### 1. 게시물 등록
+POST localhost:8080/api/v1/mentoring
+Content-Type: application/json
+
+{
+  "title": "제목입니다.",
+  "content": "내용입니다.",
+  "price": 100000,
+  "thumbnail" : "mentoring@s3.com",
+  "categoryCodes" : [ 1000, 1100],
+  "hashTags" : [ "해시태그1", "해시태그1", "해시태그2"],
+  "links": [
+    {
+      "type": 1,
+      "url": "link@naver.com"
+    },
+    {
+      "type": 2,
+      "url": "link@naver.com"
+    }
+  ]
+}
+
