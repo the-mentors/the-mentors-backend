@@ -32,11 +32,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final UserReadService userReadService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(final HttpServletRequest request,final HttpServletResponse response,final FilterChain filterChain)
             throws ServletException, IOException {
 
         try {
-            final String accessToken = extractAccessTokenFromHeader(request);
+            final var accessToken = extractAccessTokenFromHeader(request);
 
             if (isTokenExpired(accessToken)) {
                 final var key = jwtTokenProvider.getPayload(accessToken);
@@ -63,21 +63,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private String extractAccessTokenFromHeader(HttpServletRequest request) {
+    private String extractAccessTokenFromHeader(final HttpServletRequest request) {
         return AuthorizationExtractor.extract(request, BEARER);
     }
 
-    private boolean isTokenExpired(String token) {
+    private boolean isTokenExpired(final String token) {
         return jwtTokenProvider.isTokenExpired(token);
     }
 
-    private static void setResponseHeader(HttpServletResponse response, HttpStatus status) {
+    private static void setResponseHeader(final HttpServletResponse response,final HttpStatus status) {
         response.setCharacterEncoding(UTF_8.name());
         response.setStatus(status.value());
         response.setContentType(APPLICATION_JSON_VALUE);
     }
 
-    private UsernamePasswordAuthenticationToken createAuthentication(String accessToken)  {
+    private UsernamePasswordAuthenticationToken createAuthentication(final String accessToken)  {
         final var userId = (String) jwtTokenProvider.getPayload(accessToken);
         final var roles = jwtTokenProvider.getRolesFromToken(accessToken);
 

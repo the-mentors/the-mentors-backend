@@ -23,7 +23,7 @@ public class LoginAuthenticationEntryPoint implements AuthenticationEntryPoint {
         objectMapper.writeValue(response.getWriter(), authException.getMessage());
     }
 
-    private static void setUnauthorizedHeader(HttpServletResponse response) {
+    private static void setUnauthorizedHeader(final HttpServletResponse response) {
         response.setCharacterEncoding(UTF_8.name());
         response.setStatus(UNAUTHORIZED.value());
         response.setContentType(APPLICATION_JSON_VALUE);

@@ -95,7 +95,7 @@ public class SecurityConfig {
 
     @Bean
     public LoginAuthenticationFilter loginAuthenticationFilter(final AuthenticationManager authenticationManager) {
-        LoginAuthenticationFilter loginAuthenticationFilter = new LoginAuthenticationFilter(objectMapper);
+        var loginAuthenticationFilter = new LoginAuthenticationFilter(objectMapper);
         loginAuthenticationFilter.setAuthenticationManager(authenticationManager);
         loginAuthenticationFilter.setAuthenticationSuccessHandler(loginAuthenticationSuccessHandler());
         loginAuthenticationFilter.setAuthenticationFailureHandler(loginAuthenticationFailureHandler());
@@ -134,13 +134,13 @@ public class SecurityConfig {
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        final CorsConfiguration configuration = new CorsConfiguration();
+        final var configuration = new CorsConfiguration();
         configuration.addAllowedOriginPattern(CorsConfiguration.ALL);
         configuration.addAllowedHeader(CorsConfiguration.ALL);
         configuration.addAllowedMethod(CorsConfiguration.ALL);
         configuration.setAllowCredentials(true);
 
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        final var source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }

@@ -44,11 +44,11 @@ public class LoginAuthenticationFilter extends AbstractAuthenticationProcessingF
         return getAuthenticationManager().authenticate(authenticationToken);
     }
 
-    private boolean isNoUserInformation(UserSignInRequest request) {
+    private boolean isNoUserInformation(final UserSignInRequest request) {
         return ObjectUtils.isEmpty(request.email()) || ObjectUtils.isEmpty(request.password());
     }
 
-    private boolean isContentTypeJson(HttpServletRequest request) {
+    private boolean isContentTypeJson(final HttpServletRequest request) {
         String header = request.getContentType();
         return Objects.nonNull(header) &&
                 StringUtils.hasText(header) &&

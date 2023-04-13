@@ -13,7 +13,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 public class UserDomainMapper {
 
-    public static UserEntity toEntityWithRoleUser(User user, String password) {
+    public static UserEntity toEntityWithRoleUser(final User user,final String password) {
         return UserEntity.builder()
                 .email(user.email())
                 .password(password)
@@ -24,7 +24,7 @@ public class UserDomainMapper {
                 .build();
     }
 
-    public static UserEntity toEntity(User user) {
+    public static UserEntity toEntity(final User user) {
         return UserEntity.builder()
                 .email(user.email())
                 .password(user.password())
@@ -34,7 +34,7 @@ public class UserDomainMapper {
                 .build();
     }
 
-    public static User toDomain(UserEntity user) {
+    public static User toDomain(final UserEntity user) {
         return new User(user.getId(),
                 user.getEmail(),
                 user.getPassword(),
@@ -46,7 +46,7 @@ public class UserDomainMapper {
                 user.getUpdatedAt());
     }
 
-    public static List<String> convertAuthoritiesToString(Collection<? extends GrantedAuthority> authorities) {
+    public static List<String> convertAuthoritiesToString(final Collection<? extends GrantedAuthority> authorities) {
         return authorities.stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());

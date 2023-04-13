@@ -19,7 +19,7 @@ public class UserReadServiceImpl implements UserReadService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public User findUserById(Long userId) {
+    public User findUserById(final Long userId) {
         return userRepository.findById(userId)
                 .map(UserDomainMapper::toDomain)
                 .orElseThrow(IllegalArgumentException::new);
