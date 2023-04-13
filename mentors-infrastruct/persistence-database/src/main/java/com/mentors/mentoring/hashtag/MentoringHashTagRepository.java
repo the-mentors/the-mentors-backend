@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MentoringHashTagRepository extends JpaRepository<MentoringHashTagEntity, Long> {
 
-    List<MentoringHashTagEntity> findAllByMentoringId(Long mentoringId);
-    boolean existsByHashTagId(Long hashTagId);
+    List<MentoringHashTagEntity> findAllByMentoringId(final Long mentoringId);
+    boolean existsByHashTagId(final Long hashTagId);
 }

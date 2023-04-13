@@ -23,7 +23,7 @@ class HashTagWriteServiceTest extends ServiceTest {
 
     @DisplayName("[Service] 해시태그명을 통해 저장요청시, 중복된 해시태그명이 있으면 조회하고, 중복된 이름이 없으면 저장한다")
     @Test
-    void givenHastTagNames_whenIfNotExistSaveAll_thenReturnNotDuplicateHashTagIds() {
+    void givenHashTagNames_whenIfNotExistSaveAll_thenReturnNotDuplicateHashTagIds() {
         //given
         final var names =  List.of("duplicate", "duplicate", "notDuplicate");
 
