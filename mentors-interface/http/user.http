@@ -1,0 +1,25 @@
+
+
+
+### 1. 사용자의 회원가입
+POST localhost:8080/api/v1/users/signup
+Content-Type: application/json
+
+{
+  "email": "user@gmail.com",
+  "password": "password",
+  "username": "username",
+  "nickname": "이름",
+  "profileUrl": "www.url.com"
+}
+
+
+
+### 2. 사용자 로그인
+POST localhost:8080/api/v1/users/signin
+Content-Type: application/json
+
+{
+  "email": "user@gmail.com",
+  "password": "password"
+}
