@@ -31,20 +31,8 @@ public class HashTagEntity extends BaseEntity {
         this.name = new HashTagName(name);
     }
 
-    private HashTagEntity(final Long id){
-        this.id = id;
-    }
-
-    public HashTagEntity(final String name){
-        this(null, name);
-    }
-
     public static HashTagEntity of(final Long id, final String name){
         return new HashTagEntity(id, name);
-    }
-
-    public static HashTagEntity of(final Long id){
-        return new HashTagEntity(id);
     }
 
     public String getName(){

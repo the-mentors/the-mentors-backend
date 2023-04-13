@@ -10,6 +10,7 @@ import static lombok.AccessLevel.PROTECTED;
 import com.mentors.category.CategoryEntity;
 import com.mentors.global.common.BaseEntity;
 import com.mentors.mentoring.category.MentoringCategoryEntity;
+import com.mentors.mentoring.hashtag.HashTagEntity;
 import com.mentors.mentoring.hashtag.MentoringHashTagEntity;
 import com.mentors.user.user.UserEntity;
 import jakarta.persistence.Column;
@@ -82,26 +83,24 @@ public class MentoringEntity extends BaseEntity {
         return userId.equals(ownerId);
     }
 
-    public void addMentoringCategories(final List<MentoringCategoryEntity> mentoringCategoryEntities){
-        for (final MentoringCategoryEntity entity : mentoringCategoryEntities) {
-            this.addMentoringCategory(entity);
+    public void addMentoringCategories(final List<CategoryEntity> categories){
+        for (final CategoryEntity category : categories) {
+            this.addMentoringCategory(MentoringCategoryEntity.of(this, category));
         }
     }
 
     private void addMentoringCategory(final MentoringCategoryEntity entity){
         categories.add(entity);
-        entity.addMentoring(this);
     }
 
-    public void addMentoringHashTags(final Set<Long> hashTagIds){
-        for (final Long hashTagId : hashTagIds) {
-            this.addMentoringHasTag(MentoringHashTagEntity.of(hashTagId));
+    public void addMentoringHashTags(final Set<HashTagEntity> hashTags){
+        for (final HashTagEntity hashTag : hashTags) {
+            this.addMentoringHasTag(MentoringHashTagEntity.of(this, hashTag));
         }
     }
 
     private void addMentoringHasTag(final MentoringHashTagEntity mentoringHashTagEntity){
         hashTags.add(mentoringHashTagEntity);
-        mentoringHashTagEntity.addMentoring(this);
     }
 
     public void addMentoringLinks(final List<MentoringLinkEntity> mentoringLinkEntities){

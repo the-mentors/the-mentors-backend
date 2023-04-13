@@ -43,11 +43,7 @@ public class MentoringCategoryEntity extends BaseEntity {
         this.category = category;
     }
 
-    public static MentoringCategoryEntity of(final Long categoryId){
-        return new MentoringCategoryEntity(null, CategoryEntity.of(categoryId));
-    }
-
-    public void addMentoring(final MentoringEntity mentoring){
-        this.mentoring = mentoring;
+    public static MentoringCategoryEntity of(final MentoringEntity mentoring, final CategoryEntity category){
+        return new MentoringCategoryEntity(mentoring, category);
     }
 }

@@ -1,5 +1,7 @@
 package com.mentors.mentoring.usecase;
 
+import com.mentors.category.CategoryEntity;
+import com.mentors.category.CategoryRepository;
 import com.mentors.category.service.CategoryReadService;
 import com.mentors.mentoring.dto.AddMentoringLinkRequest;
 import com.mentors.mentoring.dto.AddMentoringRequest;
@@ -19,47 +21,22 @@ import org.springframework.transaction.annotation.Transactional;
 public class AddMentoringUsecase {
 
     private final UserReadService userReadService;
-    private final CategoryReadService categoryReadService;
+    private final CategoryRepository categoryRepository;
     private final HashTagWriteServiceImpl hashTagWriteService;
     private final MentoringWriteService mentoringWriteService;
 
     public Long execute(final Long userId, final AddMentoringRequest request){
         final var findUser = userReadService.findUserById(userId);
 
-        final var categoryIds = getCategoryIdsByCodes(request.categoryCodes());
-        final var hashTagIds = hashTagWriteService.saveAllIfDontExist(request.hashTags());
-        var command = createCommand(request, categoryIds, hashTagIds);
+        final var categories = getCategoryIdsByCodes(request.categoryCodes());
+        final var hashTags = hashTagWriteService.saveAllIfDontExist(request.hashTags());
 
-        return mentoringWriteService.addMentoring(findUser.id(), command);
+        return mentoringWriteService.addMentoring(findUser.id(), request, categories, hashTags);
     }
 
-
-    public record AddMentoringCommand(String title,
-                                      String content,
-                                      String thumbnail,
-                                      Integer price,
-                                      Set<Long> hashTags,
-                                      List<Long> categories,
-                                      List<AddMentoringLinkRequest> links) {
-    }
-
-    private List<Long> getCategoryIdsByCodes(final List<Long> categoryCodes){
+    private List<CategoryEntity> getCategoryIdsByCodes(final List<Long> categoryCodes) {
         return categoryCodes.stream()
-                .map(categoryReadService::findCategoryIdByCode)
+                .map(code -> categoryRepository.findByCategoryCode(code).orElseThrow())
                 .collect(Collectors.toList());
-    }
-
-    private AddMentoringCommand createCommand(final AddMentoringRequest request,
-                                              final List<Long> categoryIds,
-                                              final Set<Long> hashTagIds){
-        return new AddMentoringCommand(
-                request.title(),
-                request.content(),
-                request.thumbnail(),
-                request.price(),
-                hashTagIds,
-                categoryIds,
-                request.links()
-        );
     }
 }

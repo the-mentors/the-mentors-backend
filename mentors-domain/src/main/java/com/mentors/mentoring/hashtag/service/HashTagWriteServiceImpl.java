@@ -2,7 +2,6 @@ package com.mentors.mentoring.hashtag.service;
 
 import com.mentors.mentoring.hashtag.HashTagEntity;
 import com.mentors.mentoring.hashtag.HashTagRepository;
-import com.mentors.mentoring.hashtag.MentoringHashTagEntity;
 import com.mentors.mentoring.hashtag.MentoringHashTagRepository;
 import com.mentors.mentoring.hashtag.mapper.HashTagDomainMapper;
 import java.util.List;
@@ -20,14 +19,13 @@ public class HashTagWriteServiceImpl implements HashTagWriteService {
     private final HashTagRepository hashTagRepository;
     private final MentoringHashTagRepository mentoringHashTagRepository;
 
-    private Long saveIfDontExist(final HashTagEntity entity){
+    private HashTagEntity saveIfDontExist(final HashTagEntity entity){
         return hashTagRepository.findByNameValue(entity.getName())
-                .orElseGet(() -> hashTagRepository.save(entity))
-                .getId();
+                .orElseGet(() -> hashTagRepository.save(entity));
     }
 
     @Override
-    public Set<Long> saveAllIfDontExist(final List<String> name){
+    public Set<HashTagEntity> saveAllIfDontExist(final List<String> name){
         return name.stream()
                 .map(HashTagDomainMapper::toEntity)
                 .map(this::saveIfDontExist)

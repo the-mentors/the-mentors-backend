@@ -2,13 +2,17 @@ package com.mentors.mentoring.mentoring.service;
 
 import static com.mentors.mentoring.mentoring.mapper.MentoringDomainMapper.toEntity;
 import static com.mentors.mentoring.mentoring.mapper.MentoringDomainMapper.toLinkEntities;
-import static com.mentors.mentoring.mentoring.mapper.MentoringDomainMapper.toMentoringCategoryEntities;
 
+import com.mentors.category.CategoryEntity;
 import com.mentors.mentoring.category.MentoringCategoryRepository;
+import com.mentors.mentoring.dto.AddMentoringLinkRequest;
+import com.mentors.mentoring.dto.AddMentoringRequest;
+import com.mentors.mentoring.hashtag.HashTagEntity;
 import com.mentors.mentoring.mentoring.MentoringEntity;
 import com.mentors.mentoring.mentoring.MentoringLinkRepository;
 import com.mentors.mentoring.mentoring.MentoringRepository;
-import com.mentors.mentoring.usecase.AddMentoringUsecase.AddMentoringCommand;
+import java.util.List;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,19 +26,25 @@ public class MentoringWriteServiceImpl implements MentoringWriteService{
     private final MentoringLinkRepository mentoringLinkRepository;
     private final MentoringCategoryRepository mentoringCategoryRepository;
 
+
     @Override
-    public Long addMentoring(final Long userId, final AddMentoringCommand command){
-        MentoringEntity entity = toEntity(userId, command);
-        initializeAdditionalInformation(entity, command);
-        return mentoringRepository.save(entity).getId();
+    public Long addMentoring(Long userId,
+                             final AddMentoringRequest request,
+                             final List<CategoryEntity> categories,
+                             final Set<HashTagEntity> hashTags) {
+        var mentoringEntity = toEntity(userId, request);
+        initializeAdditionalInformation(mentoringEntity, categories, hashTags, request.links());
+        return mentoringRepository.save(mentoringEntity).getId();
     }
 
-    private void initializeAdditionalInformation(final MentoringEntity entity, final AddMentoringCommand command) {
-        entity.addMentoringCategories(toMentoringCategoryEntities(command.categories()));
-        entity.addMentoringHashTags(command.hashTags());
-        entity.addMentoringLinks(toLinkEntities(command.links()));
+    private void initializeAdditionalInformation(final MentoringEntity entity,
+                                                 final List<CategoryEntity> categories,
+                                                 final Set<HashTagEntity> hashTags,
+                                                 final List<AddMentoringLinkRequest> links) {
+        entity.addMentoringCategories(categories);
+        entity.addMentoringHashTags(hashTags);
+        entity.addMentoringLinks(toLinkEntities(links));
     }
-
 
     @Override
     public void deleteById(final Long userId, final Long mentoringId){

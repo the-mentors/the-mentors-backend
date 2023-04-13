@@ -52,10 +52,4 @@ public class CategoryEntity extends BaseEntity {
                 .parentCode(parentCode)
                 .build();
     }
-
-    public static CategoryEntity of(final Long id){
-        return CategoryEntity.builder()
-                .id(id)
-                .build();
-    }
 }

@@ -6,7 +6,7 @@ import java.util.Set;
 
 public interface HashTagWriteService {
 
-    Set<Long> saveAllIfDontExist(final List<String> name);
+    Set<HashTagEntity> saveAllIfDontExist(final List<String> name);
 
     void deleteNotUsedHashTags(final List<HashTagEntity> hasTags);
 }

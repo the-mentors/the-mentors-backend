@@ -50,11 +50,4 @@ public class CategoryReadServiceImpl implements CategoryReadService {
     public CategoryCode existCategory(Long code) {
         return CategoryCode.findCategoryCode(code);
     }
-
-    @Override
-    public Long findCategoryIdByCode(final Long code) {
-        return categoryRepository.findByCategoryCode(code)
-                .orElseThrow()
-                .getId();
-    }
 }
