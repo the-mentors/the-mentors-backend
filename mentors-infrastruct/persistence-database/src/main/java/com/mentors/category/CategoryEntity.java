@@ -19,7 +19,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = PROTECTED)
 public class CategoryEntity extends BaseEntity {
 
-    @Id @GeneratedValue(strategy = IDENTITY)
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
     @Column(name = "category_id")
     private Long id;
 
@@ -32,9 +33,11 @@ public class CategoryEntity extends BaseEntity {
     private Long parentCode;
 
     @Builder
-    private CategoryEntity(final Long categoryCode,
-                          final String categoryName,
-                          final Long parentCode) {
+    private CategoryEntity(final Long id,
+                           final Long categoryCode,
+                           final String categoryName,
+                           final Long parentCode) {
+        this.id = id;
         this.categoryCode = categoryCode;
         this.categoryName = categoryName;
         this.parentCode = parentCode;
@@ -42,7 +45,7 @@ public class CategoryEntity extends BaseEntity {
 
     public static CategoryEntity of(final Long categoryCode,
                                     final String categoryName,
-                                    final Long parentCode){
+                                    final Long parentCode) {
         return CategoryEntity.builder()
                 .categoryCode(categoryCode)
                 .categoryName(categoryName)
