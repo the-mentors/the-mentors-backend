@@ -8,7 +8,10 @@ import com.mentors.mentoring.dto.AddMentoringLinkRequest;
 import com.mentors.mentoring.dto.AddMentoringRequest;
 import com.mentors.mentoring.mentoring.MentoringEntity;
 import com.mentors.mentoring.mentoring.MentoringLinkEntity;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class MentoringDomainMapper {
@@ -23,7 +26,8 @@ public class MentoringDomainMapper {
                 .build();
     }
 
-    public static List<MentoringLinkEntity> toLinkEntities(final List<AddMentoringLinkRequest> requests){
+    public static List<MentoringLinkEntity> toLinkEntities(final List<AddMentoringLinkRequest> requests) {
+        if (Objects.isNull(requests)) return Collections.emptyList();
         return requests.stream()
                 .map(MentoringDomainMapper::toLinkEntity)
                 .collect(Collectors.toList());

@@ -28,7 +28,7 @@ public class MentoringWriteServiceImpl implements MentoringWriteService{
 
 
     @Override
-    public Long addMentoring(Long userId,
+    public Long addMentoring(final Long userId,
                              final AddMentoringRequest request,
                              final List<CategoryEntity> categories,
                              final Set<HashTagEntity> hashTags) {
