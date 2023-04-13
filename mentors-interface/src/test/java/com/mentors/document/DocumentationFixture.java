@@ -5,12 +5,13 @@ import com.mentors.CategoryFixture;
 import com.mentors.UserFixture;
 import com.mentors.authority.Authority;
 import com.mentors.category.domain.Category;
-import com.mentors.user.Role;
 import com.mentors.user.auth.UserContext;
 import com.mentors.user.authToken.domain.AuthToken;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.mentors.user.Role.findByName;
 
 public class DocumentationFixture {
 
@@ -21,12 +22,12 @@ public class DocumentationFixture {
 
 
 
-    public static UserContext USERCONTEST_FIXTURE = new UserContext(UserFixture.toDomainWithRoleAndUserId(),changeStringToAuthorityByRole(UserFixture.toDomainWithRole().role()));
+    public static UserContext USERCONTEST_FIXTURE = new UserContext(UserFixture.toDomainWithRoleAndUserId(),convertStringToAuthorityByRole(UserFixture.toDomainWithRole().role()));
 
-    private static ArrayList<Authority> changeStringToAuthorityByRole(ArrayList<String> roles) {
-        ArrayList<Authority> authorities = new ArrayList<>();
-        roles.forEach(role->authorities.add(new Authority(Enum.valueOf(Role.class, role))));
-        return authorities;
+    private static List<Authority> convertStringToAuthorityByRole(List<String> roles) {
+        return roles.stream()
+                .map(role -> new Authority(findByName(role)))
+                .collect(Collectors.toList());
     }
 
 
