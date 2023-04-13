@@ -8,7 +8,6 @@ import com.mentors.mentoring.hashtag.HashTagEntity;
 import com.mentors.mentoring.hashtag.HashTagRepository;
 import com.mentors.support.ServiceTest;
 import java.util.List;
-import java.util.Set;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +42,7 @@ class HashTagWriteServiceTest extends ServiceTest {
     @Test
     void givenHashTags_whenRemoveNotReferenceHashTags_thenReturnVoid() {
         //given
-        final var notUsedHashTags = initializeSavedHashTags().stream().toList();
+        final var notUsedHashTags = initializeSavedHashTags(List.of("hashTag1", "hashTag2"));
 
         //when
         hashTagWriteService.deleteNotUsedHashTags(notUsedHashTags);
@@ -58,9 +57,5 @@ class HashTagWriteServiceTest extends ServiceTest {
                 return false;
         }
         return true;
-    }
-
-    private Set<HashTagEntity> initializeSavedHashTags() {
-        return hashTagWriteService.saveAllIfDontExist(List.of("hashTag1", "hashTag2"));
     }
 }
