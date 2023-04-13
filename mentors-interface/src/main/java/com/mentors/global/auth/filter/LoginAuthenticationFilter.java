@@ -20,8 +20,9 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 public class LoginAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
     private final ObjectMapper objectMapper;
+    private static final String loginUrl = "/api/v1/users/signin";
 
-    public LoginAuthenticationFilter(final ObjectMapper objectMapper,final String loginUrl) {
+    public LoginAuthenticationFilter(final ObjectMapper objectMapper) {
         super(new AntPathRequestMatcher(loginUrl));
         this.objectMapper = objectMapper;
     }
