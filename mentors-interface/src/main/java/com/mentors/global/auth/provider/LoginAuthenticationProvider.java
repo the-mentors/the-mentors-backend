@@ -20,19 +20,19 @@ public class LoginAuthenticationProvider implements AuthenticationProvider {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        final UserSignInRequest principal = (UserSignInRequest) authentication.getPrincipal();
-        final String password = (String) authentication.getCredentials();
+    public Authentication authenticate(final Authentication authentication) throws AuthenticationException {
+        final var principal = (UserSignInRequest) authentication.getPrincipal();
+        final var password = (String) authentication.getCredentials();
 
-        final UserContext userContext = (UserContext) userDetailsService.loadUserByUsername(principal.email());
+        final var userContext = (UserContext) userDetailsService.loadUserByUsername(principal.email());
         if (isNotMatchPassword(password, userContext)) {
             throw new BadCredentialsException("");
         }
-        LoginUser loginUser = userContextUserToLoginUser(userContext.getUser());
+        final var loginUser = userContextUserToLoginUser(userContext.getUser());
         return new LoginAuthenticationToken(loginUser, null, userContext.getAuthorities());
     }
 
-    private static LoginUser userContextUserToLoginUser(User user) {
+    private static LoginUser userContextUserToLoginUser(final User user) {
         return  LoginUser.builder()
                 .id(user.id())
                 .email(user.email())
@@ -43,12 +43,12 @@ public class LoginAuthenticationProvider implements AuthenticationProvider {
                 .build();
     }
 
-    private boolean isNotMatchPassword(String password, UserContext userContext) {
+    private boolean isNotMatchPassword(final String password,final UserContext userContext) {
         return !passwordEncoder.matches(password, userContext.getPassword());
     }
 
     @Override
-    public boolean supports(Class<?> authentication) {
+    public boolean supports(final Class<?> authentication) {
         return authentication.equals(LoginAuthenticationToken.class);
     }
 }

@@ -15,8 +15,8 @@ import static com.mentors.api.user.mapper.UserApiMapper.toDomain;
 @RequiredArgsConstructor
 public class SignUpUserUsecase {
     private final UserWriteService userWriteService;
-    public void execute(UserSignUpRequest userSignUpRequest) {
-        User user = toDomain(userSignUpRequest);
+    public void execute(final UserSignUpRequest userSignUpRequest) {
+        final var user = toDomain(userSignUpRequest);
         userWriteService.signUp(user);
     }
 }

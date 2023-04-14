@@ -5,11 +5,9 @@ import com.mentors.CategoryFixture;
 import com.mentors.UserFixture;
 import com.mentors.authority.Authority;
 import com.mentors.category.domain.Category;
-import com.mentors.user.Role;
 import com.mentors.user.auth.UserContext;
 import com.mentors.user.authToken.domain.AuthToken;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +21,7 @@ public class DocumentationFixture {
 
     public static UserContext USERCONTEST_FIXTURE = new UserContext(UserFixture.toDomainWithRoleAndUserId(),
             convertStringToAuthorityByRole(UserFixture.toDomainWithRole().role()));
+
 
     private static List<Authority> convertStringToAuthorityByRole(List<String> roles) {
         return roles.stream()

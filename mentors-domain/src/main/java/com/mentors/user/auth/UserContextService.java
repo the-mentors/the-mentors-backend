@@ -1,14 +1,8 @@
 package com.mentors.user.auth;
 
-import static com.mentors.user.Role.*;
-
 import com.mentors.authority.Authority;
-import com.mentors.user.Role;
 import com.mentors.user.user.UserRepository;
-import com.mentors.user.user.domain.User;
 import com.mentors.user.user.mapper.UserDomainMapper;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,7 +10,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.mentors.user.Role.findByName;
 
 @Service
 @Transactional(readOnly = true)
@@ -28,13 +25,13 @@ public class UserContextService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException {
 
-        final User findUser = userRepository.findByEmail(email).map(UserDomainMapper::toDomain)
+        final var findUser = userRepository.findByEmail(email).map(UserDomainMapper::toDomain)
                 .orElseThrow(RuntimeException::new);
-        List<Authority> authorities = convertStringToAuthorityByRole(findUser.role());
+        final var authorities = convertStringToAuthorityByRole(findUser.role());
         return new UserContext(findUser, authorities);
     }
 
-    private static List<Authority> convertStringToAuthorityByRole(List<String> roles) {
+    private static List<Authority> convertStringToAuthorityByRole(final List<String> roles) {
         return roles.stream()
                 .map(role -> new Authority(findByName(role)))
                 .collect(Collectors.toList());

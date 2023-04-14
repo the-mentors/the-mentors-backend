@@ -7,15 +7,14 @@ create table if not exists users
     nickname    varchar(14),
     profile_url varchar(255),
     role        varchar(255),
-    created_at  datetime        not null,
-    updated_at  datetime        not null
+    created_at  datetime            not null,
+    updated_at  datetime            not null
 ) engine = InnoDB;
 
 create table if not exists auths
 (
-    user_id     bigint PRIMARY KEY AUTO_INCREMENT,
-    refresh_token varchar(255) not null,
-    created_at datetime not null,
-    updated_at  datetime not null
+    auth_id       bigint PRIMARY KEY AUTO_INCREMENT,
+    keys          bigint,
+    refresh_token varchar(255) not null
 ) engine = InnoDB;
 

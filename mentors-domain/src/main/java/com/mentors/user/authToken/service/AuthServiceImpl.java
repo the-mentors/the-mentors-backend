@@ -14,24 +14,24 @@ public class AuthServiceImpl implements AuthService {
     private final AuthRepository authRepository;
 
     @Override
-    public String getAuthToken(Long key) {
+    public String getAuthToken(final Long key) {
         return authRepository.findByKeys(key)
                 .map(AuthEntity::getRefreshToken)
                 .orElseThrow(RuntimeException::new);
     }
 
     @Override
-    public boolean existAuthToken(Long key) {
+    public boolean existAuthToken(final Long key) {
         return authRepository.existsByKeys(key);
     }
 
     @Override
-    public String saveAuthToken(Long key, String refreshToken) {
-        AuthEntity authEntity = createAuthTokenEntity(key, refreshToken);
+    public String saveAuthToken(final Long key,final String refreshToken) {
+        var authEntity = createAuthTokenEntity(key, refreshToken);
         return authRepository.save(authEntity).getRefreshToken();
     }
 
-    private static AuthEntity createAuthTokenEntity(Long key, String refreshToken) {
+    private static AuthEntity createAuthTokenEntity(final Long key,final String refreshToken) {
         return AuthEntity.builder()
                 .keys(key)
                 .refreshToken(refreshToken)
@@ -39,7 +39,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void ifExistAuthTokenDelete(Long key) {
+    public void ifExistAuthTokenDelete(final Long key) {
         if(existAuthToken(key)){
             authRepository.deleteByKeys(key);
         }

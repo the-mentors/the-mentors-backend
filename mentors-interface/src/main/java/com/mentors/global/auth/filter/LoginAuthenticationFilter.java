@@ -20,8 +20,9 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 public class LoginAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
     private final ObjectMapper objectMapper;
+    private static final String loginUrl = "/api/v1/users/signin";
 
-    public LoginAuthenticationFilter(final ObjectMapper objectMapper,final String loginUrl) {
+    public LoginAuthenticationFilter(final ObjectMapper objectMapper) {
         super(new AntPathRequestMatcher(loginUrl));
         this.objectMapper = objectMapper;
     }
@@ -43,11 +44,11 @@ public class LoginAuthenticationFilter extends AbstractAuthenticationProcessingF
         return getAuthenticationManager().authenticate(authenticationToken);
     }
 
-    private boolean isNoUserInformation(UserSignInRequest request) {
+    private boolean isNoUserInformation(final UserSignInRequest request) {
         return ObjectUtils.isEmpty(request.email()) || ObjectUtils.isEmpty(request.password());
     }
 
-    private boolean isContentTypeJson(HttpServletRequest request) {
+    private boolean isContentTypeJson(final HttpServletRequest request) {
         String header = request.getContentType();
         return Objects.nonNull(header) &&
                 StringUtils.hasText(header) &&
