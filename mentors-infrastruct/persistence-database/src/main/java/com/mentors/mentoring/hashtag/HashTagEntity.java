@@ -26,8 +26,13 @@ public class HashTagEntity extends BaseEntity {
     @Embedded
     private HashTagName name;
 
-    public HashTagEntity(final HashTagName name) {
-        this.name = name;
+    private HashTagEntity(final Long id, final String name) {
+        this.id = id;
+        this.name = new HashTagName(name);
+    }
+
+    public static HashTagEntity of(final Long id, final String name){
+        return new HashTagEntity(id, name);
     }
 
     public String getName(){

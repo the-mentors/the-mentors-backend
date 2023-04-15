@@ -46,4 +46,15 @@ public class MentoringLinkEntity {
         this.linkType = linkType;
         this.linkUrl = linkUrl;
     }
+
+    public static MentoringLinkEntity of(LinkType linkType, String linkUrl){
+        return MentoringLinkEntity.builder()
+                .linkType(linkType)
+                .linkUrl(linkUrl)
+                .build();
+    }
+
+    public void addMentoring(MentoringEntity mentoringEntity) {
+        this.mentoring = mentoringEntity;
+    }
 }

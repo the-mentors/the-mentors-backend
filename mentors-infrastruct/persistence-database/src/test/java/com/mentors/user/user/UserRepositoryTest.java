@@ -10,6 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class UserRepositoryTest extends RepositoryTest {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -17,10 +18,11 @@ class UserRepositoryTest extends RepositoryTest {
     @Test
     void giveEmail_whenFindByEmail_thenReturnUser() {
         //given
-        UserEntity savedUser = initializeUserSave();
-        String email=savedUser.getEmail();
+        final var savedUser = initializeSavedUser();
+
         //when
-        UserEntity actual = userRepository.findByEmail(email).get();
+        final var actual = userRepository.findByEmail(savedUser.getEmail()).get();
+
         //then
         assertAll(() -> {
             assertThat(actual.getId()).isEqualTo(savedUser.getId());
@@ -36,24 +38,24 @@ class UserRepositoryTest extends RepositoryTest {
     @Test
     void giveEmail_whenExistsByEmail_thenReturnTrue() {
         //given
-        UserEntity savedUser = initializeUserSave();
-        String email=savedUser.getEmail();
-        //when&&then
-        assertThat(userRepository.existsByEmail(email)).isTrue();
+        final var savedUser = initializeSavedUser();
+
+        //when
+        boolean actual = userRepository.existsByEmail(savedUser.getEmail());
+
+        //when & then
+        assertThat(actual).isTrue();
     }
 
     @DisplayName("[Repository] 이메일의 유저가 존재하면 거짓을 반환한다.")
     @Test
     void giveUnSavedEmail_whenExistsByEmail_thenReturnFalse() {
         //given
-        initializeUserSave();
-        String UnSavedEmail ="unSavedEmail";
-        //when&&then
-        assertThat(userRepository.existsByEmail(UnSavedEmail)).isFalse();
-    }
+        initializeSavedUser();
+        String notExistEmail = "notExistEmail";
 
-    private UserEntity initializeUserSave() {
-        return userRepository.save(기본유저_엔티티());
+        //when & then
+        assertThat(userRepository.existsByEmail(notExistEmail)).isFalse();
     }
 
 }
