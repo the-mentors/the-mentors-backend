@@ -2,11 +2,16 @@ package com.mentors.user.user.mapper;
 
 import com.mentors.support.BasicClassTest;
 import com.mentors.user.user.UserEntity;
+import com.mentors.user.user.domain.User;
+import com.mentors.user.user.dto.UserEditRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.mentors.UserFixture.toDomain;
+import static com.mentors.UserFixture.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 
 public class UserDomainMapperTest extends BasicClassTest {
@@ -19,5 +24,32 @@ public class UserDomainMapperTest extends BasicClassTest {
         //then
         Assertions.assertInstanceOf(UserEntity.class,entity);
     }
-    //추후 엔티티에서 도메인 변경 로직 추가시 테스트 추가하겠습니다.
+    @DisplayName("유저 회원가입 Dto를 도메인으로 변환")
+    @Test
+    void givenSignUpRequest_whenTransformingDomain_thenReturnDomainUser() {
+        //given & when
+        User user = UserDomainMapper.toDomain(toUserSignUpRequest());
+        //then
+        assertInstanceOf(User.class, user);
+    }
+
+
+    @DisplayName("[Mapper] 유저 정보 수정 DTO를 도메인으로 변환")
+    @Test
+    void givenUserEditRequest_TransformingDomain_thenReturnDomainUser() {
+        //given & when
+        var request = toUserEditRequest();
+        var user = UserDomainMapper.toDomain(request);
+
+        //then
+        assertAll(() -> {
+            assertInstanceOf(UserEditRequest.class, request);
+            assertInstanceOf(User.class, user);
+
+            assertThat(user.username()).isEqualTo(request.username());
+            assertThat(user.nickname()).isEqualTo(request.nickname());
+            assertThat(user.profileUrl()).isEqualTo(request.profileUrl());
+        });
+
+    }
 }
