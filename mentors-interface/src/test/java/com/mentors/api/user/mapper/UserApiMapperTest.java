@@ -1,16 +1,18 @@
 package com.mentors.api.user.mapper;
 
 
-import static com.mentors.support.fixture.UserFixture.*;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-
-import com.mentors.api.user.dto.UserEditRequest;
 import com.mentors.support.BasicClassTest;
 import com.mentors.user.user.domain.User;
+import com.mentors.user.user.dto.UserEditRequest;
+import com.mentors.user.user.mapper.UserDomainMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static com.mentors.support.fixture.UserFixture.회원가입_요청정보;
+import static com.mentors.support.fixture.UserFixture.회원정보수정_요청정보;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 class UserApiMapperTest extends BasicClassTest {
 
@@ -18,7 +20,7 @@ class UserApiMapperTest extends BasicClassTest {
     @Test
     void givenSignUpRequest_whenTransformingDomain_thenReturnDomainUser() {
         //given & when
-        User user = UserApiMapper.toDomain(회원가입_요청정보());
+        User user = UserDomainMapper.toDomain(회원가입_요청정보());
         //then
         assertInstanceOf(User.class, user);
     }
@@ -29,7 +31,7 @@ class UserApiMapperTest extends BasicClassTest {
     void givenUserEditRequest_TransformingDomain_thenReturnDomainUser() {
         //given & when
         var request = 회원정보수정_요청정보();
-        var user = UserApiMapper.toDomain(request);
+        var user = UserDomainMapper.toDomain(request);
 
         //then
         assertAll(() -> {

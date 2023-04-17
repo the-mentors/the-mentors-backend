@@ -1,8 +1,8 @@
 package com.mentors.support.fixture;
 
-import com.mentors.api.user.dto.UserEditRequest;
-import com.mentors.api.user.dto.UserSignInRequest;
-import com.mentors.api.user.dto.UserSignUpRequest;
+import com.mentors.user.user.dto.UserEditRequest;
+import com.mentors.user.user.dto.UserSignInRequest;
+import com.mentors.user.user.dto.UserSignUpRequest;
 
 public enum UserFixture {
     BASIC_USER(1L, "user1@email.com", "password", "encodePassword", "username", "nickname", "www.url.com"),
