@@ -1,7 +1,7 @@
 package com.mentors.global.auth.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mentors.api.user.dto.UserSignInRequest;
+import com.mentors.user.user.dto.UserSignInRequest;
 import com.mentors.global.auth.token.LoginAuthenticationToken;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

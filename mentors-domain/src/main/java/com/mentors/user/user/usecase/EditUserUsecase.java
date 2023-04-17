@@ -1,7 +1,7 @@
-package com.mentors.api.user.usecase;
+package com.mentors.user.user.usecase;
 
-import com.mentors.api.user.dto.UserEditRequest;
-import com.mentors.api.user.mapper.UserApiMapper;
+import com.mentors.user.user.dto.UserEditRequest;
+import com.mentors.user.user.mapper.UserDomainMapper;
 import com.mentors.user.user.service.UserWriteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +15,7 @@ public class EditUserUsecase {
 
     public void execute(final Long userId, final UserEditRequest request) {
         log.info("Request Method : {}, User Id : {}", "UserWriteService.updateUser", userId);
-        final var userDomain = UserApiMapper.toDomain(request);
+        final var userDomain = UserDomainMapper.toDomain(request);
         userWriteService.updateUser(userId, userDomain);
     }
 }
