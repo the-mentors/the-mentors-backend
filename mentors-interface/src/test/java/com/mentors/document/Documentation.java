@@ -14,6 +14,7 @@ import com.mentors.user.user.usecase.SignUpUserUsecase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.h2.H2ConsoleProperties;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -66,6 +67,9 @@ public class Documentation {
 
     @MockBean
     protected UserReadService userReadService;
+
+    @MockBean
+    protected H2ConsoleProperties h2ConsoleProperties;
     @BeforeEach
     void setUp(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentation) {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
