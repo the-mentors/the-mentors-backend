@@ -6,7 +6,8 @@ create table if not exists mentoring_links
     link_url varchar(255) not null,
     created_at      datetime not null,
     updated_at      datetime not null
-) engine = InnoDB;
+    ) engine = InnoDB;
 
 ALTER TABLE mentoring_links
     ADD FOREIGN KEY (mentoring_id) REFERENCES mentoring (mentoring_id) ON DELETE CASCADE;
+
