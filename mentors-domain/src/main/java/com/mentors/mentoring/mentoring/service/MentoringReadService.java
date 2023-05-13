@@ -9,5 +9,5 @@ public interface MentoringReadService {
 
     PageResponse<MentoringListResponse> findAll(Pageable pageable);
 
-    MentoringSingleResponse findById(Long mentoringId);
+    MentoringSingleResponse findById(final Long requesterId, final Long mentoringId);
 }

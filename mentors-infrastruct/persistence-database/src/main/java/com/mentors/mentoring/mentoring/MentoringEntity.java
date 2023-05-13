@@ -132,4 +132,10 @@ public class MentoringEntity extends BaseEntity {
     public String getContent(){
         return content.getValue();
     }
+
+    public List<Long> getHashTagIds(){
+        return hashTags.stream()
+                .map(hashTag -> hashTag.getHashTag().getId())
+                .toList();
+    }
 }

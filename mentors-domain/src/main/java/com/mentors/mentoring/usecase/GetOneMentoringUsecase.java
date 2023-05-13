@@ -12,7 +12,7 @@ public class GetOneMentoringUsecase {
 
     private final MentoringReadService mentoringReadService;
 
-    public MentoringSingleResponse execute(final Long mentoringId) {
-        return mentoringReadService.findById(mentoringId);
+    public MentoringSingleResponse execute(final Long requesterId, final Long mentoringId) {
+        return mentoringReadService.findById(requesterId, mentoringId);
     }
 }

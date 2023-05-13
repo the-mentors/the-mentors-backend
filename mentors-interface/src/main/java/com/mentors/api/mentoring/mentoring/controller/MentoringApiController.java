@@ -57,7 +57,7 @@ public class MentoringApiController {
     @GetMapping("/{id}")
     public ResponseEntity<MentoringSingleResponse> getById(@AuthenticationPrincipal final UserInfo userInfo,
                                                            @PathVariable final Long id) {
-        var response = getOneMentoringUsecase.execute(id);
+        var response = getOneMentoringUsecase.execute(userInfo.userId(), id);
         return ResponseEntity.ok(response);
     }
 }
