@@ -1,17 +1,42 @@
 package com.mentors.user.user.mapper;
 
-import com.mentors.authority.Authority;
 import com.mentors.user.Role;
 import com.mentors.user.user.UserEntity;
 import com.mentors.user.user.domain.User;
+import com.mentors.user.user.dto.UserEditRequest;
+import com.mentors.user.user.dto.UserSignUpRequest;
+import org.springframework.security.core.GrantedAuthority;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.security.core.GrantedAuthority;
 
 public class UserDomainMapper {
+
+
+    public static User toDomain(final UserSignUpRequest request) {
+        return new User(null,
+                request.email(),
+                request.password(),
+                request.username(),
+                request.nickname(),
+                request.profileUrl(),
+                null,
+                null,
+                null);
+    }
+
+    public static User toDomain(final UserEditRequest request) {
+        return new User(null,
+                null,
+                null,
+                request.username(),
+                request.nickname(),
+                request.profileUrl(),
+                null,
+                null,
+                null);
+    }
 
     public static UserEntity toEntityWithRoleUser(final User user,final String password) {
         return UserEntity.builder()

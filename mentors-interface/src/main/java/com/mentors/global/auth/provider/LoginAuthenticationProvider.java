@@ -1,6 +1,6 @@
 package com.mentors.global.auth.provider;
 
-import com.mentors.api.user.dto.UserSignInRequest;
+import com.mentors.user.user.dto.UserSignInRequest;
 import com.mentors.global.auth.dto.LoginUser;
 import com.mentors.global.auth.token.LoginAuthenticationToken;
 import com.mentors.user.auth.UserContext;

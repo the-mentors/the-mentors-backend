@@ -1,6 +1,6 @@
 package com.mentors.api.user.auth;
 
-import com.mentors.api.user.dto.UserSignInRequest;
+import com.mentors.user.user.dto.UserSignInRequest;
 import com.mentors.support.RestApiTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

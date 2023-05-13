@@ -1,4 +1,4 @@
-package com.mentors.api.user.dto;
+package com.mentors.user.user.dto;
 
 import jakarta.validation.constraints.Size;
 import org.springframework.lang.Nullable;

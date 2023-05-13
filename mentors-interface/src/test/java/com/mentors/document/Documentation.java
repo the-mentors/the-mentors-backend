@@ -1,23 +1,20 @@
 package com.mentors.document;
 
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mentors.api.category.controller.CategoryApiController;
 import com.mentors.api.category.usecase.GetAllCategoryUsecase;
 import com.mentors.api.user.controller.UserApiController;
-import com.mentors.api.user.usecase.EditUserUsecase;
-import com.mentors.api.user.usecase.SignUpUserUsecase;
 import com.mentors.global.auth.jwt.JwtTokenProvider;
 import com.mentors.global.config.SecurityConfig;
 import com.mentors.user.auth.UserContextService;
 import com.mentors.user.authToken.service.AuthService;
 import com.mentors.user.user.service.UserReadService;
+import com.mentors.user.user.usecase.EditUserUsecase;
+import com.mentors.user.user.usecase.SignUpUserUsecase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.h2.H2ConsoleProperties;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -30,7 +27,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import javax.crypto.SecretKey;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 @AutoConfigureRestDocs
 @WebMvcTest({CategoryApiController.class, UserApiController.class})
@@ -69,6 +67,9 @@ public class Documentation {
 
     @MockBean
     protected UserReadService userReadService;
+
+    @MockBean
+    protected H2ConsoleProperties h2ConsoleProperties;
     @BeforeEach
     void setUp(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentation) {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
