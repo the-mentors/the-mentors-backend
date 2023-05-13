@@ -52,7 +52,7 @@ public class ReviewEntity extends BaseEntity {
         this.reviewContent = reviewContent;
     }
 
-    public static ReviewEntity of(UserEntity reviewer, Long mentoringId, Rating rating, String content) {
-        return new ReviewEntity(null, reviewer, mentoringId, new ReviewContent(rating, content));
+    public static ReviewEntity of(UserEntity reviewer, Long mentoringId, ReviewContent reviewContent) {
+        return new ReviewEntity(null, reviewer, mentoringId, reviewContent);
     }
 }

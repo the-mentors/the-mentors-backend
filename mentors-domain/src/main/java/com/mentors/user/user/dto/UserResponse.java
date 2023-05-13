@@ -1,4 +1,4 @@
-package com.mentors.user.dto;
+package com.mentors.user.user.dto;
 
 import com.mentors.user.user.UserEntity;
 import java.time.LocalDateTime;

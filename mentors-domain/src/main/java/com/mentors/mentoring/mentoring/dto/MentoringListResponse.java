@@ -1,7 +1,7 @@
-package com.mentors.mentoring.dto;
+package com.mentors.mentoring.mentoring.dto;
 
 import com.mentors.mentoring.mentoring.MentoringEntity;
-import com.mentors.user.dto.UserResponse;
+import com.mentors.user.user.dto.UserResponse;
 
 public record MentoringListResponse(Long id,
                                     UserResponse userResponse,

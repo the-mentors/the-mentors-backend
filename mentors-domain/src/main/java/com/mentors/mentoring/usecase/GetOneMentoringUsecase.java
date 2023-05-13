@@ -1,10 +1,9 @@
 package com.mentors.mentoring.usecase;
 
-import com.mentors.mentoring.dto.MentoringSingleResponse;
+import com.mentors.mentoring.mentoring.dto.MentoringSingleResponse;
 import com.mentors.mentoring.mentoring.service.MentoringReadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor

@@ -1,8 +1,8 @@
 package com.mentors.mentoring.mentoring.service;
 
 import com.mentors.common.PageResponse;
-import com.mentors.mentoring.dto.MentoringListResponse;
-import com.mentors.mentoring.dto.MentoringSingleResponse;
+import com.mentors.mentoring.mentoring.dto.MentoringListResponse;
+import com.mentors.mentoring.mentoring.dto.MentoringSingleResponse;
 import org.springframework.data.domain.Pageable;
 
 public interface MentoringReadService {

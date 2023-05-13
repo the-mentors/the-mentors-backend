@@ -4,17 +4,12 @@ import static com.mentors.user.user.mapper.UserDomainMapper.*;
 
 import com.mentors.category.CategoryEntity;
 import com.mentors.category.CategoryRepository;
-import com.mentors.category.service.CategoryReadService;
-import com.mentors.mentoring.dto.AddMentoringLinkRequest;
-import com.mentors.mentoring.dto.AddMentoringRequest;
+import com.mentors.mentoring.mentoring.dto.AddMentoringRequest;
 import com.mentors.mentoring.hashtag.service.HashTagWriteServiceImpl;
 import com.mentors.mentoring.mentoring.service.MentoringWriteService;
 import com.mentors.mentoring.review.event.ReviewSaveEvent;
-import com.mentors.user.user.UserEntity;
-import com.mentors.user.user.mapper.UserDomainMapper;
 import com.mentors.user.user.service.UserReadService;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;

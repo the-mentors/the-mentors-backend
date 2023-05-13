@@ -53,3 +53,13 @@ Authorization: Bearer {{accessToken}}
 GET localhost:8080/api/v1/mentoring/1
 Authorization: Bearer {{accessToken}}
 
+
+### 4. 리뷰
+POST localhost:8080/api/v1/mentoring/1/reviews
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "rating" : 5,
+  "content" : "재밌어요!"
+}

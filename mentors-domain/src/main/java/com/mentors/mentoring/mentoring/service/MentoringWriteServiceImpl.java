@@ -5,8 +5,8 @@ import static com.mentors.mentoring.mentoring.mapper.MentoringDomainMapper.toLin
 
 import com.mentors.category.CategoryEntity;
 import com.mentors.mentoring.category.MentoringCategoryRepository;
-import com.mentors.mentoring.dto.AddMentoringLinkRequest;
-import com.mentors.mentoring.dto.AddMentoringRequest;
+import com.mentors.mentoring.mentoring.dto.AddMentoringLinkRequest;
+import com.mentors.mentoring.mentoring.dto.AddMentoringRequest;
 import com.mentors.mentoring.hashtag.HashTagEntity;
 import com.mentors.mentoring.mentoring.MentoringEntity;
 import com.mentors.mentoring.mentoring.MentoringLinkRepository;
