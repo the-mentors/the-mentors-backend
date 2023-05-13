@@ -55,4 +55,12 @@ public class ReviewEntity extends BaseEntity {
     public static ReviewEntity of(UserEntity reviewer, Long mentoringId, ReviewContent reviewContent) {
         return new ReviewEntity(null, reviewer, mentoringId, reviewContent);
     }
+
+    public boolean isOwner(final Long reviewerId) {
+        return reviewer.isSameId(reviewerId);
+    }
+
+    public Rating getRating() {
+        return reviewContent.getRating();
+    }
 }

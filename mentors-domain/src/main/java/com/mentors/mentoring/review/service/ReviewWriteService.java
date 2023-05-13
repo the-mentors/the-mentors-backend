@@ -10,4 +10,5 @@ public interface ReviewWriteService {
 
     void addReview(final UserEntity reviewer, final MentoringEntity mentoring, final ReviewContent reviewContent);
 
+    void deleteById(final Long reviewId, final Long mentoringId, final Long reviewerId);
 }

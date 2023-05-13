@@ -34,15 +34,34 @@ public class ReviewWriteServiceImpl implements ReviewWriteService {
         reviewRepository.save(ReviewEntity.of(reviewer, mentoring.getId(), reviewContent));
     }
 
-    private ReviewMentoringEntity findReviewMentoringById(final Long mentoringId) {
-        return reviewMentoringRepository.findByMentoringId(mentoringId)
-                .orElseThrow(() -> new IllegalArgumentException());
-    }
-
     private void validateStudent(final Long reviewerId, final Long mentoringId) {
         if (!myPageRepository.existsByMentoringIdAndMenteeId(reviewerId, mentoringId)) {
             throw new IllegalArgumentException();
         }
     }
 
+    @Override
+    public void deleteById(final Long reviewId, final Long mentoringId, final Long reviewerId) {
+        final ReviewEntity findReview = findReviewById(reviewId);
+        validateOwner(findReview, reviewerId);
+
+        findReviewMentoringById(mentoringId).delete(findReview.getRating());
+        reviewRepository.delete(findReview);
+    }
+
+    public void validateOwner(final ReviewEntity review, final Long reviewerId) {
+        if (!review.isOwner(reviewerId)) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    private ReviewMentoringEntity findReviewMentoringById(final Long mentoringId) {
+        return reviewMentoringRepository.findByMentoringId(mentoringId)
+                .orElseThrow(() -> new IllegalArgumentException());
+    }
+
+    private ReviewEntity findReviewById(final Long reviewId) {
+        return reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new IllegalArgumentException());
+    }
 }

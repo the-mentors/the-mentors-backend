@@ -54,4 +54,19 @@ public class ReviewMentoringEntity extends BaseEntity {
         this.totalRating += rating.getValue();
         this.ratingAverage = totalRating / totalCount;
     }
+
+    public synchronized void delete(Rating rating) {
+        switch (rating) {
+            case ONE -> oneCount--;
+            case TWO -> twoCount--;
+            case THREE -> threeCount--;
+            case FOUR -> fourCount--;
+            case FIVE -> fiveCount--;
+            default -> throw new IllegalArgumentException("별점에 없는 수치 입니다.");
+        }
+
+        totalCount--;
+        this.totalRating -= rating.getValue();
+        this.ratingAverage = totalRating / totalCount;
+    }
 }
