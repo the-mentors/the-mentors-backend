@@ -9,4 +9,7 @@ public interface MentoringRepository extends JpaRepository<MentoringEntity, Long
     @Query(value = "select m from MentoringEntity m join fetch m.user",
             countQuery = "select count(m) from MentoringEntity m")
     Page<MentoringEntity> findAll(Pageable pageable);
+
+    @Query("select m from MentoringEntity m join fetch m.user join fetch m.hashTags")
+    MentoringEntity findByIdWithUserAndHashTags(Long id);
 }

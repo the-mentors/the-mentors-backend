@@ -2,6 +2,7 @@ package com.mentors.mentoring.mentoring.service;
 
 import com.mentors.common.PageResponse;
 import com.mentors.mentoring.dto.MentoringListResponse;
+import com.mentors.mentoring.dto.MentoringSingleResponse;
 import com.mentors.mentoring.mentoring.MentoringEntity;
 import com.mentors.mentoring.mentoring.MentoringRepository;
 import java.util.List;
@@ -33,5 +34,12 @@ public class MentoringReadServiceImpl implements MentoringReadService{
         return mentoringEntities.stream()
                 .map(MentoringListResponse::toDto)
                 .toList();
+    }
+
+
+    @Override
+    public MentoringSingleResponse findById(Long mentoringId) {
+        MentoringEntity response = mentoringRepository.findByIdWithUserAndHashTags(mentoringId);
+        return MentoringSingleResponse.toDto(response);
     }
 }
