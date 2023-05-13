@@ -117,6 +117,10 @@ public class MentoringEntity extends BaseEntity {
         links.add(entity);
     }
 
+    public UserEntity getUser() {
+        return user;
+    }
+
     public String getTitle(){
         return title.getValue();
     }
