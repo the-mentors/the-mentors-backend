@@ -17,6 +17,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -43,8 +44,9 @@ public class MentoringEntity extends BaseEntity {
     @Column(name = "mentoring_id")
     private Long id;
 
-    @Column(nullable = false)
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user;
 
     @Embedded
     private Title title;
@@ -68,12 +70,12 @@ public class MentoringEntity extends BaseEntity {
     private List<MentoringLinkEntity> links = new ArrayList<>();
 
     @Builder
-    public MentoringEntity(final Long userId,
+    public MentoringEntity(final UserEntity user,
                            final String title,
                            final String content,
                            final String thumbnail,
                            final Integer price) {
-        this.userId = userId;
+        this.user = user;
         this.title = new Title(title);
         this.content = new Content(content);
         this.thumbnail = thumbnail;
@@ -81,7 +83,7 @@ public class MentoringEntity extends BaseEntity {
     }
 
     public boolean isOwner(final Long ownerId){
-        return userId.equals(ownerId);
+        return user.getId().equals(ownerId);
     }
 
     public void addMentoringCategories(final List<CategoryEntity> categories){
@@ -96,23 +98,27 @@ public class MentoringEntity extends BaseEntity {
 
     public void addMentoringHashTags(final Set<HashTagEntity> hashTags){
         for (final HashTagEntity hashTag : hashTags) {
-            this.addMentoringHasTag(MentoringHashTagEntity.of(this, hashTag));
+            addMentoringHasTag(MentoringHashTagEntity.of(this, hashTag));
         }
     }
 
-    private void addMentoringHasTag(final MentoringHashTagEntity mentoringHashTagEntity){
+    private void addMentoringHasTag(final MentoringHashTagEntity mentoringHashTagEntity) {
         hashTags.add(mentoringHashTagEntity);
     }
 
-    public void addMentoringLinks(final List<MentoringLinkEntity> mentoringLinkEntities){
-        for (final MentoringLinkEntity entity : mentoringLinkEntities) {
+    public void addMentoringLinks(final List<MentoringLinkEntity> mentoringLinks){
+        for (final MentoringLinkEntity entity : mentoringLinks) {
             this.addMentoringLink(entity);
         }
     }
 
-    private void addMentoringLink(final MentoringLinkEntity mentoringLinkEntity){
-        links.add(mentoringLinkEntity);
-        mentoringLinkEntity.addMentoring(this);
+    private void addMentoringLink(final MentoringLinkEntity entity){
+        entity.addMentoring(this);
+        links.add(entity);
+    }
+
+    public UserEntity getUser() {
+        return user;
     }
 
     public String getTitle(){

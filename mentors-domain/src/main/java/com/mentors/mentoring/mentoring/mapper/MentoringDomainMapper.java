@@ -8,6 +8,7 @@ import com.mentors.mentoring.dto.AddMentoringLinkRequest;
 import com.mentors.mentoring.dto.AddMentoringRequest;
 import com.mentors.mentoring.mentoring.MentoringEntity;
 import com.mentors.mentoring.mentoring.MentoringLinkEntity;
+import com.mentors.user.user.UserEntity;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -16,9 +17,9 @@ import java.util.stream.Collectors;
 
 public class MentoringDomainMapper {
 
-    public static MentoringEntity toEntity(final Long userId, final AddMentoringRequest request){
+    public static MentoringEntity toEntity(final UserEntity user, final AddMentoringRequest request){
         return MentoringEntity.builder()
-                .userId(userId)
+                .user(user)
                 .title(request.title())
                 .content(request.content())
                 .price(request.price())
