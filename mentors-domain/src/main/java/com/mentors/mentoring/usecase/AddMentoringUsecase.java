@@ -1,5 +1,7 @@
 package com.mentors.mentoring.usecase;
 
+import static com.mentors.user.user.mapper.UserDomainMapper.*;
+
 import com.mentors.category.CategoryEntity;
 import com.mentors.category.CategoryRepository;
 import com.mentors.category.service.CategoryReadService;
@@ -7,6 +9,8 @@ import com.mentors.mentoring.dto.AddMentoringLinkRequest;
 import com.mentors.mentoring.dto.AddMentoringRequest;
 import com.mentors.mentoring.hashtag.service.HashTagWriteServiceImpl;
 import com.mentors.mentoring.mentoring.service.MentoringWriteService;
+import com.mentors.user.user.UserEntity;
+import com.mentors.user.user.mapper.UserDomainMapper;
 import com.mentors.user.user.service.UserReadService;
 import java.util.List;
 import java.util.Set;
@@ -26,12 +30,11 @@ public class AddMentoringUsecase {
     private final MentoringWriteService mentoringWriteService;
 
     public Long execute(final Long userId, final AddMentoringRequest request){
-        final var findUser = userReadService.findUserById(userId);
-
+        final var findUser = toEntity(userReadService.findUserById(userId));
         final var categories = getCategoryIdsByCodes(request.categoryCodes());
         final var hashTags = hashTagWriteService.saveAllIfDontExist(request.hashTags());
 
-        return mentoringWriteService.addMentoring(findUser.id(), request, categories, hashTags);
+        return mentoringWriteService.addMentoring(findUser, request, categories, hashTags);
     }
 
     private List<CategoryEntity> getCategoryIdsByCodes(final List<Long> categoryCodes) {

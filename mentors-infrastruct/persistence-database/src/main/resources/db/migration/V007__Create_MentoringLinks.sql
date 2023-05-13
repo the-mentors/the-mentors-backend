@@ -1,6 +1,6 @@
 create table if not exists mentoring_links
 (
-    mentoring_link_id    bigint PRIMARY KEY AUTO_INCREMENT,
+    mentoring_link_id   bigint PRIMARY KEY AUTO_INCREMENT,
     mentoring_id bigint not null,
     link_type varchar(255) not null,
     link_url varchar(255) not null,

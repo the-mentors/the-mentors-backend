@@ -11,6 +11,7 @@ import com.mentors.mentoring.hashtag.HashTagEntity;
 import com.mentors.mentoring.mentoring.MentoringEntity;
 import com.mentors.mentoring.mentoring.MentoringLinkRepository;
 import com.mentors.mentoring.mentoring.MentoringRepository;
+import com.mentors.user.user.UserEntity;
 import java.util.List;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
@@ -28,11 +29,11 @@ public class MentoringWriteServiceImpl implements MentoringWriteService{
 
 
     @Override
-    public Long addMentoring(final Long userId,
+    public Long addMentoring(final UserEntity user,
                              final AddMentoringRequest request,
                              final List<CategoryEntity> categories,
                              final Set<HashTagEntity> hashTags) {
-        var mentoringEntity = toEntity(userId, request);
+        var mentoringEntity = toEntity(user, request);
         initializeAdditionalInformation(mentoringEntity, categories, hashTags, request.links());
         return mentoringRepository.save(mentoringEntity).getId();
     }

@@ -85,7 +85,7 @@ public class JwtTokenProvider implements TokenProvider {
             if (!StringUtils.hasText(token) ||!StringUtils.hasText(secretKey.toString()) )
                 throw new IllegalArgumentException();
 
-            return !Jwts.parserBuilder()
+            return Jwts.parserBuilder()
                     .setSigningKey(secretKey)
                     .build()
                     .parseClaimsJws(token).getBody().getExpiration().before(new Date());

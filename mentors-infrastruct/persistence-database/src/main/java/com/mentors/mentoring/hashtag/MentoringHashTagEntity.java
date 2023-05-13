@@ -44,4 +44,5 @@ public class MentoringHashTagEntity extends BaseEntity {
     public static MentoringHashTagEntity of(final MentoringEntity mentoring, final HashTagEntity hashTag){
         return new MentoringHashTagEntity(mentoring, hashTag);
     }
+
 }

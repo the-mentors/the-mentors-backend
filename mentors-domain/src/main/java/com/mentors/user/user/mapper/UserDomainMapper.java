@@ -26,6 +26,7 @@ public class UserDomainMapper {
 
     public static UserEntity toEntity(final User user) {
         return UserEntity.builder()
+                .id(user.id())
                 .email(user.email())
                 .password(user.password())
                 .username(user.username())
