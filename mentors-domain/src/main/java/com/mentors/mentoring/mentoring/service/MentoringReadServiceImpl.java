@@ -3,6 +3,8 @@ package com.mentors.mentoring.mentoring.service;
 import com.mentors.common.PageResponse;
 import com.mentors.mentoring.dto.MentoringListResponse;
 import com.mentors.mentoring.dto.MentoringSingleResponse;
+import com.mentors.mentoring.hashtag.HashTagEntity;
+import com.mentors.mentoring.hashtag.HashTagRepository;
 import com.mentors.mentoring.mentoring.MentoringEntity;
 import com.mentors.mentoring.mentoring.MentoringRepository;
 import java.util.List;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class MentoringReadServiceImpl implements MentoringReadService{
 
     private final MentoringRepository mentoringRepository;
+    private final HashTagRepository hashTagRepository;
 
     @Override
     public PageResponse<MentoringListResponse> findAll(final Pageable pageable) {
@@ -38,8 +41,9 @@ public class MentoringReadServiceImpl implements MentoringReadService{
 
 
     @Override
-    public MentoringSingleResponse findById(Long mentoringId) {
-        MentoringEntity response = mentoringRepository.findByIdWithUserAndHashTags(mentoringId);
-        return MentoringSingleResponse.toDto(response);
+    public MentoringSingleResponse findById(final Long requesterId, final Long mentoringId) {
+        var response = mentoringRepository.findByIdWithUserAndHashTags(mentoringId);
+        var hashTags = hashTagRepository.findAllById(response.getHashTagIds());
+        return MentoringSingleResponse.toDto(response, response.isOwner(requesterId), hashTags);
     }
 }

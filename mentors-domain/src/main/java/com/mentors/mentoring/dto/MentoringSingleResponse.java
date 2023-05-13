@@ -1,8 +1,10 @@
 package com.mentors.mentoring.dto;
 
+import com.mentors.mentoring.hashtag.HashTagEntity;
 import com.mentors.mentoring.hashtag.domain.HashTags;
 import com.mentors.mentoring.mentoring.MentoringEntity;
 import com.mentors.user.dto.UserResponse;
+import java.util.List;
 
 public record MentoringSingleResponse(Long id,
                                       UserResponse userResponse,
@@ -10,9 +12,10 @@ public record MentoringSingleResponse(Long id,
                                       String content,
                                       String thumbnail,
                                       Integer price,
+                                      boolean isOwner,
                                       HashTags hashTags) {
 
-    public static MentoringSingleResponse toDto(final MentoringEntity mentoring) {
+    public static MentoringSingleResponse toDto(final MentoringEntity mentoring,final boolean isOwner, final List<HashTagEntity> hashTags) {
         return new MentoringSingleResponse(
                 mentoring.getId(),
                 UserResponse.toDto(mentoring.getUser()),
@@ -20,7 +23,8 @@ public record MentoringSingleResponse(Long id,
                 mentoring.getContent(),
                 mentoring.getThumbnail(),
                 mentoring.getPrice(),
-                HashTags.toMentoringDto(mentoring.getHashTags()));
+                isOwner,
+                HashTags.toDto(hashTags));
     }
 
 }
