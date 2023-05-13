@@ -20,6 +20,6 @@ public enum MentoringEntityFixture {
     }
 
     public static MentoringEntity 멘토링_등록(final Long userId){
-        return new MentoringEntity(userId, 멘토링_등록.title, 멘토링_등록.cotent, 멘토링_등록.thumbnail, 멘토링_등록.price);
+        return new MentoringEntity(null, 멘토링_등록.title, 멘토링_등록.cotent, 멘토링_등록.thumbnail, 멘토링_등록.price);
     }
 }

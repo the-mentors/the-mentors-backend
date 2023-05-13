@@ -25,7 +25,7 @@ class MentoringWriteServiceTest extends ServiceTest {
         final var request = addMentoringRequest();
 
         //when
-        final Long actual = mentoringWriteService.addMentoring(savedUser.getId(), request, emptyList(), emptySet());
+        final Long actual = mentoringWriteService.addMentoring(savedUser, request, emptyList(), emptySet());
 
         //then
         assertThat(mentoringRepository.existsById(actual)).isTrue();
@@ -39,7 +39,7 @@ class MentoringWriteServiceTest extends ServiceTest {
         final var savedMentoring = initializeSavedMentoring(savedUser.getId());
 
         //when
-        mentoringWriteService.deleteById(savedUser.getId(), savedMentoring.getUserId());
+        mentoringWriteService.deleteById(savedUser.getId(), savedMentoring.getId());
 
         //then
         assertThat(mentoringRepository.existsById(savedMentoring.getId())).isFalse();
@@ -54,7 +54,7 @@ class MentoringWriteServiceTest extends ServiceTest {
 
         //when
         Assertions.assertAll(() -> {
-            assertThatCode(() -> mentoringWriteService.deleteById(notMatchOwnerId, savedMentoring.getUserId()))
+            assertThatCode(() -> mentoringWriteService.deleteById(notMatchOwnerId, savedMentoring.getId()))
                     .isInstanceOf(IllegalArgumentException.class);
             assertThat(mentoringRepository.existsById(savedMentoring.getId())).isTrue();
 
