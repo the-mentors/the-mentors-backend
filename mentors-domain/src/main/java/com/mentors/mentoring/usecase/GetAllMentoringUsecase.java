@@ -6,6 +6,7 @@ import com.mentors.mentoring.mentoring.service.MentoringReadService;
 import com.mentors.utils.PageUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,8 +15,8 @@ public class GetAllMentoringUsecase {
 
     private final MentoringReadService mentoringReadService;
 
-    public PageResponse<MentoringListResponse> execute(int page, int size) {
-        var request = PageUtils.defaultPage(PageRequest.of(page, size));
+    public PageResponse<MentoringListResponse> execute(Pageable pageable) {
+        var request = PageUtils.defaultPage(pageable);
         return mentoringReadService.findAll(request);
     }
 }

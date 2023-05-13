@@ -11,6 +11,7 @@ import com.mentors.mentoring.usecase.GetAllMentoringUsecase;
 import com.mentors.mentoring.usecase.GetOneMentoringUsecase;
 import java.net.URI;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -48,9 +49,8 @@ public class MentoringApiController {
 
     @GetMapping
     public ResponseEntity<PageResponse<MentoringListResponse>> getAll(@AuthenticationPrincipal final UserInfo userInfo,
-                                                                      @RequestParam(defaultValue = "0", required = false) int page,
-                                                                      @RequestParam(defaultValue = "20", required = false) int size) {
-        var response = getAllMentoringUsecase.execute(page, size);
+                                                                      Pageable pageable) {
+        var response = getAllMentoringUsecase.execute(pageable);
         return ResponseEntity.ok(response);
     }
 
