@@ -27,12 +27,12 @@ public class LoginAuthenticationSuccessHandler implements AuthenticationSuccessH
     private final AuthService authService;
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-                                        Authentication authentication) throws IOException, ServletException {
+    public void onAuthenticationSuccess(final HttpServletRequest request,final HttpServletResponse response,
+                                        final Authentication authentication) throws IOException, ServletException {
         setAuthenticationSuccessHeader(response);
 
-        final LoginUser user = (LoginUser) authentication.getPrincipal();
-        final AuthToken authToken = jwtCreator.createAuthToken(String.valueOf(user.id()), user.role());
+        final var user = (LoginUser) authentication.getPrincipal();
+        final var authToken = jwtCreator.createAuthToken(String.valueOf(user.id()), user.role());
         authService.ifExistAuthTokenDelete(user.id());
         authService.saveAuthToken(user.id(), authToken.refreshToken());
         objectMapper.writeValue(response.getWriter(), ResponseEntity.ok(authToken));

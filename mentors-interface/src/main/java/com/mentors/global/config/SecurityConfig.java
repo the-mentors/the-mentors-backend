@@ -29,13 +29,15 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
     private static final String[] AUTH_WHITELIST = {
-            "/api/v1/users/signup", "/api/v1/users/signin", "/h2-console/*"
+            "/api/v1/users/signup", "/api/v1/users/signin"
     };
 
     private final UserContextService userContextService;
@@ -44,7 +46,7 @@ public class SecurityConfig {
     private final AuthService authService;
     private final JwtTokenProvider jwtTokenProvider;
     private final UserReadService userReadService;
-    private final String loginUrl="/api/v1/users/signin";
+
 
     @Bean
     public AuthenticationManager authenticationManager(final HttpSecurity http) throws Exception {
@@ -67,9 +69,11 @@ public class SecurityConfig {
                 .and()
                 .cors().configurationSource(corsConfigurationSource())
                 .and()
-                .authorizeHttpRequests(authorize -> authorize
+                .authorizeHttpRequests((authorize) -> authorize
                         .shouldFilterAllDispatcherTypes(false)
                         .requestMatchers(AUTH_WHITELIST)
+                        .permitAll()
+                        .requestMatchers(toH2Console())
                         .permitAll()
                         .anyRequest()
                         .authenticated());
@@ -91,7 +95,7 @@ public class SecurityConfig {
 
     @Bean
     public LoginAuthenticationFilter loginAuthenticationFilter(final AuthenticationManager authenticationManager) {
-        LoginAuthenticationFilter loginAuthenticationFilter = new LoginAuthenticationFilter(objectMapper,loginUrl);
+        var loginAuthenticationFilter = new LoginAuthenticationFilter(objectMapper);
         loginAuthenticationFilter.setAuthenticationManager(authenticationManager);
         loginAuthenticationFilter.setAuthenticationSuccessHandler(loginAuthenticationSuccessHandler());
         loginAuthenticationFilter.setAuthenticationFailureHandler(loginAuthenticationFailureHandler());
@@ -130,13 +134,13 @@ public class SecurityConfig {
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        final CorsConfiguration configuration = new CorsConfiguration();
+        final var configuration = new CorsConfiguration();
         configuration.addAllowedOriginPattern(CorsConfiguration.ALL);
         configuration.addAllowedHeader(CorsConfiguration.ALL);
         configuration.addAllowedMethod(CorsConfiguration.ALL);
         configuration.setAllowCredentials(true);
 
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        final var source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }

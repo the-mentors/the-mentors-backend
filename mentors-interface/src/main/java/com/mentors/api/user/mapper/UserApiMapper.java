@@ -6,7 +6,7 @@ import com.mentors.user.user.domain.User;
 
 public class UserApiMapper {
 
-    public static User toDomain(UserSignUpRequest request) {
+    public static User toDomain(final UserSignUpRequest request) {
         return new User(null,
                 request.email(),
                 request.password(),

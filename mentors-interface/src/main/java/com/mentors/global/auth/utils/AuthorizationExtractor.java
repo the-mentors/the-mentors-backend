@@ -13,9 +13,9 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 public class AuthorizationExtractor {
 
     public static String extract(final HttpServletRequest request, final AuthorizationType type) {
-        final String typeToLowerCase = type.toLowerCase();
-        final int typeLength = typeToLowerCase.length() + 1;
-        final String header = request.getHeader(AUTHORIZATION);
+        final var typeToLowerCase = type.toLowerCase();
+        final var typeLength = typeToLowerCase.length() + 1;
+        final var header = request.getHeader(AUTHORIZATION);
 
         validateAuthorizationFormat(header, typeToLowerCase);
         return header.substring(typeLength).trim();

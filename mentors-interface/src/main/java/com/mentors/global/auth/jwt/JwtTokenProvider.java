@@ -31,17 +31,17 @@ public class JwtTokenProvider implements TokenProvider {
         this.refreshTokenValidityInMilliseconds = refreshTokenValidityInMilliseconds;
     }
 
-    private String createAccessToken(String payload, final List<String> roles) {
+    private String createAccessToken(final String payload, final List<String> roles) {
         return createToken(payload, accessTokenValidityInMilliseconds, roles);
     }
 
-    private String createRefreshToken(String payload, final List<String> roles) {
+    private String createRefreshToken(final String payload, final List<String> roles) {
         return createToken(payload, refreshTokenValidityInMilliseconds, roles);
     }
 
-    private String createToken(String payload, Long validityInMilliseconds, final List<String> roles) {
-        Date now = new Date();
-        Date validity = new Date(now.getTime() + validityInMilliseconds);
+    private String createToken(final String payload,final Long validityInMilliseconds, final List<String> roles) {
+        var now = new Date();
+        var validity = new Date(now.getTime() + validityInMilliseconds);
 
         Map<String, Object> claims = new HashMap<>();
         claims.put("roles", roles);
@@ -80,7 +80,7 @@ public class JwtTokenProvider implements TokenProvider {
     }
 
     @Override
-    public boolean isTokenExpired(String token) {
+    public boolean isTokenExpired(final String token) {
         try {
             if (!StringUtils.hasText(token) ||!StringUtils.hasText(secretKey.toString()) )
                 throw new IllegalArgumentException();
@@ -96,19 +96,19 @@ public class JwtTokenProvider implements TokenProvider {
     }
 
 
-    public AuthToken createAuthToken(String payload, List<String> roles) {
+    public AuthToken createAuthToken(final String payload,final List<String> roles) {
         final var accessToken = createAccessToken(payload, roles);
         final var refreshToken = createRefreshToken(payload, roles);
         return new AuthToken(accessToken, refreshToken);
     }
 
     @Override
-    public AuthToken renewAuthToken(String accessToken) {
+    public AuthToken renewAuthToken(final String accessToken) {
         final var payload = (String) getPayload(accessToken);
         final var roles = getRoleStrings(accessToken);
 
-        String accessTokenForRenew = createAccessToken(payload, roles);
-        String refreshTokenForRenew = createRefreshToken(payload, roles);
+        final var accessTokenForRenew = createAccessToken(payload, roles);
+        final var refreshTokenForRenew = createRefreshToken(payload, roles);
 
         return new AuthToken(accessTokenForRenew, refreshTokenForRenew);
     }

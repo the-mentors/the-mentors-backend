@@ -21,26 +21,26 @@ public class UserWriteServiceImpl implements UserWriteService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public Long signUp(User user) {
+    public Long signUp(final User user) {
         checkDuplicateEmail(user.email());
-        UserEntity userEntity = createUser(user);
+        final var userEntity = createUser(user);
         return userRepository.save(userEntity).getId();
     }
 
-    private UserEntity createUser(User user) {
-        String password = passwordEncoder.encode(user.password());
+    private UserEntity createUser(final User user) {
+        final var password = passwordEncoder.encode(user.password());
         return toEntityWithRoleUser(user,password);
     }
 
-    private void checkDuplicateEmail(String email) {
+    private void checkDuplicateEmail(final String email) {
         if(userRepository.existsByEmail(email)){
-            new RuntimeException("이미 존재하는 이메일 입니다");
+            throw new RuntimeException("이미 존재하는 이메일 입니다");
         }
     }
 
     @Override
     public void updateUser(final Long userId, final User updateUser){
-        final UserEntity user = findUser(userId);
+        final var user = findUser(userId);
         user.update(toEntity(updateUser));
     }
 

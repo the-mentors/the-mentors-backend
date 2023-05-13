@@ -2,10 +2,10 @@ package com.mentors.user.authToken.service;
 
 
 public interface AuthService {
-    String getAuthToken(Long key);
+    String getAuthToken(final Long key);
 
-    boolean existAuthToken(Long key);
+    boolean existAuthToken(final Long key);
 
-    String saveAuthToken(Long key,String refreshToken);
-    void ifExistAuthTokenDelete(Long key);
+    String saveAuthToken(final Long key,final String refreshToken);
+    void ifExistAuthTokenDelete(final Long key);
 }
