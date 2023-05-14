@@ -1,10 +1,10 @@
 package com.mentors.api.user.controller;
 
-import com.mentors.api.user.dto.UserEditRequest;
-import com.mentors.api.user.dto.UserSignUpRequest;
-import com.mentors.api.user.usecase.EditUserUsecase;
-import com.mentors.api.user.usecase.SignUpUserUsecase;
 import com.mentors.global.auth.dto.UserInfo;
+import com.mentors.user.user.dto.UserEditRequest;
+import com.mentors.user.user.dto.UserSignUpRequest;
+import com.mentors.user.user.usecase.EditUserUsecase;
+import com.mentors.user.user.usecase.SignUpUserUsecase;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

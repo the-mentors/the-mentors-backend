@@ -3,6 +3,7 @@ package com.mentors.mentoring.mentoring;
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
+import com.mentors.global.common.BaseEntity;
 import com.mentors.mentoring.LinkType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,14 +23,14 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor(access = PROTECTED)
 @Table(name = "mentoring_links")
-public class MentoringLinkEntity {
+public class MentoringLinkEntity extends BaseEntity {
 
     @Id @GeneratedValue(strategy = IDENTITY)
     @Column(name = "mentoring_link_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "mentoring_id")
+    @JoinColumn(name = "mentoring_id", nullable = false)
     private MentoringEntity mentoring;
 
     @Enumerated(EnumType.STRING)
@@ -45,5 +46,16 @@ public class MentoringLinkEntity {
         this.mentoring = mentoring;
         this.linkType = linkType;
         this.linkUrl = linkUrl;
+    }
+
+    public static MentoringLinkEntity of(LinkType linkType, String linkUrl){
+        return MentoringLinkEntity.builder()
+                .linkType(linkType)
+                .linkUrl(linkUrl)
+                .build();
+    }
+
+    public void addMentoring(MentoringEntity mentoring) {
+        this.mentoring = mentoring;
     }
 }

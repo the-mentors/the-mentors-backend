@@ -1,10 +1,10 @@
 package com.mentors.global.auth.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mentors.global.auth.dto.LoginUser;
 import com.mentors.global.auth.jwt.JwtTokenProvider;
 import com.mentors.user.authToken.domain.AuthToken;
-import com.mentors.user.authToken.service.AuthTokenService;
-import com.mentors.user.user.domain.User;
+import com.mentors.user.authToken.service.AuthService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -24,17 +24,17 @@ public class LoginAuthenticationSuccessHandler implements AuthenticationSuccessH
 
     private final ObjectMapper objectMapper;
     private final JwtTokenProvider jwtCreator;
-    private final AuthTokenService authTokenService;
+    private final AuthService authService;
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-                                        Authentication authentication) throws IOException, ServletException {
+    public void onAuthenticationSuccess(final HttpServletRequest request,final HttpServletResponse response,
+                                        final Authentication authentication) throws IOException, ServletException {
         setAuthenticationSuccessHeader(response);
 
-        final User user = (User) authentication.getPrincipal();
-        final AuthToken authToken = jwtCreator.createAuthToken(String.valueOf(user.id()), user.role());
-
-        authTokenService.saveAuthToken(user.id(), authToken.refreshToken());
+        final var user = (LoginUser) authentication.getPrincipal();
+        final var authToken = jwtCreator.createAuthToken(String.valueOf(user.id()), user.role());
+        authService.ifExistAuthTokenDelete(user.id());
+        authService.saveAuthToken(user.id(), authToken.refreshToken());
         objectMapper.writeValue(response.getWriter(), ResponseEntity.ok(authToken));
     }
 

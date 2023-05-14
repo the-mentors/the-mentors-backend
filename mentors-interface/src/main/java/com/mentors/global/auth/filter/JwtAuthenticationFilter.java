@@ -3,7 +3,7 @@ package com.mentors.global.auth.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mentors.global.auth.jwt.JwtTokenProvider;
 import com.mentors.global.auth.utils.AuthorizationExtractor;
-import com.mentors.user.authToken.service.AuthTokenService;
+import com.mentors.user.authToken.service.AuthService;
 import com.mentors.user.user.service.UserReadService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -27,29 +27,32 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final ObjectMapper objectMapper;
-    private final AuthTokenService authTokenService;
+    private final AuthService authService;
     private final JwtTokenProvider jwtTokenProvider;
     private final UserReadService userReadService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(final HttpServletRequest request,final HttpServletResponse response,final FilterChain filterChain)
             throws ServletException, IOException {
 
         try {
-            final String accessToken = extractAccessTokenFromHeader(request);
+            final var accessToken = extractAccessTokenFromHeader(request);
 
-            if (isAccessTokenExpired(accessToken)) {
+            if (isTokenExpired(accessToken)) {
                 final var key = jwtTokenProvider.getPayload(accessToken);
-                final var refreshToken = authTokenService.getAuthToken(Long.parseLong(key));
+                final var refreshToken = authService.getAuthToken(Long.parseLong(key));
 
-                if (!jwtTokenProvider.validateToken(refreshToken)) {
+                if (isTokenExpired(refreshToken)) {
+                    final var renewAuthToken = jwtTokenProvider.renewAuthToken(accessToken);
+                    setResponseHeader(response, OK);
+                    objectMapper.writeValue(response.getWriter(), renewAuthToken);
+                    return;
+                }
+                else {
                     throw new CredentialsExpiredException("");
                 }
 
-                final var renewAuthToken = jwtTokenProvider.renewAuthToken(accessToken);
-                setResponseHeader(response, OK);
-                objectMapper.writeValue(response.getWriter(), renewAuthToken);
-                return;
+
             }
 
             SecurityContextHolder.getContext().setAuthentication(createAuthentication(accessToken));
@@ -60,21 +63,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private String extractAccessTokenFromHeader(HttpServletRequest request) {
+    private String extractAccessTokenFromHeader(final HttpServletRequest request) {
         return AuthorizationExtractor.extract(request, BEARER);
     }
 
-    private boolean isAccessTokenExpired(String accessToken) {
-        return !jwtTokenProvider.validateToken(accessToken);
+    private boolean isTokenExpired(final String token) {
+        return jwtTokenProvider.isTokenExpired(token);
     }
 
-    private static void setResponseHeader(HttpServletResponse response, HttpStatus status) {
+    private static void setResponseHeader(final HttpServletResponse response,final HttpStatus status) {
         response.setCharacterEncoding(UTF_8.name());
         response.setStatus(status.value());
         response.setContentType(APPLICATION_JSON_VALUE);
     }
 
-    private UsernamePasswordAuthenticationToken createAuthentication(String accessToken)  {
+    private UsernamePasswordAuthenticationToken createAuthentication(final String accessToken)  {
         final var userId = (String) jwtTokenProvider.getPayload(accessToken);
         final var roles = jwtTokenProvider.getRolesFromToken(accessToken);
 

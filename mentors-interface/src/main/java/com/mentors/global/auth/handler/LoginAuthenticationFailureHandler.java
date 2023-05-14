@@ -22,8 +22,8 @@ public class LoginAuthenticationFailureHandler implements AuthenticationFailureH
     private final ObjectMapper objectMapper;
 
     @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-                                        AuthenticationException exception) throws IOException, ServletException {
+    public void onAuthenticationFailure(final HttpServletRequest request, final HttpServletResponse response,
+                                        final AuthenticationException exception) throws IOException, ServletException {
         setAuthenticationFailureHeader(response);
 
         String errorMessage = "Invalid Username or Password";

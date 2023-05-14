@@ -6,4 +6,6 @@ public interface UserReadService {
 
 
     User findUserById(Long userId);
+
+    void validateExistById(Long userId);
 }

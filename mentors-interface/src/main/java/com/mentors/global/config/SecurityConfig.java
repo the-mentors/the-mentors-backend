@@ -10,7 +10,7 @@ import com.mentors.global.auth.handler.LoginDeniedHandler;
 import com.mentors.global.auth.jwt.JwtTokenProvider;
 import com.mentors.global.auth.provider.LoginAuthenticationProvider;
 import com.mentors.user.auth.UserContextService;
-import com.mentors.user.authToken.service.AuthTokenService;
+import com.mentors.user.authToken.service.AuthService;
 import com.mentors.user.user.service.UserReadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -29,6 +29,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -41,9 +43,10 @@ public class SecurityConfig {
     private final UserContextService userContextService;
     private final PasswordEncoder passwordEncoder;
     private final ObjectMapper objectMapper;
-    private final AuthTokenService authTokenService;
+    private final AuthService authService;
     private final JwtTokenProvider jwtTokenProvider;
     private final UserReadService userReadService;
+
 
     @Bean
     public AuthenticationManager authenticationManager(final HttpSecurity http) throws Exception {
@@ -66,12 +69,18 @@ public class SecurityConfig {
                 .and()
                 .cors().configurationSource(corsConfigurationSource())
                 .and()
-                .authorizeHttpRequests(authorize -> authorize
+                .authorizeHttpRequests((authorize) -> authorize
                         .shouldFilterAllDispatcherTypes(false)
                         .requestMatchers(AUTH_WHITELIST)
                         .permitAll()
+                        .requestMatchers(toH2Console())
+                        .permitAll()
                         .anyRequest()
                         .authenticated());
+        http
+                .headers()
+                .frameOptions()
+                .sameOrigin();
         http
                 .addFilterBefore(loginAuthenticationFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthenticationFilter(), LoginAuthenticationFilter.class);
@@ -86,7 +95,7 @@ public class SecurityConfig {
 
     @Bean
     public LoginAuthenticationFilter loginAuthenticationFilter(final AuthenticationManager authenticationManager) {
-        LoginAuthenticationFilter loginAuthenticationFilter = new LoginAuthenticationFilter(objectMapper);
+        var loginAuthenticationFilter = new LoginAuthenticationFilter(objectMapper);
         loginAuthenticationFilter.setAuthenticationManager(authenticationManager);
         loginAuthenticationFilter.setAuthenticationSuccessHandler(loginAuthenticationSuccessHandler());
         loginAuthenticationFilter.setAuthenticationFailureHandler(loginAuthenticationFailureHandler());
@@ -100,7 +109,7 @@ public class SecurityConfig {
 
     @Bean
     public LoginAuthenticationSuccessHandler loginAuthenticationSuccessHandler() {
-        return new LoginAuthenticationSuccessHandler(objectMapper, jwtTokenProvider, authTokenService);
+        return new LoginAuthenticationSuccessHandler(objectMapper, jwtTokenProvider, authService);
     }
 
     @Bean
@@ -110,7 +119,7 @@ public class SecurityConfig {
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
-        return new JwtAuthenticationFilter(objectMapper, authTokenService, jwtTokenProvider, userReadService);
+        return new JwtAuthenticationFilter(objectMapper, authService, jwtTokenProvider, userReadService);
     }
 
     @Bean
@@ -125,13 +134,13 @@ public class SecurityConfig {
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        final CorsConfiguration configuration = new CorsConfiguration();
+        final var configuration = new CorsConfiguration();
         configuration.addAllowedOriginPattern(CorsConfiguration.ALL);
         configuration.addAllowedHeader(CorsConfiguration.ALL);
         configuration.addAllowedMethod(CorsConfiguration.ALL);
         configuration.setAllowCredentials(true);
 
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        final var source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }

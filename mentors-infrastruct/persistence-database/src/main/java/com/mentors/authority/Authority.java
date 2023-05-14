@@ -1,7 +1,7 @@
 package com.mentors.authority;
 
 
-import com.mentors.global.common.Role;
+import com.mentors.user.Role;
 import com.mentors.user.user.UserEntity;
 import jakarta.persistence.*;
 import lombok.Getter;

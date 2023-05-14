@@ -1,9 +1,7 @@
 package com.mentors.user.auth;
 
 import com.mentors.authority.Authority;
-import com.mentors.global.common.Role;
 import com.mentors.user.user.UserRepository;
-import com.mentors.user.user.domain.User;
 import com.mentors.user.user.mapper.UserDomainMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,7 +10,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.mentors.user.Role.findByName;
 
 @Service
 @Transactional(readOnly = true)
@@ -24,15 +25,15 @@ public class UserContextService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException {
 
-        final User findUser = userRepository.findByEmail(email).map(UserDomainMapper::toDomain)
+        final var findUser = userRepository.findByEmail(email).map(UserDomainMapper::toDomain)
                 .orElseThrow(RuntimeException::new);
-        ArrayList<Authority> authorities = changeStringToAuthorityByRole(findUser.role());
+        final var authorities = convertStringToAuthorityByRole(findUser.role());
         return new UserContext(findUser, authorities);
     }
 
-    private static ArrayList<Authority> changeStringToAuthorityByRole(ArrayList<String> roles) {
-        ArrayList<Authority> authorities = new ArrayList<>();
-        roles.forEach(role->authorities.add(new Authority(Enum.valueOf(Role.class, role))));
-        return authorities;
+    private static List<Authority> convertStringToAuthorityByRole(final List<String> roles) {
+        return roles.stream()
+                .map(role -> new Authority(findByName(role)))
+                .collect(Collectors.toList());
     }
 }
