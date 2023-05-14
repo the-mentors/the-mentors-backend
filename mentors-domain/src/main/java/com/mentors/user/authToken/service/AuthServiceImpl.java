@@ -1,7 +1,8 @@
 package com.mentors.user.authToken.service;
 
+import com.mentors.AuthTokenRepository;
+import com.mentors.token.RefreshToken;
 import com.mentors.user.authToken.AuthEntity;
-import com.mentors.user.authToken.AuthRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,24 +12,22 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
-    private final AuthRepository authRepository;
+    private final AuthTokenRepository authRepository;
 
     @Override
     public String getAuthToken(final Long key) {
-        return authRepository.findByKeys(key)
-                .map(AuthEntity::getRefreshToken)
-                .orElseThrow(RuntimeException::new);
+        return authRepository.getValues(key).orElseThrow().refreshToken();
     }
 
     @Override
     public boolean existAuthToken(final Long key) {
-        return authRepository.existsByKeys(key);
+        return authRepository.getValues(key).isPresent();
     }
 
     @Override
     public String saveAuthToken(final Long key,final String refreshToken) {
-        var authEntity = createAuthTokenEntity(key, refreshToken);
-        return authRepository.save(authEntity).getRefreshToken();
+        authRepository.setValues(key,new RefreshToken(refreshToken));
+        return refreshToken;
     }
 
     private static AuthEntity createAuthTokenEntity(final Long key,final String refreshToken) {
@@ -41,7 +40,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public void ifExistAuthTokenDelete(final Long key) {
         if(existAuthToken(key)){
-            authRepository.deleteByKeys(key);
+            authRepository.deleteValues(key);
         }
     }
 }

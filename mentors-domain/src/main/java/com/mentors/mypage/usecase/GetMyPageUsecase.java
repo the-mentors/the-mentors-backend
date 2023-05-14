@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 public class GetMyPageUsecase {
-    private MyPageReadService myPageReadService;
+    private final MyPageReadService myPageReadService;
 
     public Slice<MyPage> execute(Long userId, Pageable pageable) {
         return myPageReadService.getMyPage(userId, pageable);
