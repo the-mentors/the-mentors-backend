@@ -1,9 +1,0 @@
-jwt:
-  token:
-    secret: bWVudG9ycy1iYWNrZW5kLXNwcmluZy1ib290LWp3dC1zZWNyZXQtbWVudG9ycy1iYWNrZW5kLXNwcmluZy1ib290LWp3dC1zZWNyZXQ=
-
-    access:
-      expiration: 1800000  # 30min
-
-    refresh:
-      expiration: 604800000 #7day

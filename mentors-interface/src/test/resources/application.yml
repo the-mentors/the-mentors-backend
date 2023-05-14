@@ -1,6 +1,0 @@
-spring:
-  profiles:
-    include:
-      - persistence-database-test
-      - jwt
-    active: test

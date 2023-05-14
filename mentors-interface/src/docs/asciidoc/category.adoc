@@ -1,6 +1,0 @@
-[[Category]]
-== 카테고리
-
-=== 카테고리 목록 조회
-
-operation::category/get/allCategories[snippets='http-request,http-response']
