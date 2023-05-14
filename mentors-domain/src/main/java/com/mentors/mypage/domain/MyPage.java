@@ -2,8 +2,7 @@ package com.mentors.mypage.domain;
 
 import com.mentors.mentoring.mentoring.MentoringEntity;
 import com.mentors.mypage.dto.MentoringMyPageResponse;
-import com.mentors.user.dto.UserResponse;
-import com.mentors.user.user.UserEntity;
+import com.mentors.user.user.dto.UserResponse;
 
 import java.time.LocalDateTime;
 import java.util.List;

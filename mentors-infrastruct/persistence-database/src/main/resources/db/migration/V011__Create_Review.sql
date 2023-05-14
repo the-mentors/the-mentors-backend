@@ -1,4 +1,4 @@
-create table if not exists reivews
+create table if not exists reviews
 (
     reviews_id   bigint PRIMARY KEY AUTO_INCREMENT,
     reviewer_id bigint not null,
@@ -10,5 +10,5 @@ create table if not exists reivews
 ) engine = InnoDB;
 
 
-ALTER TABLE reivews
+ALTER TABLE reviews
     ADD FOREIGN KEY (reviewer_id) REFERENCES users (user_id);

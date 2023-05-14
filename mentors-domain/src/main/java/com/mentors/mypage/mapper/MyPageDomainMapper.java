@@ -2,7 +2,7 @@ package com.mentors.mypage.mapper;
 
 import com.mentors.mypage.MyPageEntity;
 import com.mentors.mypage.domain.MyPage;
-import com.mentors.user.dto.UserResponse;
+import com.mentors.user.user.dto.UserResponse;
 
 public class MyPageDomainMapper {
 
