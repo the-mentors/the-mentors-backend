@@ -9,10 +9,10 @@ public enum CategoryCode {
     AI("인공지능", 1300L),
     DATA_ENGINEER("데이터엔지니어", 1400L),
 
-    EDUCATION("교육", 2000L),
-    MATH("수학", 2100L),
+    LANGUAGE("언어", 2000L),
+    JAPANESE("일본어", 2100L),
     ENGLISH("영어", 2200L),
-    SCIENCE("과학", 2300L),
+    CHINESE("중국어", 2300L),
 
     INVEST("투자", 3000L),
     LAND("부동산", 3100L),
