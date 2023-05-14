@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface ReviewRepository extends JpaRepository<ReviewEntity, Long> {
     @Query(value = "SELECT r FROM ReviewEntity r JOIN FETCH r.reviewer WHERE r.mentoringId = :mentoringId ")
-    Slice<ReviewEntity> findAllByMentoringIdOrderByIdDesc(Long mentoringID, Pageable pageable);
+    Slice<ReviewEntity> findAllByMentoringIdOrderByIdDesc(Long mentoringId, Pageable pageable);
     boolean existsByReviewerAndMentoringId(UserEntity reviewer, Long mentoringId);
 }

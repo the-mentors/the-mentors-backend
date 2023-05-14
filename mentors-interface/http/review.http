@@ -19,37 +19,25 @@ client.global.set("accessToken", response.body.body.accessToken)
 client.global.set("refreshToken", response.body.body.refreshToken)
 %}
 
-
-### 1. 게시물 등록
-POST localhost:8080/api/v1/mentoring
+### 1. 리뷰 작성
+POST localhost:8080/api/v1/mentoring/1/reviews
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "title": "제목입니다.",
-  "content": "내용입니다.",
-  "price": 100000,
-  "thumbnail" : "mentoring@s3.com",
-  "categoryCodes" : [ 1000, 1100],
-  "hashTags" : [ "해시태그1", "해시태그1", "해시태그2"],
-  "links": [
-    {
-      "type": 1,
-      "url": "link@naver.com"
-    },
-    {
-      "type": 2,
-      "url": "link@naver.com"
-    }
-  ]
+  "rating" : 5,
+  "content" : "재밌어요!"
 }
 
-### 2.게시물 전체 조회
-GET localhost:8080/api/v1/mentoring?page=0&size=20
+### 2. 리뷰 삭제
+DELETE localhost:8080/api/v1/mentoring/1/reviews/1
+Authorization: Bearer {{accessToken}}
+
+### 3. 리뷰 통계 조회
+GET localhost:8080/api/v1/mentoring/reviews/statistic
 Authorization: Bearer {{accessToken}}
 
 
-### 3.게시물 단건 조회
-GET localhost:8080/api/v1/mentoring/1
+### 4. 리뷰 리스트 조회
+GET localhost:8080/api/v1/mentoring/reviews?size=20&page=0
 Authorization: Bearer {{accessToken}}
-
