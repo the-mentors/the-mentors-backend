@@ -138,4 +138,8 @@ public class MentoringEntity extends BaseEntity {
                 .map(hashTag -> hashTag.getHashTag().getId())
                 .toList();
     }
+
+    public Long getMentor(){
+        return this.user.getId();
+    }
 }
