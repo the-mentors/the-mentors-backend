@@ -1,0 +1,30 @@
+### 로그인
+POST localhost:8080/api/v1/users/signin
+Content-Type: application/json
+
+{
+  "email": "test1@naver.com",
+  "password": "password"
+}
+
+> {%
+client.test("Validate", function() {
+client.assert(response.status === 200, "Response status is not 200");
+client.assert(response.contentType.mimeType === "application/json", "Expected 'application/json'");
+client.assert(response.body.body.accessToken.trim().length > 0); // 토큰 길이가 0보다 크면 통과
+});
+
+client.log(response.body.accessToken);
+client.global.set("accessToken", response.body.body.accessToken)
+client.global.set("refreshToken", response.body.body.refreshToken)
+%}
+
+
+### 1. 멘토링 구독
+POST localhost:8080/api/v1/mentoring/1/subscribe
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+### 2. 멘토링 내역 확인
+GET localhost:8080/api/v1/mypages?page=0&size=20
+Authorization: Bearer {{accessToken}}

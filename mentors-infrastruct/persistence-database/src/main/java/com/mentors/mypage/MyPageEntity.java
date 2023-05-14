@@ -3,11 +3,14 @@ package com.mentors.mypage;
 
 import com.mentors.global.common.BaseEntity;
 import com.mentors.mentoring.mentoring.MentoringEntity;
+import com.mentors.mentoring.mentoring.MentoringLinkEntity;
 import com.mentors.user.user.UserEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 import static jakarta.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
@@ -20,7 +23,7 @@ public class MyPageEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "myPage_id")
+    @Column(name = "mypage_id")
     private Long id;
 
     @ManyToOne(fetch = LAZY)
@@ -40,6 +43,10 @@ public class MyPageEntity extends BaseEntity {
         this.mentor = mentor;
         this.mentee = mentee;
         this.mentoring = mentoring;
+
     }
 
+    public static MyPageEntity of(MentoringEntity mentoring, UserEntity mentor, UserEntity mentee) {
+        return new MyPageEntity(null, mentor, mentee, mentoring);
+    }
 }
