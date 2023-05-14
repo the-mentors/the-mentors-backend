@@ -8,6 +8,7 @@ import com.mentors.mentoring.review.ReviewMentoringRepository;
 import com.mentors.mentoring.review.ReviewRepository;
 import com.mentors.mypage.MyPageRepository;
 import com.mentors.user.user.UserEntity;
+import com.sun.jdi.request.DuplicateRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,14 +30,21 @@ public class ReviewWriteServiceImpl implements ReviewWriteService {
     public void addReview(final UserEntity reviewer,
                           final MentoringEntity mentoring,
                           final ReviewContent reviewContent) {
-        validateStudent(reviewer.getId(), mentoring.getId());
+        validateIfNotAttender(reviewer.getId(), mentoring.getId());
+        validateDuplicateWrite(reviewer, mentoring.getId());
         findReviewMentoringById(mentoring.getId()).rate(reviewContent.getRating());
         reviewRepository.save(ReviewEntity.of(reviewer, mentoring.getId(), reviewContent));
     }
 
-    private void validateStudent(final Long reviewerId, final Long mentoringId) {
+    private void validateIfNotAttender(final Long reviewerId, final Long mentoringId) {
         if (!myPageRepository.existsByMentoringIdAndMenteeId(reviewerId, mentoringId)) {
             throw new IllegalArgumentException();
+        }
+    }
+
+    private void validateDuplicateWrite(final UserEntity reviewer, final Long mentoringId) {
+        if (reviewRepository.existsByReviewerAndMentoringId(reviewer, mentoringId)) {
+            throw new DuplicateRequestException();
         }
     }
 

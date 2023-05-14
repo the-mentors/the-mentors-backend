@@ -11,6 +11,7 @@ import com.mentors.mentoring.review.usecase.GetAllReviewUsecase;
 import com.mentors.mentoring.review.usecase.GetReviewStatisticUsecase;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,8 +55,9 @@ public class ReviewApiController {
     @GetMapping("/mentoring/{id}/reviews")
     public ResponseEntity<ReviewResponses> findAllById(
             @AuthenticationPrincipal final UserInfo userInfo,
-            @PathVariable Long id){
-        ReviewResponses response = getAllReviewUsecase.execute(userInfo.userId(), id);
+            @PathVariable Long id,
+            Pageable pageable){
+        ReviewResponses response = getAllReviewUsecase.execute(userInfo.userId(), id, pageable);
         return ResponseEntity.ok(response);
     }
 
