@@ -2,9 +2,9 @@ package com.mentors.api.mentoring.mentoring.controller;
 
 import com.mentors.common.PageResponse;
 import com.mentors.global.auth.dto.UserInfo;
-import com.mentors.mentoring.dto.AddMentoringRequest;
-import com.mentors.mentoring.dto.MentoringListResponse;
-import com.mentors.mentoring.dto.MentoringSingleResponse;
+import com.mentors.mentoring.mentoring.dto.AddMentoringRequest;
+import com.mentors.mentoring.mentoring.dto.MentoringListResponse;
+import com.mentors.mentoring.mentoring.dto.MentoringSingleResponse;
 import com.mentors.mentoring.usecase.AddMentoringUsecase;
 import com.mentors.mentoring.usecase.DeleteMentoringUsecase;
 import com.mentors.mentoring.usecase.GetAllMentoringUsecase;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController

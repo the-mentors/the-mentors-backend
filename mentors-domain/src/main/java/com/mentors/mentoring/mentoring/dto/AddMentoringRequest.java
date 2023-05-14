@@ -1,7 +1,6 @@
-package com.mentors.mentoring.dto;
+package com.mentors.mentoring.mentoring.dto;
 
 import java.util.List;
-import java.util.Set;
 
 public record AddMentoringRequest(String title,
                                   String content,

@@ -1,9 +1,9 @@
-package com.mentors.mentoring.dto;
+package com.mentors.mentoring.mentoring.dto;
 
 import com.mentors.mentoring.hashtag.HashTagEntity;
 import com.mentors.mentoring.hashtag.domain.HashTags;
 import com.mentors.mentoring.mentoring.MentoringEntity;
-import com.mentors.user.dto.UserResponse;
+import com.mentors.user.user.dto.UserResponse;
 import java.util.List;
 
 public record MentoringSingleResponse(Long id,

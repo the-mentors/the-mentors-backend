@@ -2,7 +2,7 @@ package com.mentors.mentoring.mentoring.service;
 
 
 import com.mentors.category.CategoryEntity;
-import com.mentors.mentoring.dto.AddMentoringRequest;
+import com.mentors.mentoring.mentoring.dto.AddMentoringRequest;
 import com.mentors.mentoring.hashtag.HashTagEntity;
 import com.mentors.user.user.UserEntity;
 import java.util.List;

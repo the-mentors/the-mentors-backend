@@ -1,9 +1,8 @@
 package com.mentors.mentoring.mentoring.service;
 
 import com.mentors.common.PageResponse;
-import com.mentors.mentoring.dto.MentoringListResponse;
-import com.mentors.mentoring.dto.MentoringSingleResponse;
-import com.mentors.mentoring.hashtag.HashTagEntity;
+import com.mentors.mentoring.mentoring.dto.MentoringListResponse;
+import com.mentors.mentoring.mentoring.dto.MentoringSingleResponse;
 import com.mentors.mentoring.hashtag.HashTagRepository;
 import com.mentors.mentoring.mentoring.MentoringEntity;
 import com.mentors.mentoring.mentoring.MentoringRepository;

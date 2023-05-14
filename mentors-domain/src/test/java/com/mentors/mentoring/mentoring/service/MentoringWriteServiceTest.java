@@ -5,7 +5,7 @@ import static java.util.Collections.emptySet;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
-import com.mentors.mentoring.dto.AddMentoringRequest;
+import com.mentors.mentoring.mentoring.dto.AddMentoringRequest;
 import com.mentors.support.ServiceTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

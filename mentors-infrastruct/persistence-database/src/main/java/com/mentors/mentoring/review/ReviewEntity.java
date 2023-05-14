@@ -52,7 +52,23 @@ public class ReviewEntity extends BaseEntity {
         this.reviewContent = reviewContent;
     }
 
-    public static ReviewEntity of(UserEntity reviewer, Long mentoringId, Rating rating, String content) {
-        return new ReviewEntity(null, reviewer, mentoringId, new ReviewContent(rating, content));
+    public static ReviewEntity of(UserEntity reviewer, Long mentoringId, ReviewContent reviewContent) {
+        return new ReviewEntity(null, reviewer, mentoringId, reviewContent);
+    }
+
+    public boolean isOwner(final Long reviewerId) {
+        return reviewer.isSameId(reviewerId);
+    }
+
+    public Rating getRating() {
+        return reviewContent.getRating();
+    }
+
+    public int getRatingValue(){
+        return reviewContent.getRating().getValue();
+    }
+
+    public String getContent(){
+        return reviewContent.getContent();
     }
 }

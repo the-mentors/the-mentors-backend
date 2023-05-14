@@ -2,14 +2,11 @@ package com.mentors.mentoring.mentoring.mapper;
 
 import static com.mentors.mentoring.LinkType.findById;
 
-import com.mentors.category.CategoryEntity;
-import com.mentors.mentoring.category.MentoringCategoryEntity;
-import com.mentors.mentoring.dto.AddMentoringLinkRequest;
-import com.mentors.mentoring.dto.AddMentoringRequest;
+import com.mentors.mentoring.mentoring.dto.AddMentoringLinkRequest;
+import com.mentors.mentoring.mentoring.dto.AddMentoringRequest;
 import com.mentors.mentoring.mentoring.MentoringEntity;
 import com.mentors.mentoring.mentoring.MentoringLinkEntity;
 import com.mentors.user.user.UserEntity;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
