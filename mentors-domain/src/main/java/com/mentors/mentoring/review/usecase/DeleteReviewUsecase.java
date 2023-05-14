@@ -1,4 +1,4 @@
-package com.mentors.mentoring.usecase;
+package com.mentors.mentoring.review.usecase;
 
 import com.mentors.mentoring.review.service.ReviewWriteService;
 import lombok.RequiredArgsConstructor;

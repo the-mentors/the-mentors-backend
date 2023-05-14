@@ -1,4 +1,4 @@
-package com.mentors.mentoring.usecase;
+package com.mentors.mentoring.review.usecase;
 
 import com.mentors.mentoring.mentoring.MentoringRepository;
 import com.mentors.mentoring.review.Rating;
