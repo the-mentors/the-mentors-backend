@@ -63,4 +63,12 @@ public class ReviewEntity extends BaseEntity {
     public Rating getRating() {
         return reviewContent.getRating();
     }
+
+    public int getRatingValue(){
+        return reviewContent.getRating().getValue();
+    }
+
+    public String getContent(){
+        return reviewContent.getContent();
+    }
 }

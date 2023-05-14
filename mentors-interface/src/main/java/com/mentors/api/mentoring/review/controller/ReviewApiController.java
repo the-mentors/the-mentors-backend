@@ -3,6 +3,7 @@ package com.mentors.api.mentoring.review.controller;
 import com.mentors.global.auth.dto.UserInfo;
 import com.mentors.mentoring.review.dto.AddReviewRequest;
 import com.mentors.mentoring.review.dto.ReviewResponse;
+import com.mentors.mentoring.review.dto.ReviewResponses;
 import com.mentors.mentoring.review.dto.ReviewStatisticResponse;
 import com.mentors.mentoring.review.usecase.AddReviewUsecase;
 import com.mentors.mentoring.review.usecase.DeleteReviewUsecase;
@@ -51,10 +52,10 @@ public class ReviewApiController {
     }
 
     @GetMapping("/mentoring/{id}/reviews")
-    public ResponseEntity<Slice<ReviewResponse>> findAllById(
+    public ResponseEntity<ReviewResponses> findAllById(
             @AuthenticationPrincipal final UserInfo userInfo,
             @PathVariable Long id){
-        Slice<ReviewResponse> response = getAllReviewUsecase.execute(userInfo.userId(), id);
+        ReviewResponses response = getAllReviewUsecase.execute(userInfo.userId(), id);
         return ResponseEntity.ok(response);
     }
 
