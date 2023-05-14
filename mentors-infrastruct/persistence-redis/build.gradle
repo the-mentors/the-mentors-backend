@@ -1,0 +1,13 @@
+plugins {
+    id 'java-test-fixtures'
+}
+
+dependencies {
+
+    implementation project(':mentors-commons:common-exception')
+    implementation project(':mentors-commons:common-domain')
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
