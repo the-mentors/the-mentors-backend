@@ -56,7 +56,7 @@ public class UserEntity extends BaseEntity {
 
     private void validateRole(String role) {
         if (StringUtils.hasText(role)) {
-            this.userRoles.add(new Authority(Enum.valueOf(Role.class, role)));
+            this.userRoles.add(new Authority(Role.valueOf(role)));
         }
     }
 

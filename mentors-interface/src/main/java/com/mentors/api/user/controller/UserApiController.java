@@ -21,7 +21,7 @@ public class UserApiController {
 
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signUpUser(
+    public ResponseEntity<Void> signUpUser(
             @RequestBody @Valid UserSignUpRequest userSignUpRequest
     ) {
         signUpUserUsecase.execute(userSignUpRequest);

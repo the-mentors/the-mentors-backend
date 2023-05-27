@@ -61,13 +61,13 @@ public class MentoringEntity extends BaseEntity {
     private Price price;
 
     @OneToMany(mappedBy = "mentoring", cascade = {PERSIST, REMOVE})
-    private List<MentoringCategoryEntity> categories = new ArrayList<>();
+    private final List<MentoringCategoryEntity> categories = new ArrayList<>();
 
     @OneToMany(mappedBy = "mentoring", cascade = {PERSIST, REMOVE})
-    private Set<MentoringHashTagEntity> hashTags = new HashSet<>();
+    private final Set<MentoringHashTagEntity> hashTags = new HashSet<>();
 
     @OneToMany(mappedBy = "mentoring", cascade = {PERSIST, REMOVE})
-    private List<MentoringLinkEntity> links = new ArrayList<>();
+    private final List<MentoringLinkEntity> links = new ArrayList<>();
 
     @Builder
     public MentoringEntity(final UserEntity user,

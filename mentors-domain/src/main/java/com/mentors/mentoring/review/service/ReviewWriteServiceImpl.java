@@ -37,7 +37,7 @@ public class ReviewWriteServiceImpl implements ReviewWriteService {
     }
 
     private void validateIfNotAttender(final Long reviewerId, final Long mentoringId) {
-        if (!myPageRepository.existsByMentoringIdAndMenteeId(reviewerId, mentoringId)) {
+        if (!myPageRepository.existsByMentoringIdAndMenteeId(mentoringId, reviewerId)) {
             throw new IllegalArgumentException();
         }
     }

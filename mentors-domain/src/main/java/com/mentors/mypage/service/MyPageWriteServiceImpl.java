@@ -21,6 +21,13 @@ public class MyPageWriteServiceImpl implements MyPageWriteService {
 
     @Override
     public void save(MentoringEntity mentoring, UserEntity mentor, UserEntity mentee) {
+        validateIfNotAttender(mentee.getId(), mentoring.getId());
         myPageRepository.save(MyPageEntity.of(mentoring,mentor,mentee));
+    }
+
+    private void validateIfNotAttender(final Long menteeId, final Long mentoringId) {
+        if (myPageRepository.existsByMentoringIdAndMenteeId(mentoringId, menteeId)) {
+            throw new IllegalArgumentException();
+        }
     }
 }
