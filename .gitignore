@@ -26,6 +26,8 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
+mentors-image/src/main/resources/adminKey.json
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/

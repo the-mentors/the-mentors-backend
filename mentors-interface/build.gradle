@@ -9,7 +9,7 @@ configurations {
 dependencies {
     implementation project(':mentors-commons:common-exception')
     implementation project(':mentors-commons:common-domain')
-
+    implementation project(':mentors-image')
     implementation project(':mentors-domain')
     testImplementation testFixtures(project(':mentors-domain'))
     testImplementation testFixtures(project(':mentors-infrastruct:persistence-database'))

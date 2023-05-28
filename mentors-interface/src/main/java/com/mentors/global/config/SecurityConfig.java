@@ -37,7 +37,7 @@ import static org.springframework.boot.autoconfigure.security.servlet.PathReques
 public class SecurityConfig {
 
     private static final String[] AUTH_WHITELIST = {
-            "/api/v1/users/signup", "/api/v1/users/signin"
+            "/api/v1/users/signup", "/api/v1/users/signin", "/api/v1/storage"
     };
 
     private final UserContextService userContextService;

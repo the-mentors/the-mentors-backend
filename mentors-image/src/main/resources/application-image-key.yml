@@ -1,0 +1,5 @@
+app:
+  firebase:
+    configuration-file: ./adminKey.json
+    bucket: imageserver-bd4ba.appspot.com
+    image-url: https://firebasestorage.googleapis.com/v0/b/${app.firebase.bucket}/o/%s?alt=media
