@@ -56,7 +56,7 @@ public class ReviewApiController {
     public ResponseEntity<ReviewResponses> findAllById(
             @AuthenticationPrincipal final UserInfo userInfo,
             @PathVariable Long id,
-            Pageable pageable){
+            Pageable pageable) {
         ReviewResponses response = getAllReviewUsecase.execute(userInfo.userId(), id, pageable);
         return ResponseEntity.ok(response);
     }
@@ -64,7 +64,7 @@ public class ReviewApiController {
     @GetMapping("/mentoring/{id}/reviews/statistic")
     public ResponseEntity<ReviewStatisticResponse> findStatisticByMentoringId(
             @AuthenticationPrincipal final UserInfo userInfo,
-            @PathVariable Long id){
+            @PathVariable Long id) {
         ReviewStatisticResponse response = getReviewStatisticUsecase.execute(id);
         return ResponseEntity.ok(response);
     }
