@@ -11,10 +11,3 @@ create table if not exists users
     updated_at  datetime            not null
 ) engine = InnoDB;
 
-create table if not exists auths
-(
-    auth_id       bigint PRIMARY KEY AUTO_INCREMENT,
-    keys          bigint,
-    refresh_token varchar(255) not null
-) engine = InnoDB;
-

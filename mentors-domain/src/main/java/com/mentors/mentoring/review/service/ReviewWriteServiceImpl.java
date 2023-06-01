@@ -1,6 +1,7 @@
 package com.mentors.mentoring.review.service;
 
 import com.mentors.mentoring.mentoring.MentoringEntity;
+import com.mentors.mentoring.mentoring.MentoringRepository;
 import com.mentors.mentoring.review.ReviewContent;
 import com.mentors.mentoring.review.ReviewEntity;
 import com.mentors.mentoring.review.ReviewMentoringEntity;
@@ -32,7 +33,8 @@ public class ReviewWriteServiceImpl implements ReviewWriteService {
                           final ReviewContent reviewContent) {
         validateIfNotAttender(reviewer.getId(), mentoring.getId());
         validateDuplicateWrite(reviewer, mentoring.getId());
-        findReviewMentoringById(mentoring.getId()).rate(reviewContent.getRating());
+        ReviewMentoringEntity reviewMentoring = findReviewMentoringById(mentoring.getId());
+        reviewMentoring.rate(reviewContent.getRating());
         reviewRepository.save(ReviewEntity.of(reviewer, mentoring.getId(), reviewContent));
     }
 

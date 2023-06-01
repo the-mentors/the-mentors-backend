@@ -1,9 +1,7 @@
 package com.mentors.mentoring.mentoring;
 
-import static com.mentors.category.CategoryEntity.*;
 import static jakarta.persistence.CascadeType.PERSIST;
 import static jakarta.persistence.CascadeType.REMOVE;
-import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -16,19 +14,16 @@ import com.mentors.user.user.UserEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import lombok.Builder;
 import lombok.Getter;
@@ -60,6 +55,8 @@ public class MentoringEntity extends BaseEntity {
     @Embedded
     private Price price;
 
+    private double rating;
+
     @OneToMany(mappedBy = "mentoring", cascade = {PERSIST, REMOVE})
     private final List<MentoringCategoryEntity> categories = new ArrayList<>();
 
@@ -74,12 +71,14 @@ public class MentoringEntity extends BaseEntity {
                            final String title,
                            final String content,
                            final String thumbnail,
-                           final Integer price) {
+                           final Integer price,
+                           final double rating) {
         this.user = user;
         this.title = new Title(title);
         this.content = new Content(content);
         this.thumbnail = thumbnail;
         this.price = new Price(price);
+        this.rating = rating;
     }
 
     public boolean isOwner(final Long ownerId){

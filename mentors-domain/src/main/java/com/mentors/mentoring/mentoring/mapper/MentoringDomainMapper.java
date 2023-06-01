@@ -21,9 +21,9 @@ public class MentoringDomainMapper {
                 .content(request.content())
                 .price(request.price())
                 .thumbnail(request.thumbnail())
+                .rating(0)
                 .build();
     }
-
     public static List<MentoringLinkEntity> toLinkEntities(final List<AddMentoringLinkRequest> requests) {
         if (Objects.isNull(requests)) return Collections.emptyList();
         return requests.stream()

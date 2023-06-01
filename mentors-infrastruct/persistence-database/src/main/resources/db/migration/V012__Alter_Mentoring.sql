@@ -1,0 +1,1 @@
+alter table mentoring add column rating double not null default 0;

@@ -2,7 +2,6 @@ package com.mentors.user.authToken.service;
 
 import com.mentors.AuthTokenRepository;
 import com.mentors.token.RefreshToken;
-import com.mentors.user.authToken.AuthEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,15 +29,8 @@ public class AuthServiceImpl implements AuthService {
         return refreshToken;
     }
 
-    private static AuthEntity createAuthTokenEntity(final Long key,final String refreshToken) {
-        return AuthEntity.builder()
-                .keys(key)
-                .refreshToken(refreshToken)
-                .build();
-    }
-
     @Override
-    public void ifExistAuthTokenDelete(final Long key) {
+    public void ifExistAuthTokenDelete(Long key) {
         if(existAuthToken(key)){
             authRepository.deleteValues(key);
         }

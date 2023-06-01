@@ -12,6 +12,7 @@ public record MentoringSingleResponse(Long id,
                                       String content,
                                       String thumbnail,
                                       Integer price,
+                                      double rating,
                                       boolean isOwner,
                                       HashTags hashTags) {
 
@@ -23,6 +24,7 @@ public record MentoringSingleResponse(Long id,
                 mentoring.getContent(),
                 mentoring.getThumbnail(),
                 mentoring.getPrice(),
+                mentoring.getRating(),
                 isOwner,
                 HashTags.toDto(hashTags));
     }

@@ -8,7 +8,8 @@ public record MentoringListResponse(Long id,
                                     String title,
                                     String content,
                                     String thumbnail,
-                                    Integer price) {
+                                    Integer price,
+                                    double rating) {
     public static MentoringListResponse toDto(MentoringEntity mentoring) {
         return new MentoringListResponse(
                 mentoring.getId(),
@@ -16,7 +17,8 @@ public record MentoringListResponse(Long id,
                 mentoring.getTitle(),
                 mentoring.getContent(),
                 mentoring.getThumbnail(),
-                mentoring.getPrice()
+                mentoring.getPrice(),
+                mentoring.getRating()
         );
     }
 }
