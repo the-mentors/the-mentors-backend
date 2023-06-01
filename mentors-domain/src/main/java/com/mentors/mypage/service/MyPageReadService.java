@@ -7,4 +7,6 @@ import org.springframework.data.domain.Slice;
 
 public interface MyPageReadService {
       Slice<MyPage> getMyPage(Long userId, Pageable pageable);
+
+      Slice<MyPage> getMyPageByMentorId(Long userId, Pageable pageable);
 }

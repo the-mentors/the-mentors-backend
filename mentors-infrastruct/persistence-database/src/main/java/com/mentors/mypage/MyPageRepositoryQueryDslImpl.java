@@ -37,6 +37,21 @@ public class MyPageRepositoryQueryDslImpl implements MyPageRepositoryQueryDsl {
         return new SliceImpl<>(content, pageable, hasNext);
     }
 
+    @Override
+    public Slice<MyPageEntity> findAllByMentorId(Long mentorId, Pageable pageable) {
+        List<MyPageEntity> content = queryFactory.selectFrom(myPageEntity)
+                .leftJoin(myPageEntity.mentee, new QUserEntity("mentee"))
+                .leftJoin(myPageEntity.mentor, new QUserEntity("mentor"))
+                .leftJoin(myPageEntity.mentoring, mentoringEntity)
+                .leftJoin(myPageEntity.mentoring.links, mentoringLinkEntity)
+                .where(myPageEntity.mentor.id.eq(mentorId))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize()+1)
+                .fetch();
+        boolean hasNext = sliceUtils.hasNext(pageable, content);
+        return new SliceImpl<>(content, pageable, hasNext);
+    }
+
 }
 
 

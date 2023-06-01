@@ -27,9 +27,16 @@ public class MyPageApiController {
         return ResponseEntity.ok(execute);
     }
 
+    @GetMapping("/mypages/writer")
+    public ResponseEntity<Slice<MyPage>> findMyMentoring(@AuthenticationPrincipal final UserInfo userInfo,
+                                                       Pageable pageable) {
+        Slice<MyPage> execute = getMyPageUsecase.myPages(userInfo.userId(), pageable);
+        return ResponseEntity.ok(execute);
+    }
+
     @PostMapping("/mentoring/{id}/subscribe")
     public ResponseEntity<Void> addMentoring(@AuthenticationPrincipal final UserInfo userInfo,
-                                          @PathVariable Long id) {
+                                             @PathVariable Long id) {
         addMyPageUsecase.execute(userInfo.userId(), id);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

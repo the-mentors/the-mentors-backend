@@ -1,5 +1,6 @@
 package com.mentors.mentoring.mentoring;
 
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,4 +20,7 @@ public interface MentoringRepository extends JpaRepository<MentoringEntity, Long
     @Modifying
     @Query(value = "update mentoring set rating =:rating where mentoring_id =:id", nativeQuery = true)
     void updateRating(Long id, double rating);
+
+    @Query(value = "select m from MentoringEntity m join fetch m.user")
+    List<MentoringEntity> findByIdIn(List<Long> id);
 }

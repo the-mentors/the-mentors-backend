@@ -17,4 +17,8 @@ public class GetMyPageUsecase {
     public Slice<MyPage> execute(Long userId, Pageable pageable) {
         return myPageReadService.getMyPage(userId, pageable);
     }
+
+    public Slice<MyPage> myPages(Long userId, Pageable pageable) {
+        return myPageReadService.getMyPageByMentorId(userId, pageable);
+    }
 }

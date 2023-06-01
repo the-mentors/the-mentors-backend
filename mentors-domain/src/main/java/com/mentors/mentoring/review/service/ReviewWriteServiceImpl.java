@@ -7,10 +7,12 @@ import com.mentors.mentoring.review.ReviewEntity;
 import com.mentors.mentoring.review.ReviewMentoringEntity;
 import com.mentors.mentoring.review.ReviewMentoringRepository;
 import com.mentors.mentoring.review.ReviewRepository;
+import com.mentors.mentoring.review.event.ReviewTraining;
 import com.mentors.mypage.MyPageRepository;
 import com.mentors.user.user.UserEntity;
 import com.sun.jdi.request.DuplicateRequestException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,7 @@ public class ReviewWriteServiceImpl implements ReviewWriteService {
     private final ReviewMentoringRepository reviewMentoringRepository;
     private final ReviewRepository reviewRepository;
     private final MyPageRepository myPageRepository;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     @Override
     public void save(final Long mentoringId) {
@@ -36,6 +39,7 @@ public class ReviewWriteServiceImpl implements ReviewWriteService {
         ReviewMentoringEntity reviewMentoring = findReviewMentoringById(mentoring.getId());
         reviewMentoring.rate(reviewContent.getRating());
         reviewRepository.save(ReviewEntity.of(reviewer, mentoring.getId(), reviewContent));
+        applicationEventPublisher.publishEvent(new ReviewTraining(reviewer.getId()));
     }
 
     private void validateIfNotAttender(final Long reviewerId, final Long mentoringId) {

@@ -23,4 +23,11 @@ public class MyPageReadServiceImpl implements MyPageReadService {
                 .map(MyPageDomainMapper::toDomain);
     }
 
+    @Override
+    public Slice<MyPage> getMyPageByMentorId(Long userId, Pageable pageable) {
+        return myPageRepository
+                .findAllByMentorId(userId, pageable)
+                .map(MyPageDomainMapper::toDomain);
+    }
+
 }
